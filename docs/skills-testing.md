@@ -7,6 +7,7 @@ Test-Driven Development framework for creating and validating skills.
 **"NO SKILL WITHOUT FAILING TEST FIRST"**
 
 Before creating or modifying a skill, you must:
+
 1. Define a pressure scenario that the skill should handle
 2. Test the scenario WITHOUT the skill
 3. Document the baseline failure
@@ -25,12 +26,14 @@ Before creating or modifying a skill, you must:
    - Document what Claude gets wrong or misses
 
 3. **Document baseline**
+
    ```markdown
    ## Scenario: E0382 Error Explanation
 
    User Question: "Why am I getting E0382 error?"
 
    Baseline (without skill):
+
    - [ ] Explains move semantics
    - [ ] Shows common patterns
    - [ ] References Rust documentation
@@ -50,10 +53,12 @@ Before creating or modifying a skill, you must:
    - Verify improvements
 
 3. **Verify checklist**
+
    ```markdown
    ## Verification: E0382 Explanation
 
    With skill loaded:
+
    - [x] Explains move semantics
    - [x] Shows common patterns
    - [x] References Rust documentation
@@ -73,6 +78,7 @@ Before creating or modifying a skill, you must:
    - Cross-references to related skills
 
 3. **Test edge cases**
+
    ```markdown
    ## Edge Cases: m01-ownership
 
@@ -87,21 +93,26 @@ Before creating or modifying a skill, you must:
 # Pressure Scenario: [Name]
 
 ## Skill Under Test
+
 [skill-name]
 
 ## User Question
+
 "[Exact question user might ask]"
 
 ## Expected Behavior
+
 - [ ] Specific knowledge point 1
 - [ ] Specific knowledge point 2
 - [ ] Quick reference provided
 - [ ] Related guidelines mentioned
 
 ## Baseline Test (without skill)
+
 Date: YYYY-MM-DD
 
 Result:
+
 - [ ] Knowledge point 1: [PASS/FAIL]
 - [ ] Knowledge point 2: [PASS/FAIL]
 - [ ] Quick reference: [PASS/FAIL]
@@ -111,9 +122,11 @@ Notes:
 [What was missing or incorrect]
 
 ## Post-Skill Test
+
 Date: YYYY-MM-DD
 
 Result:
+
 - [ ] Knowledge point 1: [PASS/FAIL]
 - [ ] Knowledge point 2: [PASS/FAIL]
 - [ ] Quick reference: [PASS/FAIL]
@@ -138,17 +151,20 @@ Common excuses and counters for skipping TDD:
 ## Quality Metrics
 
 ### Token Efficiency
+
 - [ ] Main SKILL.md < 200 words (excluding tables)
 - [ ] Quick reference table present
 - [ ] Examples compressed (target: 20 words each)
 
 ### CSO Compliance
+
 - [ ] Description starts with "Use when:"
 - [ ] Error codes listed
 - [ ] Symptom keywords included
 - [ ] User questions as triggers
 
 ### Coverage
+
 - [ ] At least 3 pressure scenarios per skill
 - [ ] Edge cases documented
 - [ ] Cross-references to related skills
@@ -156,6 +172,7 @@ Common excuses and counters for skipping TDD:
 ## Running Tests
 
 ### Manual Testing
+
 1. Start fresh Claude session (no skills loaded)
 2. Ask pressure scenario question
 3. Document response quality
@@ -164,14 +181,16 @@ Common excuses and counters for skipping TDD:
 6. Compare and document improvements
 
 ### Automated Indicators
+
 While fully automated testing isn't available, track:
+
 - User satisfaction (via feedback)
 - Routing accuracy (via logs if available)
 - Common follow-up questions (indicates gaps)
 
 ## Directory Structure
 
-```
+```text
 tests/pressure-scenarios/
 ├── m01-ownership/
 │   ├── e0382-moved-value.md

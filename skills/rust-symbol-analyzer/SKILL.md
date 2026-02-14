@@ -1,6 +1,6 @@
 ---
 name: rust-symbol-analyzer
-description: "Analyze Rust project structure using LSP symbols. Triggers on: /symbols, project structure, list structs, list traits, list functions, 符号分析, 项目结构, 列出所有, 有哪些struct"
+description: "Analyze Rust project structure using LSP symbols. Triggers on: /symbols, project structure, list structs, list traits, list functions"
 argument-hint: "[file.rs] [--type struct|trait|fn|mod]"
 allowed-tools: ["LSP", "Read", "Glob"]
 ---
@@ -11,11 +11,12 @@ Analyze project structure by examining symbols across your Rust codebase.
 
 ## Usage
 
-```
+```text
 /rust-symbol-analyzer [file.rs] [--type struct|trait|fn|mod]
 ```
 
 **Examples:**
+
 - `/rust-symbol-analyzer` - Analyze entire project
 - `/rust-symbol-analyzer src/lib.rs` - Analyze single file
 - `/rust-symbol-analyzer --type trait` - List all traits in project
@@ -26,7 +27,7 @@ Analyze project structure by examining symbols across your Rust codebase.
 
 Get all symbols in a file with their hierarchy.
 
-```
+```text
 LSP(
   operation: "documentSymbol",
   filePath: "src/lib.rs",
@@ -41,7 +42,7 @@ LSP(
 
 Search for symbols across the workspace.
 
-```
+```text
 LSP(
   operation: "workspaceSymbol",
   filePath: "src/lib.rs",
@@ -54,7 +55,7 @@ LSP(
 
 ## Workflow
 
-```
+```text
 User: "What's the structure of this project?"
     │
     ▼
@@ -76,7 +77,7 @@ User: "What's the structure of this project?"
 
 ### Project Overview
 
-```
+```text
 ## Project Structure: my-project
 
 ### Modules
@@ -99,7 +100,7 @@ User: "What's the structure of this project?"
 
 ### By Symbol Type
 
-```
+```text
 ## Symbols by Type
 
 ### Structs (12)
@@ -134,7 +135,7 @@ User: "What's the structure of this project?"
 
 ### Single File Analysis
 
-```
+```text
 ## src/handlers/auth.rs
 
 ### Symbols Hierarchy
@@ -163,7 +164,7 @@ mod auth
 
 ### Complexity Metrics
 
-```
+```text
 ## Complexity Analysis
 
 | File | Structs | Functions | Lines | Complexity |
@@ -178,7 +179,7 @@ mod auth
 
 ### Dependency Analysis
 
-```
+```text
 ## Internal Dependencies
 
 auth.rs

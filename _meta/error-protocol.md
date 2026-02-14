@@ -12,7 +12,7 @@ Errors are not just problems to fix—they are signals about design appropriaten
 
 ## The 3-Strike Rule
 
-```
+```text
 Strike 1: Fix at current layer
 Strike 2: Question the approach, try alternative
 Strike 3: Escalate to next layer up
@@ -36,11 +36,13 @@ Strike 3: Escalate to next layer up
 ## Error Log
 
 ### E0382: use of moved value
+
 - Strike 1: Added .clone() → Still fails (different location)
 - Strike 2: Changed to &T borrow → Lifetime error E0597
 - Strike 3: → ESCALATE: Question ownership design
 
 ### Escalation to Layer 2
+
 - Question: Why is data being moved multiple times?
 - Finding: Data needs to be shared, not copied
 - New approach: Use Arc<T> for shared ownership
@@ -52,21 +54,25 @@ Strike 3: Escalate to next layer up
 ## Current Error: [error code/description]
 
 ### Strike 1
+
 - Attempt: [what was tried]
 - Result: [pass/fail]
 - If fail: [why]
 
 ### Strike 2
+
 - Attempt: [different approach]
 - Result: [pass/fail]
 - If fail: [why]
 
 ### Strike 3
+
 - Attempt: [another approach]
 - Result: [pass/fail]
 - If fail: → ESCALATE
 
 ### Escalation
+
 - From Layer: [1/2/3]
 - To Layer: [2/3]
 - Question to answer: [what needs reconsideration]
@@ -140,6 +146,7 @@ Strike 3: Escalate to next layer up
 ### Step 1: Document Current State
 
 Before escalating, ensure trace.md has:
+
 - [ ] All 3 attempts documented
 - [ ] Why each attempt failed
 - [ ] What layer we're currently in
@@ -162,6 +169,7 @@ Before escalating, ensure trace.md has:
 ### Step 4: Re-Trace Downward
 
 After understanding higher layer:
+
 1. Record new understanding in findings.md
 2. Trace back down with new insight
 3. Implement with new approach
@@ -222,27 +230,32 @@ When escalation happens, use 5-Question Reboot:
 ## Error: E0382 (use of moved value)
 
 ### Strike 1
+
 - Attempt: Added .clone() at line 42
 - Result: Fail - Now E0382 at line 67 (different move)
 - Why: Data is moved in multiple places
 
 ### Strike 2
+
 - Attempt: Changed function to take &Data instead of Data
 - Result: Fail - E0597 (borrowed value doesn't live long enough)
 - Why: Caller's data goes out of scope
 
 ### Strike 3
+
 - Attempt: Used Cell<Data> for interior mutability
 - Result: Fail - Data doesn't implement Copy
 - Why: Wrong tool for this job
 
 ### Escalation to Layer 2
+
 - Question: Why is this data being moved/borrowed so much?
 - Load: m09-domain skill
 - Finding: This data is shared state across multiple components
 - New approach: Use Arc<Data> for shared ownership
 
 ### Resolution
+
 - Wrapped Data in Arc
 - Clone Arc (cheap) instead of Data (expensive)
 - All components share reference
@@ -255,27 +268,32 @@ When escalation happens, use 5-Question Reboot:
 ## Error: Slow response (>1s latency)
 
 ### Strike 1
+
 - Attempt: Added caching
 - Result: Still >500ms
 - Why: Cache miss rate is high
 
 ### Strike 2
+
 - Attempt: Optimized hot path with Vec instead of HashMap
 - Result: Still >300ms
 - Why: Most time in database query
 
 ### Strike 3
+
 - Attempt: Added database connection pooling
 - Result: Still >200ms
 - Why: Query itself is N+1
 
 ### Escalation to Layer 3
+
 - Question: What are the actual latency requirements?
 - Load: domain-web skill
 - Finding: SLA is actually 500ms, current is acceptable
 - But also: The N+1 query is a design smell
 
 ### Resolution
+
 - Current performance meets SLA (no immediate fix needed)
 - Created tech debt item: Refactor to batch query
 - Documented in decision.md
@@ -314,18 +332,21 @@ The 3-Strike Rule extends to agent negotiation responses.
 ## Negotiation Log: [Query]
 
 ### Round 1 (Strike 1)
+
 - Agent: crate-researcher
 - Confidence: LOW
 - Gaps: [list]
 - Action: Refine with context
 
 ### Round 2 (Strike 2)
+
 - Agent: crate-researcher (refined)
 - Confidence: MEDIUM
 - Gaps: [fewer]
 - Action: Still need comparison data, try docs-researcher
 
 ### Round 3 (Strike 3)
+
 - Agent: docs-researcher
 - Confidence: MEDIUM
 - Action: Synthesize best-effort answer
@@ -333,7 +354,7 @@ The 3-Strike Rule extends to agent negotiation responses.
 
 ### Negotiation Escalation Protocol
 
-```
+```text
 Strike 1: Initial query returns LOW/UNCERTAIN confidence
   ┌─────────────────────────────────────┐
   │ - Review agent's context questions  │
@@ -370,11 +391,13 @@ Strike 3: Still insufficient
 ### Integration Points
 
 **With Meta-Cognition:**
+
 - Negotiation happens within layers, not across
 - Layer escalation still follows standard 3-Strike
 - Negotiation is for data gathering, not design
 
 **With Router:**
+
 - Router decides if negotiation is needed
 - Router evaluates negotiation responses
 - Router manages refinement loop
@@ -385,6 +408,7 @@ Strike 3: Still insufficient
 ## Query: "Best practices for async error handling in web APIs"
 
 ### Strike 1
+
 - Agent: docs-researcher (tokio error handling)
 - Confidence: MEDIUM
 - Finding: General tokio error patterns
@@ -392,6 +416,7 @@ Strike 3: Still insufficient
 - Action: Need web context
 
 ### Strike 2
+
 - Agent: docs-researcher (axum error handling)
 - Confidence: MEDIUM
 - Finding: Axum error response patterns
@@ -399,6 +424,7 @@ Strike 3: Still insufficient
 - Action: Try to synthesize
 
 ### Strike 3
+
 - Synthesize from both rounds
 - Answer: Combined tokio + axum patterns
 - Disclosed gaps:

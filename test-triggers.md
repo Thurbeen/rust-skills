@@ -16,10 +16,10 @@
 
 | Query | Expected Skill |
 |-------|----------------|
-| `E0382 错误怎么解决` | m01-ownership |
+| `how to fix E0382` | m01-ownership |
 | `value moved after use` | m01-ownership |
 | `borrowed value does not live long enough` | m01-ownership |
-| `怎么解决借用错误` | m01-ownership |
+| `how to fix borrow errors` | m01-ownership |
 | `lifetime annotation` | m01-ownership |
 | `E0597 lifetime too short` | m01-ownership |
 
@@ -27,9 +27,9 @@
 
 | Query | Expected Skill |
 |-------|----------------|
-| `Arc 和 Rc 区别` | m02-resource |
+| `difference between Arc and Rc` | m02-resource |
 | `Box vs Rc vs Arc` | m02-resource |
-| `smart pointer 选择` | m02-resource |
+| `smart pointer selection` | m02-resource |
 | `shared ownership` | m02-resource |
 
 ## Mutability (m03-mutability)
@@ -57,18 +57,18 @@
 | Query | Expected Skill |
 |-------|----------------|
 | `newtype pattern` | m05-type-driven |
-| `PhantomData 用法` | m05-type-driven |
+| `PhantomData usage` | m05-type-driven |
 | `type state pattern` | m05-type-driven |
-| `零大小类型 ZST` | m05-type-driven |
+| `zero-sized type ZST` | m05-type-driven |
 | `marker trait` | m05-type-driven |
 
 ## Error Handling (m06-error-handling)
 
 | Query | Expected Skill |
 |-------|----------------|
-| `什么时候用 panic` | m06-error-handling |
+| `when to use panic` | m06-error-handling |
 | `Result vs Option` | m06-error-handling |
-| `thiserror 怎么用` | m06-error-handling |
+| `how to use thiserror` | m06-error-handling |
 | `anyhow vs eyre` | m06-error-handling |
 | `error propagation` | m06-error-handling |
 
@@ -77,10 +77,10 @@
 | Query | Expected Skill |
 |-------|----------------|
 | `cannot be sent between threads` | m07-concurrency |
-| `async await 怎么用` | m07-concurrency |
+| `how to use async await` | m07-concurrency |
 | `Send Sync trait` | m07-concurrency |
-| `deadlock 怎么避免` | m07-concurrency |
-| `如何在线程间共享数据` | m07-concurrency |
+| `how to avoid deadlock` | m07-concurrency |
+| `how to share data between threads` | m07-concurrency |
 
 ---
 
@@ -91,70 +91,70 @@
 | Query | Expected Skill |
 |-------|----------------|
 | `DDD in Rust` | m09-domain |
-| `domain model 设计` | m09-domain |
+| `domain model design` | m09-domain |
 | `aggregate root` | m09-domain |
 | `value object vs entity` | m09-domain |
-| `领域建模` | m09-domain |
+| `domain modeling` | m09-domain |
 
 ## Performance (m10-performance)
 
 | Query | Expected Skill |
 |-------|----------------|
-| `Rust 性能优化` | m10-performance |
-| `benchmark 怎么写` | m10-performance |
-| `criterion 用法` | m10-performance |
+| `Rust performance optimization` | m10-performance |
+| `how to write benchmarks` | m10-performance |
+| `criterion usage` | m10-performance |
 | `cache locality` | m10-performance |
-| `零拷贝 zero copy` | m10-performance |
+| `zero copy` | m10-performance |
 
 ## Ecosystem (m11-ecosystem)
 
 | Query | Expected Skill |
 |-------|----------------|
-| `推荐什么 crate` | m11-ecosystem |
-| `依赖选择` | m11-ecosystem |
-| `crate 对比` | m11-ecosystem |
-| `Cargo.toml 依赖管理` | m11-ecosystem |
-| `feature flags 用法` | m11-ecosystem |
+| `recommend a crate` | m11-ecosystem |
+| `dependency selection` | m11-ecosystem |
+| `crate comparison` | m11-ecosystem |
+| `Cargo.toml dependency management` | m11-ecosystem |
+| `feature flags usage` | m11-ecosystem |
 
 ## Lifecycle (m12-lifecycle)
 
 | Query | Expected Skill |
 |-------|----------------|
 | `RAII pattern` | m12-lifecycle |
-| `Drop trait 实现` | m12-lifecycle |
-| `资源释放顺序` | m12-lifecycle |
-| `scopeguard 用法` | m12-lifecycle |
-| `析构函数` | m12-lifecycle |
+| `Drop trait implementation` | m12-lifecycle |
+| `resource release order` | m12-lifecycle |
+| `scopeguard usage` | m12-lifecycle |
+| `destructor` | m12-lifecycle |
 
 ## Domain Error (m13-domain-error)
 
 | Query | Expected Skill |
 |-------|----------------|
-| `retry 策略` | m13-domain-error |
-| `circuit breaker 实现` | m13-domain-error |
-| `错误恢复模式` | m13-domain-error |
-| `backoff 重试` | m13-domain-error |
-| `错误分类处理` | m13-domain-error |
+| `retry strategy` | m13-domain-error |
+| `circuit breaker implementation` | m13-domain-error |
+| `error recovery patterns` | m13-domain-error |
+| `backoff retry` | m13-domain-error |
+| `error classification handling` | m13-domain-error |
 
 ## Mental Model (m14-mental-model)
 
 | Query | Expected Skill |
 |-------|----------------|
-| `怎么学 Rust` | m14-mental-model |
-| `Rust 思维方式` | m14-mental-model |
-| `从 Java 转 Rust` | m14-mental-model |
-| `所有权心智模型` | m14-mental-model |
-| `为什么 Rust 这样设计` | m14-mental-model |
+| `how to learn Rust` | m14-mental-model |
+| `Rust way of thinking` | m14-mental-model |
+| `transitioning from Java to Rust` | m14-mental-model |
+| `ownership mental model` | m14-mental-model |
+| `why is Rust designed this way` | m14-mental-model |
 
 ## Anti-Pattern (m15-anti-pattern)
 
 | Query | Expected Skill |
 |-------|----------------|
-| `常见 Rust 错误` | m15-anti-pattern |
+| `common Rust mistakes` | m15-anti-pattern |
 | `code smell Rust` | m15-anti-pattern |
-| `Rust 反模式` | m15-anti-pattern |
-| `不要这样写 Rust` | m15-anti-pattern |
-| `clone 滥用` | m15-anti-pattern |
+| `Rust anti-patterns` | m15-anti-pattern |
+| `don't write Rust like this` | m15-anti-pattern |
+| `clone overuse` | m15-anti-pattern |
 
 ---
 
@@ -164,8 +164,8 @@
 
 | Query | Expected Skill |
 |-------|----------------|
-| `unsafe 代码怎么写` | unsafe-checker |
-| `FFI 绑定` | unsafe-checker |
+| `how to write unsafe code` | unsafe-checker |
+| `FFI bindings` | unsafe-checker |
 | `SAFETY comment` | unsafe-checker |
 | `raw pointer` | unsafe-checker |
 | `how to call C functions` | unsafe-checker |
@@ -174,27 +174,27 @@
 
 | Query | Expected Skill |
 |-------|----------------|
-| `tokio 最新版本` | rust-learner |
-| `Rust 1.85 有什么新特性` | rust-learner |
-| `serde 文档` | rust-learner |
+| `tokio latest version` | rust-learner |
+| `what's new in Rust 1.85` | rust-learner |
+| `serde docs` | rust-learner |
 | `crate info` | rust-learner |
 
 ## Code Style (coding-guidelines)
 
 | Query | Expected Skill |
 |-------|----------------|
-| `Rust 命名规范` | coding-guidelines |
+| `Rust naming conventions` | coding-guidelines |
 | `clippy warning` | coding-guidelines |
-| `rustfmt 配置` | coding-guidelines |
+| `rustfmt configuration` | coding-guidelines |
 | `P.NAM.01` | coding-guidelines |
 
 ## Router (rust-router)
 
 | Query | Expected Skill |
 |-------|----------------|
-| `分析这个问题的意图` | rust-router |
-| `意图分析` | rust-router |
-| `这是什么类型的 Rust 问题` | rust-router |
+| `analyze the intent of this question` | rust-router |
+| `intent analysis` | rust-router |
+| `what type of Rust question is this` | rust-router |
 
 ## Layer 3: Domain Constraints
 
@@ -203,8 +203,8 @@
 | Query | Expected Skill |
 |-------|----------------|
 | `kubernetes operator in Rust` | domain-cloud-native |
-| `decimal 精度计算` | domain-fintech |
-| `机器学习 tensor` | domain-ml |
+| `decimal precision calculation` | domain-fintech |
+| `machine learning tensor` | domain-ml |
 | `IoT sensor` | domain-iot |
 | `axum web server` | domain-web |
 | `clap CLI argument` | domain-cli |
@@ -216,33 +216,34 @@
 
 ```bash
 # Layer 1: Language Mechanics
-claude -p "E0382 错误怎么解决"           # m01-ownership
+claude -p "how to fix E0382"              # m01-ownership
 claude -p "E0499 multiple mutable borrows" # m03-mutability
 claude -p "newtype pattern"              # m05-type-driven
 claude -p "Send Sync trait"              # m07-concurrency
 
 # Layer 2: Design Choices
 claude -p "DDD in Rust"                  # m09-domain
-claude -p "benchmark 怎么写"              # m10-performance
-claude -p "推荐什么 crate"                # m11-ecosystem
+claude -p "how to write benchmarks"      # m10-performance
+claude -p "recommend a crate"            # m11-ecosystem
 claude -p "RAII pattern"                 # m12-lifecycle
-claude -p "circuit breaker 实现"          # m13-domain-error
-claude -p "怎么学 Rust"                   # m14-mental-model
-claude -p "常见 Rust 错误"                # m15-anti-pattern
+claude -p "circuit breaker implementation" # m13-domain-error
+claude -p "how to learn Rust"            # m14-mental-model
+claude -p "common Rust mistakes"         # m15-anti-pattern
 
 # Core Skills
-claude -p "unsafe 代码怎么写"             # unsafe-checker
-claude -p "tokio 最新版本"                # rust-learner
-claude -p "Rust 命名规范"                 # coding-guidelines
+claude -p "how to write unsafe code"     # unsafe-checker
+claude -p "tokio latest version"         # rust-learner
+claude -p "Rust naming conventions"      # coding-guidelines
 
 # Layer 3: Domains
 claude -p "axum web server"              # domain-web
-claude -p "decimal 精度计算"              # domain-fintech
+claude -p "decimal precision calculation" # domain-fintech
 ```
 
 ## Expected Behavior
 
 When a skill triggers correctly, you should see:
+
 1. The skill name in Claude Code's status line
 2. Response content that matches the skill's expertise
 3. References to patterns/rules from that skill
@@ -250,6 +251,7 @@ When a skill triggers correctly, you should see:
 ## Troubleshooting
 
 If skills don't trigger:
+
 1. Ensure rust-skills plugin is installed: `claude /plugins`
 2. Check plugin path is correct
 3. Verify SKILL.md files have `description:` field with keywords

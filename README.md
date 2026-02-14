@@ -1,7 +1,5 @@
 # Rust Skills
 
-[中文](./README-zh.md) | [日本語](./README-ja.md)
-
 > AI-powered Rust development assistant with meta-cognition framework
 
 [![Version](https://img.shields.io/badge/version-2.0.9-green.svg)](https://github.com/ZhangHanDong/rust-skills/releases)
@@ -15,7 +13,8 @@
 ### The Problem
 
 Traditional AI assistance for Rust:
-```
+
+```text
 User: "My trading system reports E0382"
 AI: "Use .clone()"  ← Surface fix, ignores domain constraints
 ```
@@ -23,7 +22,8 @@ AI: "Use .clone()"  ← Surface fix, ignores domain constraints
 ### The Solution
 
 Rust Skills with meta-cognition:
-```
+
+```text
 User: "My trading system reports E0382"
 
 AI (with Rust Skills):
@@ -193,7 +193,7 @@ Rust Skills relies on these external tools for full functionality:
 
 **Don't answer directly. Trace through cognitive layers first.**
 
-```
+```text
 Layer 3: Domain Constraints (WHY)
 ├── Domain rules determine design choices
 └── Example: Financial systems require immutable, auditable data
@@ -219,6 +219,7 @@ Layer 1: Language Mechanics (HOW)
 ## Skills Overview
 
 ### Core Skills
+
 - `rust-router` - Master router for all Rust questions (invoked first)
 - `rust-learner` - Fetch latest Rust/crate version info
 - `coding-guidelines` - Coding conventions lookup
@@ -285,6 +286,7 @@ cd my-rust-project
 ```
 
 ### Features
+
 - **On-demand generation**: Created from Cargo.toml dependencies
 - **Local storage**: `~/.claude/skills/`
 - **Version tracking**: Each skill records crate version
@@ -292,7 +294,7 @@ cd my-rust-project
 
 ## How It Works
 
-```
+```text
 User Question
      │
      ▼
@@ -321,10 +323,6 @@ Domain-correct architectural solution
 
 ## Documentation
 
-- [Architecture (中文)](./docs/architecture-zh.md)
-- [Functional Overview (中文)](./docs/functional-overview-zh.md)
-- [Hook Mechanism (中文)](./docs/hook-mechanism-zh.md)
-- [Prompt Engineering (中文)](./docs/prompt-engineering-zh.md)
 - [Meta-Cognition Example: E0382](./docs/meta-cognition-example-e0382.md)
 
 ## Contributing
@@ -342,5 +340,5 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## Links
 
-- **GitHub**: https://github.com/ZhangHanDong/rust-skills
-- **Issues**: https://github.com/ZhangHanDong/rust-skills/issues
+- **GitHub**: <https://github.com/ZhangHanDong/rust-skills>
+- **Issues**: <https://github.com/ZhangHanDong/rust-skills/issues>

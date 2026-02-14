@@ -1,6 +1,6 @@
 ---
 name: domain-ml
-description: "Use when building ML/AI apps in Rust. Keywords: machine learning, ML, AI, tensor, model, inference, neural network, deep learning, training, prediction, ndarray, tch-rs, burn, candle, 机器学习, 人工智能, 模型推理"
+description: "Use when building ML/AI apps in Rust. Keywords: machine learning, ML, AI, tensor, model, inference, neural network, deep learning, training, prediction, ndarray, tch-rs, burn, candle"
 user-invocable: false
 ---
 
@@ -25,7 +25,7 @@ user-invocable: false
 
 ### Memory Efficiency
 
-```
+```text
 RULE: Avoid copying large tensors
 WHY: Memory bandwidth is bottleneck
 RUST: References, views, in-place ops
@@ -33,7 +33,7 @@ RUST: References, views, in-place ops
 
 ### GPU Utilization
 
-```
+```text
 RULE: Batch operations for GPU efficiency
 WHY: GPU overhead per kernel launch
 RUST: Batch sizes, async data loading
@@ -41,7 +41,7 @@ RUST: Batch sizes, async data loading
 
 ### Model Portability
 
-```
+```text
 RULE: Use standard model formats
 WHY: Train in Python, deploy in Rust
 RUST: ONNX via tract or candle
@@ -53,7 +53,7 @@ RUST: ONNX via tract or candle
 
 From constraints to design (Layer 2):
 
-```
+```text
 "Need efficient data pipelines"
     ↓ m10-performance: Streaming, batching
     ↓ polars: Lazy evaluation

@@ -9,6 +9,7 @@ Scan Cargo.toml and generate skills for dependencies that don't have local skill
 Supports both remote crates (docs.rs) and local Rust source code.
 
 Arguments: $ARGUMENTS
+
 - `--force`: Regenerate all skills even if they exist
 - `--from-source <path>`: Generate skills from local Rust source code
 - `crate_names`: Optional specific crates to sync (space-separated)
@@ -21,7 +22,7 @@ Arguments: $ARGUMENTS
 
 If `--from-source` flag is present:
 
-```
+```text
 /create-llms-from-source {path}
     ↓
 ~/tmp/{timestamp}-{crate}-llms.txt
@@ -30,12 +31,14 @@ If `--from-source` flag is present:
 ```
 
 **Workflow for local source:**
+
 1. Parse path from `--from-source <path>` argument
 2. Call `/create-llms-from-source {path}` to generate llms.txt
 3. Call `/create-skills-via-llms {crate_name} {llms_path} {version}` to create skills
 4. Skip remaining steps (no need to check dependencies)
 
 **Input type detection:**
+
 | Input | Action |
 |-------|--------|
 | `--from-source /path/to/project` | Use `/create-llms-from-source` |
@@ -55,6 +58,7 @@ fi
 ```
 
 **Workspace handling:**
+
 - If `[workspace]` section exists, find `members = [...]`
 - Parse each member path
 - Collect Cargo.toml from each member directory
@@ -62,10 +66,12 @@ fi
 ### 2. Parse Dependencies
 
 For each Cargo.toml, extract:
+
 - `[dependencies]` section
 - `[dev-dependencies]` section
 
 Parse crate names and versions:
+
 ```toml
 tokio = { version = "1.40", features = ["full"] }
 serde = "1.0"
@@ -74,6 +80,7 @@ serde = "1.0"
 ### 3. Check Existing Skills
 
 For each crate, check if skill exists:
+
 ```bash
 ls ~/.claude/skills/{crate_name}/SKILL.md
 ```
@@ -86,12 +93,13 @@ For each missing crate skill:
 
 #### 4a. Check actionbook for llms.txt
 
-```
+```text
 search_actions("{crate_name} llms.txt")
 ```
 
 If found:
-```
+
+```text
 get_action_by_id(action_id)
 # Save content to ~/tmp/{crate_name}-llms.txt
 ```
@@ -99,20 +107,22 @@ get_action_by_id(action_id)
 #### 4b. Generate llms.txt if not in actionbook
 
 If not found in actionbook:
-```
+
+```text
 /create-llms-for-skills https://docs.rs/{crate_name}/latest/{crate_name}/
 ```
 
 #### 4c. Create skills from llms.txt
 
-```
+```text
 /create-skills-via-llms {crate_name} {llms_path} {version}
 ```
 
 ### 5. Report Results
 
 Output summary:
-```
+
+```text
 Synced skills for:
 - tokio (1.40.0) - created
 - serde (1.0.215) - created
@@ -136,6 +146,7 @@ Skills location: ~/.claude/skills/
 5. **/create-skills-via-llms** - Create skills from llms.txt
 
 **DO NOT use:**
+
 - Chrome MCP for documentation fetching
 - Direct Fetch without agent-browser attempt first
 

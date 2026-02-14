@@ -133,7 +133,7 @@ impl Drop for CCompatibleHandler {
 
 ## Why Trait Objects Don't Work
 
-```
+```text
 Rust trait object (*const dyn Handler):
 [data pointer][vtable pointer]  <- 16 bytes on 64-bit
 

@@ -6,7 +6,7 @@ This directory contains cached responses from agents to reduce redundant web fet
 
 ## Cache Structure
 
-```
+```text
 cache/
 ├── README.md
 ├── config.yaml           # Cache configuration
@@ -92,7 +92,7 @@ cache:
 
 ### Checking Cache Before Fetch
 
-```
+```text
 1. Check if cache/<category>/<key>.json exists
 2. If exists, check if (now - cached_at) < ttl_hours
 3. If valid, return cached data
@@ -121,17 +121,20 @@ cache:
 ## Cache Management Commands
 
 ### Clear All Cache
+
 ```bash
 rm -rf cache/crates/* cache/rust-versions/* cache/docs/*
 ```
 
 ### Clear Expired Only
+
 ```bash
 # Use the cache-cleaner agent or manual script
 find cache -name "*.json" -mtime +7 -delete
 ```
 
 ### View Cache Stats
+
 ```bash
 echo "Crates cached: $(ls cache/crates/*.json 2>/dev/null | wc -l)"
 echo "Versions cached: $(ls cache/rust-versions/*.json 2>/dev/null | wc -l)"

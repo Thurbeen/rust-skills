@@ -4,9 +4,10 @@ Based on Meta-Question Oriented Numbering System v2.1
 
 ## Format
 
-```
+```text
 m[XX][YYY][ZZZZZ]
 ```
+
 - XX: Meta-question category (01-15)
 - YYY: Technical subcategory (001-999)
 - ZZZZZ: Sequence number
@@ -51,12 +52,14 @@ m[XX][YYY][ZZZZZ]
 ### By Problem Type
 
 **Compiler Errors**
+
 - E0382 (moved value) → m01
 - E0597 (lifetime) → m01
 - E0277 (Send/Sync) → m07
 - E0596 (mutability) → m03
 
 **Design Questions**
+
 - "Which smart pointer?" → m02
 - "Generics vs trait objects?" → m04
 - "Error handling strategy?" → m06
@@ -64,6 +67,7 @@ m[XX][YYY][ZZZZZ]
 - "FFI design?" → unsafe-checker
 
 **Learning**
+
 - "How to think about X?" → m14
 - "Common mistakes?" → m15
 

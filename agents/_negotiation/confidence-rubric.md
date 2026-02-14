@@ -39,14 +39,14 @@ Agent found comprehensive, verified information from authoritative sources. Core
 
 ### Examples
 
-```
+```text
 Query: "What is serde's latest version?"
 Finding: Version 1.0.219 from lib.rs
 Confidence: HIGH
 Reason: Official registry data, single authoritative answer
 ```
 
-```
+```text
 Query: "What does Send trait do?"
 Finding: Definition from doc.rust-lang.org
 Confidence: HIGH
@@ -79,14 +79,14 @@ Agent found partial information. Core data exists but with gaps that don't block
 
 ### Examples
 
-```
+```text
 Query: "What features does tokio have?"
 Finding: Main features from lib.rs, but feature flags not fully documented
 Confidence: MEDIUM
 Reason: Core features known, but complete feature matrix not found
 ```
 
-```
+```text
 Query: "Compare tokio and async-std"
 Finding: General characteristics of both, no benchmarks
 Confidence: MEDIUM
@@ -120,14 +120,14 @@ Agent found limited information with significant gaps. Answer may be incomplete 
 
 ### Examples
 
-```
+```text
 Query: "Best practices for async error handling"
 Finding: A few blog posts with different recommendations
 Confidence: LOW
 Reason: No authoritative source, opinions vary
 ```
 
-```
+```text
 Query: "What's new in obscure-crate 2.0?"
 Finding: Only found GitHub issues mentioning 2.0
 Confidence: LOW
@@ -161,14 +161,14 @@ Agent couldn't find reliable information or encountered errors that prevent a tr
 
 ### Examples
 
-```
+```text
 Query: "What is nonexistent-crate?"
 Finding: Crate not found on any registry
 Confidence: UNCERTAIN
 Reason: Crate does not exist or is private
 ```
 
-```
+```text
 Query: "What will Rust 2.0 include?"
 Finding: No official roadmap
 Confidence: UNCERTAIN
@@ -190,6 +190,7 @@ Reason: Future features are speculative
 | Not found or error | UNCERTAIN |
 
 **Degrading factors:**
+
 - Last update > 2 years: -1 level
 - No README: -1 level
 - Yanked versions: mention in gaps
@@ -204,6 +205,7 @@ Reason: Future features are speculative
 | 404 or empty | UNCERTAIN |
 
 **Degrading factors:**
+
 - docs.rs build failed: -1 level
 - No examples: note in gaps
 - Deprecated item: mention in gaps
@@ -275,13 +277,14 @@ Reason: Future features are speculative
 
 ```markdown
 ### Confidence
+
 - **Level**: [HIGH|MEDIUM|LOW|UNCERTAIN]
 - **Reason**: [Specific reason following this rubric]
 ```
 
 ### Good Reasons
 
-```
+```text
 HIGH - Official docs complete with examples
 MEDIUM - Found on lib.rs but changelog unavailable
 LOW - Only found GitHub issues, no official docs
@@ -290,7 +293,7 @@ UNCERTAIN - Crate does not exist on any registry
 
 ### Bad Reasons
 
-```
+```text
 HIGH - Looks good (vague)
 MEDIUM - Some info (doesn't explain what's missing)
 LOW - Not great (doesn't explain why)

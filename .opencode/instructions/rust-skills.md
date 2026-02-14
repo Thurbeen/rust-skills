@@ -22,25 +22,33 @@ pedantic = "warn"
 ## Core Skills
 
 ### rust-router
+
 Master router for ALL Rust questions. Handles:
+
 - Intent analysis and question routing
 - Cross-cutting Rust topics
 - Crate detection and skill management
 
 ### rust-learner
+
 Rust version and crate information:
+
 - Rust version features and changelog
 - Crate info from lib.rs/crates.io
 - API documentation from docs.rs
 
 ### coding-guidelines
+
 Code style and best practices:
+
 - Naming conventions (P.NAM.*)
 - Formatting rules (P.FMT.*)
 - Error handling patterns (P.ERR.*)
 
 ### unsafe-checker
+
 Unsafe code review and FFI guidance:
+
 - Safety documentation requirements
 - Raw pointer handling
 - FFI best practices
@@ -79,6 +87,7 @@ Unsafe code review and FFI guidance:
 ## Usage Examples
 
 Ask about:
+
 - "Why am I getting E0382?"
 - "How to use Arc<Mutex<T>>?"
 - "Best practices for error handling"

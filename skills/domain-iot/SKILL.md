@@ -1,6 +1,6 @@
 ---
 name: domain-iot
-description: "Use when building IoT apps. Keywords: IoT, Internet of Things, sensor, MQTT, device, edge computing, telemetry, actuator, smart home, gateway, protocol, 物联网, 传感器, 边缘计算, 智能家居"
+description: "Use when building IoT apps. Keywords: IoT, Internet of Things, sensor, MQTT, device, edge computing, telemetry, actuator, smart home, gateway, protocol"
 user-invocable: false
 ---
 
@@ -25,7 +25,7 @@ user-invocable: false
 
 ### Network Unreliability
 
-```
+```text
 RULE: Network can fail at any time
 WHY: Wireless, remote locations
 RUST: Local queue, retry with backoff
@@ -33,7 +33,7 @@ RUST: Local queue, retry with backoff
 
 ### Power Management
 
-```
+```text
 RULE: Minimize power consumption
 WHY: Battery life, energy costs
 RUST: Sleep modes, efficient algorithms
@@ -41,7 +41,7 @@ RUST: Sleep modes, efficient algorithms
 
 ### Device Security
 
-```
+```text
 RULE: All communication encrypted
 WHY: Physical access possible
 RUST: TLS, signed messages
@@ -53,7 +53,7 @@ RUST: TLS, signed messages
 
 From constraints to design (Layer 2):
 
-```
+```text
 "Need offline-first design"
     ↓ m12-lifecycle: Local buffer with persistence
     ↓ m13-domain-error: Retry with backoff

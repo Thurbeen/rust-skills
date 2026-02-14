@@ -76,6 +76,7 @@ For each pointer dereference:
 ## 9. Verification Questions
 
 Ask the author:
+
 - "What would happen if [X invariant] was violated?"
 - "How do you know [pointer/reference] is valid here?"
 - "What if this panics at [specific line]?"
@@ -100,7 +101,7 @@ Ask the author:
 
 ## Sample Review Comments
 
-```
+```text
 // Good SAFETY comment ✓
 // SAFETY: index was checked to be < len on line 42
 

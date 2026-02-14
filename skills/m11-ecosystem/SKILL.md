@@ -1,6 +1,6 @@
 ---
 name: m11-ecosystem
-description: "Use when integrating crates or ecosystem questions. Keywords: E0425, E0433, E0603, crate, cargo, dependency, feature flag, workspace, which crate to use, using external C libraries, creating Python extensions, PyO3, wasm, WebAssembly, bindgen, cbindgen, napi-rs, cannot find, private, crate recommendation, best crate for, Cargo.toml, features, crate 推荐, 依赖管理, 特性标志, 工作空间, Python 绑定"
+description: "Use when integrating crates or ecosystem questions. Keywords: E0425, E0433, E0603, crate, cargo, dependency, feature flag, workspace, which crate to use, using external C libraries, creating Python extensions, PyO3, wasm, WebAssembly, bindgen, cbindgen, napi-rs, cannot find, private, crate recommendation, best crate for, Cargo.toml, features"
 user-invocable: false
 ---
 
@@ -19,6 +19,7 @@ user-invocable: false
 **What's the right crate for this job, and how should it integrate?**
 
 Before adding dependencies:
+
 - Is there a standard solution?
 - What's the maintenance status?
 - What's the API stability?
@@ -64,7 +65,7 @@ Before adding a dependency:
 
 To domain constraints (Layer 3):
 
-```
+```text
 "Which HTTP framework should I use?"
     ↑ Ask: What are the performance requirements?
     ↑ Check: domain-web (latency, throughput needs)
@@ -83,7 +84,7 @@ To domain constraints (Layer 3):
 
 To implementation (Layer 1):
 
-```
+```text
 "Integrate external crate"
     ↓ m04-zero-cost: Trait bounds and generics
     ↓ m06-error-handling: Error type compatibility

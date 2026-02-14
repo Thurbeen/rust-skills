@@ -1,6 +1,6 @@
 ---
 name: domain-cli
-description: "Use when building CLI tools. Keywords: CLI, command line, terminal, clap, structopt, argument parsing, subcommand, interactive, TUI, ratatui, crossterm, indicatif, progress bar, colored output, shell completion, config file, environment variable, 命令行, 终端应用, 参数解析"
+description: "Use when building CLI tools. Keywords: CLI, command line, terminal, clap, structopt, argument parsing, subcommand, interactive, TUI, ratatui, crossterm, indicatif, progress bar, colored output, shell completion, config file, environment variable"
 globs: ["**/Cargo.toml"]
 user-invocable: false
 ---
@@ -25,7 +25,7 @@ user-invocable: false
 
 ### User Communication
 
-```
+```text
 RULE: Errors to stderr, data to stdout
 WHY: Pipeable output, scriptability
 RUST: eprintln! for errors, println! for data
@@ -33,7 +33,7 @@ RUST: eprintln! for errors, println! for data
 
 ### Configuration Priority
 
-```
+```text
 RULE: CLI args > env vars > config file > defaults
 WHY: User expectation, override capability
 RUST: Layered config with clap + figment/config
@@ -41,7 +41,7 @@ RUST: Layered config with clap + figment/config
 
 ### Exit Codes
 
-```
+```text
 RULE: Return non-zero on any error
 WHY: Script integration, automation
 RUST: main() -> Result<(), Error> or explicit exit()
@@ -53,7 +53,7 @@ RUST: main() -> Result<(), Error> or explicit exit()
 
 From constraints to design (Layer 2):
 
-```
+```text
 "Need argument parsing"
     ↓ m05-type-driven: Derive structs for args
     ↓ clap: #[derive(Parser)]

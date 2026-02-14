@@ -1,36 +1,37 @@
-# Skill 继承机制
+# Skill Inheritance Mechanism
 
-> Claude Code Skills 没有原生继承，但可以通过多种方法实现类似效果
+> Claude Code Skills have no native inheritance, but similar effects can be achieved through various methods
 
-## 问题背景
+## Background
 
-Claude Code 的 Skills 是独立的：
-- 每个 skill 根据 `description` 关键词独立触发
-- 不会自动加载"父" skill
-- 共享规则需要重复写在每个 skill 中
+Claude Code Skills are independent:
 
-## 解决方案对比
+- Each skill triggers independently based on `description` keywords
+- Parent skills are not automatically loaded
+- Shared rules need to be repeated in each skill
 
-| 方案 | 可移植性 | 维护成本 | 适用场景 |
-|------|----------|----------|----------|
-| A: 符号链接 + 显式读取 | 低 | 低 | 本地个人 skills |
-| B: Hook 注入 | 高 | 低 | 分发的 plugin |
-| C: 全局 CLAUDE.md | 高 | 低 | 通用规则 |
-| D: 复制内联 | 高 | 高 | 简单场景 |
+## Solution Comparison
+
+| Solution | Portability | Maintenance Cost | Applicable Scenario |
+|----------|-------------|------------------|---------------------|
+| A: Symlinks + Explicit Reads | Low | Low | Local personal skills |
+| B: Hook Injection | High | Low | Distributed plugins |
+| C: Global CLAUDE.md | High | Low | Universal rules |
+| D: Copy Inline | High | High | Simple scenarios |
 
 ---
 
-## 方案 A: 符号链接 + 显式读取
+## Solution A: Symlinks + Explicit Reads
 
-**适用**: 本地个人 skills（`~/.claude/skills/`）
+**Applicable to**: Local personal skills (`~/.claude/skills/`)
 
-### 目录结构
+### Directory Structure
 
-```
+```text
 ~/.claude/skills/
-├── _shared/                          # 共享文件目录
-│   ├── rust-defaults.md              # Rust 通用规则
-│   └── python-defaults.md            # Python 通用规则
+├── _shared/                          # Shared file directory
+│   ├── rust-defaults.md              # Rust common rules
+│   └── python-defaults.md            # Python common rules
 │
 ├── tokio/
 │   ├── SKILL.md
@@ -48,13 +49,13 @@ Claude Code 的 Skills 是独立的：
         └── rust-defaults.md → ../../_shared/rust-defaults.md
 ```
 
-### 设置步骤
+### Setup Steps
 
 ```bash
-# 1. 创建共享目录
+# 1. Create shared directory
 mkdir -p ~/.claude/skills/_shared
 
-# 2. 创建共享规则文件
+# 2. Create shared rules file
 cat > ~/.claude/skills/_shared/rust-defaults.md << 'EOF'
 # Rust Code Generation Defaults
 
@@ -67,14 +68,14 @@ cat > ~/.claude/skills/_shared/rust-defaults.md << 'EOF'
 - Use anyhow/thiserror for errors
 EOF
 
-# 3. 为每个 skill 创建符号链接
+# 3. Create symlinks for each skill
 for skill in tokio tokio-task tokio-sync serde axum; do
     mkdir -p ~/.claude/skills/$skill/references
     ln -sf ../../_shared/rust-defaults.md ~/.claude/skills/$skill/references/rust-defaults.md
 done
 ```
 
-### SKILL.md 中引用
+### Referencing in SKILL.md
 
 ```markdown
 ## Code Generation Rules
@@ -82,47 +83,49 @@ done
 **IMPORTANT: Before generating code, read `./references/rust-defaults.md`**
 
 Key rules (see rust-defaults.md for full list):
+
 - Use edition = "2024"
 - Use latest crate versions
 ```
 
-### 优缺点
+### Pros and Cons
 
-| 优点 | 缺点 |
+| Pros | Cons |
 |------|------|
-| 修改一处，全部生效 | 符号链接不可移植 |
-| 清晰的文件组织 | 分发给他人会断链 |
-| 支持多个共享文件 | 需要初始设置 |
+| Edit once, applies everywhere | Symlinks are not portable |
+| Clear file organization | Links break when distributed to others |
+| Supports multiple shared files | Requires initial setup |
 
 ---
 
-## 方案 B: Hook 注入
+## Solution B: Hook Injection
 
-**适用**: 分发的 plugin（如 rust-skills）
+**Applicable to**: Distributed plugins (e.g., rust-skills)
 
-### 原理
+### Principle
 
-通过 `UserPromptSubmit` hook 在用户输入时注入共享规则：
+Inject shared rules when the user submits input via a `UserPromptSubmit` hook:
 
+```text
+User input -> Hook triggers -> Inject rules -> Claude processes
 ```
-用户输入 → Hook 触发 → 注入规则 → Claude 处理
-```
 
-### 目录结构
+### Directory Structure
 
-```
+```text
 my-plugin/
 ├── .claude/
-│   ├── settings.json           # Hook 配置
+│   ├── settings.json           # Hook configuration
 │   └── hooks/
-│       └── inject-rules.sh     # 规则注入脚本
+│       └── inject-rules.sh     # Rule injection script
 └── skills/
-    └── ...                     # 不需要符号链接
+    └── ...                     # No symlinks needed
 ```
 
-### 配置文件
+### Configuration Files
 
 **.claude/settings.json**:
+
 ```json
 {
   "hooks": {
@@ -137,6 +140,7 @@ my-plugin/
 ```
 
 **.claude/hooks/inject-rules.sh**:
+
 ```bash
 #!/bin/bash
 cat << 'EOF'
@@ -153,139 +157,143 @@ When generating Rust code:
 EOF
 ```
 
-### 优缺点
+### Pros and Cons
 
-| 优点 | 缺点 |
+| Pros | Cons |
 |------|------|
-| 完全可移植 | 每次请求都注入（增加 token） |
-| 不依赖文件结构 | 需要 hook 支持 |
-| 用户安装即生效 | 规则在脚本中，不易编辑 |
+| Fully portable | Injected on every request (increases tokens) |
+| No file structure dependency | Requires hook support |
+| Works immediately upon installation | Rules are in scripts, harder to edit |
 
 ---
 
-## 方案 C: 全局 CLAUDE.md
+## Solution C: Global CLAUDE.md
 
-**适用**: 所有项目通用的规则
+**Applicable to**: Rules universal to all projects
 
-### 文件位置
+### File Location
 
+```text
+~/.claude/CLAUDE.md    # Global, applies to all sessions
 ```
-~/.claude/CLAUDE.md    # 全局，所有会话生效
-```
 
-### 示例内容
+### Example Content
 
 ```markdown
 # Global Claude Code Rules
 
 ## Rust Defaults
+
 - Use edition = "2024"
 - Use latest crate versions
 
 ## Python Defaults
+
 - Use Python 3.12+
 - Use type hints
 ```
 
-### 优缺点
+### Pros and Cons
 
-| 优点 | 缺点 |
+| Pros | Cons |
 |------|------|
-| 最简单 | 所有项目都应用（可能过于宽泛） |
-| 一处配置 | 不能按领域区分 |
-| 总是生效 | 可能与项目规则冲突 |
+| Simplest | Applies to all projects (may be too broad) |
+| Single configuration point | Cannot differentiate by domain |
+| Always in effect | May conflict with project rules |
 
 ---
 
-## 方案 D: 复制内联
+## Solution D: Copy Inline
 
-**适用**: 简单场景，少量 skills
+**Applicable to**: Simple scenarios, few skills
 
-### 做法
+### Approach
 
-直接在每个 SKILL.md 中复制相同的规则：
+Directly copy the same rules into each SKILL.md:
 
 ```markdown
 # tokio/SKILL.md
 
 ## Code Generation Rules
+
 - Use edition = "2024"
 - Use latest crate versions
 
-# tokio-task/SKILL.md
+## tokio-task/SKILL.md
 
 ## Code Generation Rules
-- Use edition = "2024"        # 重复
-- Use latest crate versions   # 重复
+
+- Use edition = "2024"        # Duplicated
+- Use latest crate versions # Duplicated
 ```
 
-### 优缺点
+### Pros and Cons
 
-| 优点 | 缺点 |
+| Pros | Cons |
 |------|------|
-| 最可移植 | 规则重复，难维护 |
-| 无依赖 | 更新需改多处 |
-| 简单直接 | 容易不一致 |
+| Most portable | Rules duplicated, hard to maintain |
+| No dependencies | Updates require editing multiple places |
+| Simple and direct | Easily becomes inconsistent |
 
 ---
 
-## 推荐组合
+## Recommended Combination
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                    使用场景决策树                        │
-└─────────────────────────────────────────────────────────┘
+```text
++----------------------------------------------------------+
+|                    Decision Tree                          |
++----------------------------------------------------------+
 
-是个人使用还是分发？
-    │
-    ├── 个人使用 → 符号链接 + 显式读取 (方案 A)
-    │              └── 方便维护，修改一处全部生效
-    │
-    └── 分发给他人 → 是 plugin 还是独立 skill？
-                      │
-                      ├── Plugin → Hook 注入 (方案 B)
-                      │            └── 可移植，用户安装即生效
-                      │
-                      └── 独立 skill → 复制内联 (方案 D)
-                                       └── 简单，无依赖
+Personal use or distribution?
+    |
+    +-- Personal use -> Symlinks + Explicit Reads (Solution A)
+    |                   Easy to maintain; edit once, applies everywhere
+    |
+    +-- Distribute to others -> Plugin or standalone skill?
+                                |
+                                +-- Plugin -> Hook Injection (Solution B)
+                                |            Portable; works immediately upon installation
+                                |
+                                +-- Standalone skill -> Copy Inline (Solution D)
+                                                       Simple, no dependencies
 ```
 
 ---
 
-## 实际案例
+## Practical Examples
 
-### 案例 1: 个人 tokio skills 系列
+### Example 1: Personal tokio skills series
 
 ```bash
-# 使用方案 A
+# Using Solution A
 ~/.claude/skills/
 ├── _shared/rust-defaults.md
-├── tokio/references/rust-defaults.md → ...
-├── tokio-task/references/rust-defaults.md → ...
-└── tokio-sync/references/rust-defaults.md → ...
+├── tokio/references/rust-defaults.md -> ...
+├── tokio-task/references/rust-defaults.md -> ...
+└── tokio-sync/references/rust-defaults.md -> ...
 ```
 
-### 案例 2: rust-skills 插件
+### Example 2: rust-skills plugin
 
 ```bash
-# 使用方案 B
+# Using Solution B
 rust-skills/
-├── .claude/hooks/rust-skill-eval-hook.sh  # 注入 edition 2024 等规则
-└── skills/m01-ownership/SKILL.md          # 不需要符号链接
+├── .claude/hooks/rust-skill-eval-hook.sh  # Injects edition 2024 and other rules
+└── skills/m01-ownership/SKILL.md          # No symlinks needed
 ```
 
-### 案例 3: 通用代码风格
+### Example 3: Universal code style
 
 ```bash
-# 使用方案 C
-~/.claude/CLAUDE.md  # 写入通用规则，所有项目生效
+# Using Solution C
+~/.claude/CLAUDE.md  # Write universal rules; applies to all projects
 ```
 
 ---
 
-## 自动化脚本
+## Automation Script
 
-### 批量创建符号链接
+### Batch Create Symlinks
 
 ```bash
 #!/bin/bash
@@ -294,34 +302,35 @@ rust-skills/
 SHARED_DIR="$HOME/.claude/skills/_shared"
 SHARED_FILE="rust-defaults.md"
 
-# 创建共享目录
+# Create shared directory
 mkdir -p "$SHARED_DIR"
 
-# 为指定 skills 创建符号链接
+# Create symlinks for specified skills
 for skill in "$@"; do
     skill_dir="$HOME/.claude/skills/$skill"
     if [ -d "$skill_dir" ]; then
         mkdir -p "$skill_dir/references"
         ln -sf "../../_shared/$SHARED_FILE" "$skill_dir/references/$SHARED_FILE"
-        echo "✓ $skill"
+        echo "Done: $skill"
     else
-        echo "✗ $skill (not found)"
+        echo "Not found: $skill"
     fi
 done
 ```
 
-使用：
+Usage:
+
 ```bash
 ./setup-skill-inheritance.sh tokio tokio-task tokio-sync serde axum
 ```
 
 ---
 
-## 总结
+## Summary
 
-| 你的情况 | 推荐方案 |
-|----------|----------|
-| 个人本地 skills | **符号链接** (方案 A) |
-| 分发 plugin | **Hook 注入** (方案 B) |
-| 通用全局规则 | **全局 CLAUDE.md** (方案 C) |
-| 简单独立 skill | **复制内联** (方案 D) |
+| Your Situation | Recommended Solution |
+|----------------|---------------------|
+| Local personal skills | **Symlinks** (Solution A) |
+| Distributed plugin | **Hook Injection** (Solution B) |
+| Universal global rules | **Global CLAUDE.md** (Solution C) |
+| Simple standalone skill | **Copy Inline** (Solution D) |

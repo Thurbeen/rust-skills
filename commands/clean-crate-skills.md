@@ -8,6 +8,7 @@ argument-hint: [crate_names...] [--all]
 Remove dynamically generated crate skills from the local skills directory.
 
 Arguments: $ARGUMENTS
+
 - `crate_names`: Specific crates to remove (space-separated)
 - `--all`: Remove all local crate skills
 
@@ -22,7 +23,8 @@ ls -la ~/.claude/skills/
 ```
 
 Display current skills:
-```
+
+```text
 Local crate skills:
 - tokio (1.40.0) - 2025-01-15
 - serde (1.0.215) - 2025-01-14
@@ -32,6 +34,7 @@ Local crate skills:
 ### 2. Handle Arguments
 
 **If specific crates provided:**
+
 ```bash
 # Remove specified crate skill directories
 rm -rf ~/.claude/skills/{crate_name}
@@ -39,6 +42,7 @@ rm -rf ~/.claude/skills/{crate_name}-*  # Remove sub-skills (e.g., tokio-task, t
 ```
 
 **If `--all` flag:**
+
 ```bash
 # Remove all crate skills (be careful not to remove non-crate skills)
 rm -rf ~/.claude/skills/{crate_name}*
@@ -46,7 +50,8 @@ rm -rf ~/.claude/skills/{crate_name}*
 
 **If no arguments:**
 Use AskUserQuestion to ask which crates to remove:
-```
+
+```text
 Which crate skills do you want to remove?
 - tokio
 - serde
@@ -57,14 +62,15 @@ Which crate skills do you want to remove?
 ### 3. Confirm Deletion
 
 Before removing, confirm with user:
-```
+
+```text
 This will remove skills for: tokio, serde
 Continue? (yes/no)
 ```
 
 ### 4. Report Results
 
-```
+```text
 Cleaned skills:
 - tokio - removed
 - serde - removed

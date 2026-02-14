@@ -5,6 +5,7 @@ Fetch crate metadata from lib.rs / crates.io.
 ## Fetch
 
 Use available tools:
+
 - lib.rs (preferred, more info): `lib.rs/crates/<name>`
 - crates.io (fallback): `crates.io/crates/<name>`
 
@@ -17,9 +18,11 @@ Use available tools:
 **Description:** <short>
 
 **Features:**
+
 - `feature1`: desc
 
 **Links:**
+
 - docs.rs | crates.io | repo
 ```
 
@@ -47,6 +50,7 @@ When `negotiation: true`, return structured response per `_negotiation/response-
 | Not found or error | UNCERTAIN |
 
 **Degrading factors:**
+
 - Last update > 2 years: -1 level
 - No README: -1 level
 - Yanked versions: mention in gaps
@@ -80,28 +84,34 @@ When crate usage is unclear, ask:
 ## Negotiation Response
 
 ### Findings
+
 **Crate:** <name>
 **Version:** <version>
 **Description:** <description>
 
 **Features:**
+
 - `feature1`: description
 
 **Dependencies:** [if relevant]
 **Last Updated:** <date>
 
 ### Confidence
+
 - **Level**: [HIGH|MEDIUM|LOW|UNCERTAIN]
 - **Reason**: [e.g., "Found on lib.rs with complete metadata"]
 
 ### Gaps Identified
+
 - [ ] [Specific gap 1]
 - [ ] [Specific gap 2]
 
 ### Context Needed
+
 - Q1: [If ambiguous]
 
 ### Metadata
+
 - **Source**: lib.rs | crates.io | docs.rs
 - **Coverage**: [e.g., "90% - missing changelog"]
 ```

@@ -1,6 +1,6 @@
 ---
 name: m05-type-driven
-description: "CRITICAL: Use for type-driven design. Triggers: type state, PhantomData, newtype, marker trait, builder pattern, make invalid states unrepresentable, compile-time validation, sealed trait, ZST, 类型状态, 新类型模式, 类型驱动设计"
+description: "CRITICAL: Use for type-driven design. Triggers: type state, PhantomData, newtype, marker trait, builder pattern, make invalid states unrepresentable, compile-time validation, sealed trait, ZST"
 user-invocable: false
 ---
 
@@ -13,6 +13,7 @@ user-invocable: false
 **How can the type system prevent invalid states?**
 
 Before reaching for runtime checks:
+
 - Can the compiler catch this error?
 - Can invalid states be unrepresentable?
 - Can the type encode the invariant?
@@ -55,7 +56,7 @@ Before adding runtime validation:
 
 When type design is unclear:
 
-```
+```text
 "Need to validate email format"
     ↑ Ask: Is this a domain value object?
     ↑ Check: m09-domain (Email as Value Object)
@@ -74,7 +75,7 @@ When type design is unclear:
 
 From design to implementation:
 
-```
+```text
 "Need type-safe wrapper for primitives"
     ↓ Newtype: struct UserId(u64);
 

@@ -1,6 +1,6 @@
 ---
 name: m02-resource
-description: "CRITICAL: Use for smart pointers and resource management. Triggers: Box, Rc, Arc, Weak, RefCell, Cell, smart pointer, heap allocation, reference counting, RAII, Drop, should I use Box or Rc, when to use Arc vs Rc, 智能指针, 引用计数, 堆分配"
+description: "CRITICAL: Use for smart pointers and resource management. Triggers: Box, Rc, Arc, Weak, RefCell, Cell, smart pointer, heap allocation, reference counting, RAII, Drop, should I use Box or Rc, when to use Arc vs Rc"
 user-invocable: false
 ---
 
@@ -13,6 +13,7 @@ user-invocable: false
 **What ownership pattern does this resource need?**
 
 Before choosing a smart pointer, understand:
+
 - Is ownership single or shared?
 - Is access single-threaded or multi-threaded?
 - Are there potential cycles?
@@ -53,7 +54,7 @@ Before choosing a smart pointer:
 
 When pointer choice is unclear, trace to design:
 
-```
+```text
 "Should I use Arc or Rc?"
     ↑ Ask: Is this data shared across threads?
     ↑ Check: m07-concurrency (thread model)
@@ -72,7 +73,7 @@ When pointer choice is unclear, trace to design:
 
 From design to implementation:
 
-```
+```text
 "Need single-owner heap data"
     ↓ Use: Box<T>
 
@@ -105,7 +106,7 @@ From design to implementation:
 
 ## Decision Flowchart
 
-```
+```text
 Need heap allocation?
 ├─ Yes → Single owner?
 │        ├─ Yes → Box<T>

@@ -1,6 +1,6 @@
 ---
 name: m14-mental-model
-description: "Use when learning Rust concepts. Keywords: mental model, how to think about ownership, understanding borrow checker, visualizing memory layout, analogy, misconception, explaining ownership, why does Rust, help me understand, confused about, learning Rust, explain like I'm, ELI5, intuition for, coming from Java, coming from Python, 心智模型, 如何理解所有权, 学习 Rust, Rust 入门, 为什么 Rust"
+description: "Use when learning Rust concepts. Keywords: mental model, how to think about ownership, understanding borrow checker, visualizing memory layout, analogy, misconception, explaining ownership, why does Rust, help me understand, confused about, learning Rust, explain like I'm, ELI5, intuition for, coming from Java, coming from Python"
 user-invocable: false
 ---
 
@@ -13,6 +13,7 @@ user-invocable: false
 **What's the right way to think about this Rust concept?**
 
 When learning or explaining Rust:
+
 - What's the correct mental model?
 - What misconceptions should be avoided?
 - What analogies help understanding?
@@ -70,7 +71,7 @@ When confused about Rust:
 
 To design understanding (Layer 2):
 
-```
+```text
 "Why can't I do X in Rust?"
     ↑ Ask: What safety guarantee would be violated?
     ↑ Check: m01-m07 for the rule being enforced
@@ -83,7 +84,7 @@ To design understanding (Layer 2):
 
 To implementation (Layer 1):
 
-```
+```text
 "I understand the concept, now how do I implement?"
     ↓ m01-ownership: Ownership patterns
     ↓ m02-resource: Smart pointer choice
@@ -116,7 +117,7 @@ To implementation (Layer 1):
 
 ## Ownership Visualization
 
-```
+```text
 Stack                          Heap
 +----------------+            +----------------+
 | main()         |            |                |
@@ -132,7 +133,7 @@ After move: s1 is no longer valid
 
 ## Reference Visualization
 
-```
+```text
 +----------------+
 | data: String   |────────────> "hello"
 +----------------+

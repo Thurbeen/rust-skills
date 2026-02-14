@@ -4,7 +4,7 @@ Query Rust coding guidelines and best practices.
 
 ## Usage
 
-```
+```text
 /guideline <query>
 /guideline --clippy <lint>
 ```
@@ -16,7 +16,7 @@ Query Rust coding guidelines and best practices.
 
 ## Examples
 
-```
+```text
 /guideline P.NAM.01          # Get specific rule
 /guideline naming            # Search naming conventions
 /guideline clippy            # Search clippy-related rules
@@ -26,6 +26,7 @@ Query Rust coding guidelines and best practices.
 ## Workflow
 
 ### Standard Query
+
 1. Parse query type (rule ID or keyword)
 2. Check if unsafe-related → route to `unsafe-checker` skill
 3. Search in rules files or rules-index.md
@@ -36,6 +37,7 @@ Query Rust coding guidelines and best practices.
    - Link to full documentation
 
 ### Clippy Lint Query (`--clippy`)
+
 1. Use `clippy-researcher` agent
 2. Look up lint in `clippy-lints/_index.md`
 3. Return:

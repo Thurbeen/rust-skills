@@ -74,7 +74,7 @@ std::thread::spawn(move || {
 
 ---
 
-## Rust vs Java/C#
+## Rust vs Java/C
 
 ### Reference Semantics
 
@@ -161,36 +161,39 @@ for item in &items {
 
 ### From GC Languages (Java, Go, Python)
 
-```
+```text
 Before: "Memory just works, GC handles it"
 After:  "I explicitly decide who owns data and when it's freed"
 ```
 
 Key shifts:
+
 - Think about ownership at design time
 - Returning references requires lifetime thinking
 - No more `null` - use `Option<T>`
 
 ### From C/C++
 
-```
+```text
 Before: "I manually manage memory and hope I get it right"
 After:  "Compiler enforces correctness, I fight the borrow checker"
 ```
 
 Key shifts:
+
 - Trust the compiler's errors
 - Move is the default (unlike C++ copy)
 - Smart pointers are idiomatic, not overhead
 
 ### From Functional Languages (Haskell, ML)
 
-```
+```text
 Before: "Everything is immutable, copying is fine"
 After:  "Mutability is explicit, ownership prevents aliasing"
 ```
 
 Key shifts:
+
 - Mutability is safe because of ownership rules
 - No persistent data structures needed (usually)
 - Performance characteristics are explicit

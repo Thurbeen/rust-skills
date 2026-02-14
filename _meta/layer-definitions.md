@@ -4,7 +4,7 @@
 
 ## Overview
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │  Layer 3: Domain Constraints (WHY)                          │
 │  ├── Business rules, regulatory requirements                │
@@ -55,7 +55,7 @@ The implementation layer dealing with Rust's language features, compiler rules, 
 
 ### Related Skills
 
-```
+```text
 m01-ownership    → Ownership, borrowing, lifetimes
 m02-resource     → Smart pointers, RAII
 m03-mutability   → Interior mutability, Cell/RefCell
@@ -102,7 +102,7 @@ The architectural layer dealing with design patterns, system structure, and trad
 
 ### Related Skills
 
-```
+```text
 m09-domain       → DDD, domain modeling
 m10-performance  → Optimization patterns
 m11-ecosystem    → Crate integration
@@ -149,7 +149,7 @@ The context layer dealing with business rules, regulatory requirements, and doma
 
 ### Related Skills
 
-```
+```text
 domain-fintech   → Financial domain constraints
 domain-web       → Web service constraints
 domain-cli       → CLI application constraints
@@ -171,7 +171,7 @@ domain-cloud-native → Cloud infrastructure constraints
 
 ### Downward Flow (Design Time)
 
-```
+```text
 Layer 3: "Financial transactions must be auditable"
     ↓ implies
 Layer 2: "Use immutable event sourcing pattern"
@@ -181,7 +181,7 @@ Layer 1: "Arc<T> for shared immutable references"
 
 ### Upward Flow (Debug Time)
 
-```
+```text
 Layer 1: "E0382: value moved"
     ↑ asks
 Layer 2: "Why is ownership structured this way?"
@@ -191,7 +191,7 @@ Layer 3: "What domain constraint led to this design?"
 
 ### Bidirectional Flow (Refactor Time)
 
-```
+```text
 Layer 3 ←→ Layer 2 ←→ Layer 1
    "Are current constraints still valid?"
    "Does the design serve the domain?"
@@ -220,18 +220,20 @@ Layer 3 ←→ Layer 2 ←→ Layer 1
 This framework is designed to be extended:
 
 ### For Rust Skills
+
 - Layer 1: Add new m0x skills for new language features
 - Layer 2: Add new m1x skills for new patterns
 - Layer 3: Add new domain-* skills for new domains
 
 ### For Other Languages/Frameworks
+
 - Layer 1: Replace with framework-specific mechanics
 - Layer 2: Keep patterns (mostly language-agnostic)
 - Layer 3: Keep constraints (fully domain-specific)
 
 ### Example: Makepad Extension
 
-```
+```text
 Layer 3: UI domain constraints (60fps, accessibility)
     ↓
 Layer 2: Widget patterns, layout patterns

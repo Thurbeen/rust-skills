@@ -8,7 +8,7 @@ Hooks are automatic triggers that activate meta-cognition processes at key momen
 
 ## Hook Categories
 
-```
+```text
 PreToolUse   → Before executing a tool
 PostToolUse  → After tool execution
 OnError      → When an error occurs
@@ -332,6 +332,7 @@ purpose: Prevent concurrency anti-patterns
 ## Summary
 
 Hooks ensure:
+
 1. **Automatic skill loading** based on context
 2. **Error tracking** and learning
 3. **Context persistence** through file updates

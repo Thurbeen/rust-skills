@@ -91,6 +91,7 @@ When lint query needs clarification:
 ## Negotiation Response
 
 ### Findings
+
 **Lint:** clippy::<lint_name>
 **Level:** warn | deny | allow
 **Category:** correctness | style | complexity | perf | pedantic
@@ -109,17 +110,21 @@ When lint query needs clarification:
 \`\`\`
 
 ### Confidence
+
 - **Level**: [HIGH|MEDIUM|LOW|UNCERTAIN]
 - **Reason**: [e.g., "Official clippy documentation"]
 
 ### Gaps Identified
+
 - [ ] [Specific gap 1]
 - [ ] [Specific gap 2]
 
 ### Context Needed
+
 - Q1: [If ambiguous]
 
 ### Metadata
+
 - **Source**: rust-lang.github.io/rust-clippy
 - **Coverage**: [e.g., "100% - lint fully documented"]
 ```

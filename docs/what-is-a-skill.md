@@ -4,7 +4,7 @@
 
 ## The Wrong Mental Model
 
-```
+```text
 Skill ≠ Knowledge Database
 Skill ≠ Documentation
 Skill ≠ FAQ Collection
@@ -23,7 +23,7 @@ Claude already knows Rust. Teaching it "ownership rules" or "how Arc works" adds
 
 ### Components
 
-```
+```text
 Skill = Routing Logic
       + Reasoning Template
       + Constraint Set
@@ -39,7 +39,7 @@ Skill = Routing Logic
 
 **What it does**: Classifies the problem and determines which thinking mode to activate.
 
-```
+```text
 rust-router:
   "E0382" → Layer 1 entry → m01-ownership
   "Web API" → Layer 3 context → domain-web
@@ -55,9 +55,11 @@ rust-router:
 
 ```markdown
 ## Core Question
-**Who should own this data?**  ← Forces Claude to ASK, not TELL
+
+**Who should own this data?** ← Forces Claude to ASK, not TELL
 
 ## Error → Design Question
+
 | Error | Don't Just Say | Ask Instead |
 | E0382 | "Clone it" | "Who should own this?" |
 ```
@@ -71,6 +73,7 @@ rust-router:
 
 ```markdown
 ## Domain Constraints (domain-web)
+
 | Rule | Constraint | Implication |
 | Stateless HTTP | No request globals | State via extractors |
 | Concurrency | Many connections | Must be Send + Sync |
@@ -85,6 +88,7 @@ rust-router:
 
 ```markdown
 ## Trace Up ↑
+
 When you see Send/Sync error in Web context:
   → Load domain-web
   → Find: "Handlers run on any thread"
@@ -100,6 +104,7 @@ When you see Send/Sync error in Web context:
 
 ```markdown
 ## Decision Flowchart
+
 Need shared data?
 ├─ Yes → Multi-thread?
 │        ├─ Yes → Arc<T>
@@ -118,7 +123,7 @@ Need shared data?
 
 **Purpose**: Provide thinking frameworks for language mechanics.
 
-```
+```text
 m01-ownership: "Who should own this?"
 m02-resource:  "What ownership model?"
 m07-concurrency: "CPU-bound or I/O-bound?"
@@ -130,7 +135,7 @@ These are not "ownership tutorials" but **ownership reasoning protocols**.
 
 **Purpose**: Provide design decision frameworks.
 
-```
+```text
 m09-domain: "How do domain rules become types?"
 m10-performance: "Where are the bottlenecks?"
 m15-anti-pattern: "What cognitive traps to avoid?"
@@ -142,7 +147,7 @@ These are not "design patterns catalog" but **design thinking protocols**.
 
 **Purpose**: Define domain-specific constraints that shape all lower decisions.
 
-```
+```text
 domain-web: "Handlers on any thread" → Forces Arc, not Rc
 domain-fintech: "Audit trail required" → Forces immutability
 domain-embedded: "no_std constraint" → Limits available patterns
@@ -154,7 +159,7 @@ These are not "domain knowledge" but **domain constraint systems**.
 
 **Purpose**: Meta-level routing that orchestrates other skills.
 
-```
+```text
 rust-router:
   1. Identify entry layer
   2. Detect domain context
@@ -170,7 +175,7 @@ This is a **cognitive traffic controller**.
 
 ### Before (No Skills)
 
-```
+```text
 User: "Web API reports Rc cannot be sent"
 
 Claude's thinking:
@@ -181,7 +186,7 @@ Claude's thinking:
 
 ### After (With Skills)
 
-```
+```text
 User: "Web API reports Rc cannot be sent"
 
 Skill-guided thinking:
@@ -206,21 +211,27 @@ Every skill in rust-skills follows this contract:
 > Layer X: Category
 
 ## Core Question
+
 [The meta-question that reframes the problem]
 
 ## Error → Design Question
+
 [Transforms surface symptoms into deeper questions]
 
 ## Trace Up ↑
+
 [When and how to escalate to higher layers]
 
 ## Trace Down ↓
+
 [How to implement from design decisions]
 
 ## Decision Framework
+
 [Trees/tables for making choices, not prescriptions]
 
 ## Anti-Patterns
+
 [What NOT to do, and why]
 ```
 
@@ -279,7 +290,7 @@ impl Skill {
 
 ### Knowledge-Based Approach (Limited)
 
-```
+```text
 Input: E0382
 Output: "Use clone()"
 Result: Compiles, but may be wrong design
@@ -287,7 +298,7 @@ Result: Compiles, but may be wrong design
 
 ### Skill-Based Approach (Powerful)
 
-```
+```text
 Input: E0382 + "Web API" context
 Process:
   1. Route to m01-ownership + domain-web
@@ -319,7 +330,7 @@ Result: Right design for this domain
 
 ## rust-skills Architecture Summary
 
-```
+```text
 ┌─────────────────────────────────────────────────┐
 │                  rust-router                     │
 │         (Cognitive Traffic Controller)           │

@@ -8,6 +8,7 @@ argument-hint: <crate_name> [version]
 Force regenerate a crate skill with the latest documentation.
 
 Arguments: $ARGUMENTS
+
 - `crate_name` (required): The crate to update
 - `version` (optional): Specific version to target
 
@@ -23,7 +24,8 @@ cat ~/.claude/skills/{crate_name}*/SKILL.md | head -20
 ```
 
 Display current version info if exists:
-```
+
+```text
 Current skill:
 - Crate: tokio
 - Version: 1.38.0
@@ -33,6 +35,7 @@ Current skill:
 ### 2. Get Latest Version
 
 If version not provided, fetch latest from crates.io:
+
 ```bash
 cargo search {crate_name} --limit 1
 ```
@@ -47,19 +50,19 @@ rm -rf ~/.claude/skills/{crate_name}*
 
 ### 4. Generate Fresh llms.txt
 
-```
+```text
 /create-llms-for-skills https://docs.rs/{crate_name}/{version}/{crate_name}/
 ```
 
 ### 5. Create Updated Skill
 
-```
+```text
 /create-skills-via-llms {crate_name} {llms_path} {version}
 ```
 
 ### 6. Report Results
 
-```
+```text
 Updated skill:
 - Crate: tokio
 - Old Version: 1.38.0

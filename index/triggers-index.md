@@ -67,37 +67,15 @@ Complete mapping of keywords to skills.
 
 ---
 
-## Chinese Keywords → Skills
-
-| 中文关键词 | Route To |
-|------------|----------|
-| 所有权, 借用, 生命周期 | m01-ownership |
-| 智能指针 | m02-resource |
-| 可变性, 内部可变性 | m03-mutability |
-| 泛型, 特征, 零成本抽象 | m04-zero-cost |
-| 类型状态, 新类型 | m05-type-driven |
-| 错误处理, 结果类型 | m06-error-handling |
-| 并发, 异步, 线程安全 | m07-concurrency |
-| 不安全, FFI | unsafe-checker |
-| 领域模型 | m09-domain |
-| 性能优化, 基准测试 | m10-performance |
-| 生态系统, 依赖 | m11-ecosystem |
-| 资源生命周期, RAII | m12-lifecycle |
-| 领域错误 | m13-domain-error |
-| 心智模型, 如何思考 | m14-mental-model |
-| 反模式, 常见错误 | m15-anti-pattern |
-
----
-
 ## Query Patterns → Actions
 
 | Pattern | Action |
 |---------|--------|
-| "比较 X 和 Y" / "compare" / "vs" | Enable Negotiation Protocol |
-| "最佳实践" / "best practice" | Enable Negotiation Protocol |
-| Domain + Error (e.g., "交易系统 E0382") | Enable Negotiation Protocol |
+| "compare" / "vs" | Enable Negotiation Protocol |
+| "best practice" | Enable Negotiation Protocol |
+| Domain + Error (e.g., "trading system E0382") | Enable Negotiation Protocol |
 | Single error code (e.g., "E0382") | Direct lookup, no negotiation |
-| Single version query (e.g., "tokio 版本") | Direct lookup, no negotiation |
+| Single version query (e.g., "tokio version") | Direct lookup, no negotiation |
 
 ---
 

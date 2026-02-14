@@ -19,7 +19,7 @@
 
 ### Three-Layer Cognitive Model
 
-```
+```text
 ┌─────────────────────────────────────────────────────┐
 │ Layer 3: Domain Constraints (WHY)                   │
 │ ├── domain-fintech: Audit, precision, immutability │
@@ -52,7 +52,7 @@
 
 ### Routing Flow
 
-```
+```text
 User Question
     │
     ▼
@@ -159,7 +159,7 @@ User Question
 
 ### Tool Chain Priority
 
-```
+```text
 1. actionbook MCP    → Pre-computed selectors
 2. agent-browser CLI → Browser automation
 3. WebFetch          → Last resort fallback
@@ -278,8 +278,7 @@ unsafe {
 | Concurrency | async, await, Send, Sync, thread, spawn |
 | Smart Pointers | Box, Rc, Arc, RefCell, Cell, Mutex |
 | Domains | Web API, HTTP, axum, payment, trading, CLI |
-| Chinese | 所有权, 借用, 生命周期, 异步, 并发, 智能指针 |
-| Questions | how to, why, what is, 怎么, 为什么, 如何 |
+| Questions | how to, why, what is, when to, where |
 
 ### Hook Behavior
 
@@ -347,6 +346,7 @@ Not just answering questions, but **tracing through cognitive layers** to provid
 ### 2. Dual-Skill Loading
 
 When domain context detected, automatically loads BOTH:
+
 - Layer 1 skill (mechanics)
 - Layer 3 skill (domain constraints)
 
@@ -373,12 +373,14 @@ Automatically generates crate-specific skills from Cargo.toml dependencies.
 **Question**: "My Web API reports Rc cannot be sent between threads"
 
 **Traditional Answer**:
-```
+
+```text
 Use Arc instead of Rc.
 ```
 
 **Meta-Cognition Answer**:
-```
+
+```text
 ### Reasoning Chain
 +-- Layer 1: Send/Sync Error
 |   Problem: Rc<T> cannot be sent between threads

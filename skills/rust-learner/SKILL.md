@@ -1,6 +1,6 @@
 ---
 name: rust-learner
-description: "Use when asking about Rust versions or crate info. Keywords: latest version, what's new, changelog, Rust 1.x, Rust release, stable, nightly, crate info, crates.io, lib.rs, docs.rs, API documentation, crate features, dependencies, which crate, what version, Rust edition, edition 2021, edition 2024, cargo add, cargo update, 最新版本, 版本号, 稳定版, 最新, 哪个版本, crate 信息, 文档, 依赖, Rust 版本, 新特性, 有什么特性"
+description: "Use when asking about Rust versions or crate info. Keywords: latest version, what's new, changelog, Rust 1.x, Rust release, stable, nightly, crate info, crates.io, lib.rs, docs.rs, API documentation, crate features, dependencies, which crate, what version, Rust edition, edition 2021, edition 2024, cargo add, cargo update"
 allowed-tools: ["Task", "Read", "Glob", "mcp__actionbook__*", "Bash"]
 ---
 
@@ -9,6 +9,7 @@ allowed-tools: ["Task", "Read", "Glob", "mcp__actionbook__*", "Bash"]
 > **Version:** 2.1.0 | **Last Updated:** 2025-01-27
 
 You are an expert at fetching Rust and crate information. Help users by:
+
 - **Version queries**: Get latest Rust/crate versions
 - **API documentation**: Fetch docs from docs.rs
 - **Changelog**: Get Rust version features from releases.rs
@@ -42,7 +43,7 @@ Try to read the agent file for your query type. The execution mode depends on wh
 3. Continue with other work or wait for completion
 4. Summarize results to user
 
-```
+```text
 Task(
   subagent_type: "general-purpose",
   run_in_background: true,
@@ -63,7 +64,8 @@ Task(
 ### Agent Mode Examples
 
 **Crate Version Query:**
-```
+
+```text
 User: "tokio latest version"
 
 Claude:
@@ -74,7 +76,8 @@ Claude:
 ```
 
 **Rust Changelog Query:**
-```
+
+```text
 User: "What's new in Rust 1.85?"
 
 Claude:
@@ -92,7 +95,7 @@ Claude:
 
 ### Crate Info Query
 
-```
+```text
 1. actionbook: mcp__actionbook__search_actions("lib.rs crate info")
 2. Get action details: mcp__actionbook__get_action_by_id(<action_id>)
 3. agent-browser CLI (or WebFetch fallback):
@@ -103,6 +106,7 @@ Claude:
 ```
 
 **Output Format:**
+
 ```markdown
 ## {Crate Name}
 
@@ -110,15 +114,17 @@ Claude:
 **Description:** {description}
 
 **Features:**
+
 - `feature1`: description
 
 **Links:**
+
 - [docs.rs](https://docs.rs/{crate}) | [crates.io](https://crates.io/crates/{crate}) | [repo]({repo_url})
 ```
 
 ### Rust Version Query
 
-```
+```text
 1. actionbook: mcp__actionbook__search_actions("releases.rs rust changelog")
 2. Get action details for selectors
 3. agent-browser CLI (or WebFetch fallback):
@@ -129,25 +135,29 @@ Claude:
 ```
 
 **Output Format:**
+
 ```markdown
 ## Rust 1.{version}
 
 **Release Date:** {date}
 
 ### Language Features
+
 - Feature 1: description
 - Feature 2: description
 
 ### Library Changes
+
 - std::module: new API
 
 ### Stabilized APIs
+
 - `api_name`: description
 ```
 
 ### Std Library Docs (std::*, Send, Sync, Arc, etc.)
 
-```
+```text
 1. Construct URL: "https://doc.rust-lang.org/std/{path}/"
    - Traits: std/{module}/trait.{Name}.html
    - Structs: std/{module}/struct.{Name}.html
@@ -160,6 +170,7 @@ Claude:
 ```
 
 **Common Std Library Paths:**
+
 | Item | Path |
 |------|------|
 | Send, Sync, Copy, Clone | `std/marker/trait.{Name}.html` |
@@ -171,33 +182,40 @@ Claude:
 | String | `std/string/struct.String.html` |
 
 **Output Format:**
-```markdown
+
+````markdown
 ## std::{path}::{Name}
 
 **Signature:**
+
 ```rust
 {signature}
 ```
+````
 
 **Description:**
 {description}
 
 **Examples:**
+
 ```rust
 {example_code}
 ```
-```
+
+```text
 
 ### Third-Party Crate Docs (tokio, serde, etc.)
 
 ```
-1. Construct URL: "https://docs.rs/{crate}/latest/{crate}/{path}"
+
+1. Construct URL: "<https://docs.rs/{crate}/latest/{crate}/{path}>"
 2. agent-browser CLI (or WebFetch fallback):
    - open <url>
    - get text ".docblock"
    - close
 3. Parse and format output
-```
+
+```text
 
 **Output Format:**
 ```markdown
@@ -212,21 +230,25 @@ Claude:
 {description}
 
 **Examples:**
+
 ```rust
 {example_code}
 ```
-```
+
+```text
 
 ### Clippy Lints
 
 ```
+
 1. agent-browser CLI (or WebFetch fallback):
-   - open "https://rust-lang.github.io/rust-clippy/stable/"
+   - open "<https://rust-lang.github.io/rust-clippy/stable/>"
    - search for lint name in page
    - get text ".lint-doc" for matching lint
    - close
 2. Parse and format output
-```
+
+```text
 
 **Output Format:**
 ```markdown
@@ -244,10 +266,12 @@ Claude:
 ```
 
 **Example (Good):**
+
 ```rust
 {good_code}
 ```
-```
+
+```text
 
 ---
 
@@ -270,11 +294,12 @@ Both modes use the same tool chain order:
 
 ### Fallback Principle (CRITICAL)
 
-```
+```text
 actionbook → agent-browser → WebFetch (only if agent-browser unavailable)
 ```
 
 **DO NOT:**
+
 - Skip agent-browser because it's slower
 - Use WebFetch as primary when agent-browser is available
 - Block on WebFetch without trying agent-browser first
@@ -302,6 +327,7 @@ actionbook → agent-browser → WebFetch (only if agent-browser unavailable)
 ## Proactive Triggering
 
 This skill triggers AUTOMATICALLY when:
+
 - Any Rust crate name mentioned (tokio, serde, axum, sqlx, etc.)
 - Questions about "latest", "new", "version", "changelog"
 - API documentation requests

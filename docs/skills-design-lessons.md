@@ -6,7 +6,7 @@
 
 **Skills are not knowledge databases. They are cognitive scaffolds.**
 
-```
+```text
 Traditional approach:
   User Question → Search Knowledge → Return Answer
 
@@ -22,7 +22,7 @@ The real value is not teaching Claude facts (it already knows Rust), but providi
 
 ### Architecture
 
-```
+```text
 Layer 3: Domain Constraints (WHY)
 ├── Business rules, regulatory requirements, SLAs
 ├── domain-fintech, domain-web, domain-cli, etc.
@@ -51,7 +51,7 @@ Layer 1: Language Mechanics (HOW)
 
 **Don't stop at Layer 1.**
 
-```
+```text
 Bad:  E0382 → "Use .clone()"
 Good: E0382 → Why ownership error? → Domain constraint? → Design pattern → Implementation
 ```
@@ -124,7 +124,7 @@ description: "CRITICAL: Use for [purpose]. Triggers on: keyword1, keyword2, keyw
 
 ### Flat Structure Required
 
-```
+```text
 skills/
 ├── m01-ownership/SKILL.md     # Layer 1
 ├── m02-resource/SKILL.md
@@ -141,7 +141,8 @@ skills/
 ```
 
 **DO NOT nest skills:**
-```
+
+```text
 # Wrong
 skills/domains/fintech/SKILL.md
 skills/core/actionbook/SKILL.md
@@ -194,7 +195,7 @@ skills/core-actionbook/SKILL.md
 
 ### Domain Detection in Hook
 
-```
+```text
 | Keywords in Question | Domain Skill to Load |
 |---------------------|---------------------|
 | Web API, HTTP, axum | domain-web |
@@ -219,7 +220,7 @@ The router is the entry point for ALL Rust questions:
 
 **CRITICAL**: When domain context is present, load BOTH:
 
-```
+```text
 Question: "Web API config error: Rc cannot be sent"
 
 Load:
@@ -233,16 +234,19 @@ Answer must reference BOTH layers.
 
 ```markdown
 ### Reasoning Chain
+
 +-- Layer 1: [error]
-|       ^
+| ^
 +-- Layer 3: [domain constraint]
-|       v
+| v
 +-- Layer 2: [design decision]
 
 ### Domain Constraints Analysis
+
 [Reference specific rules from domain skill]
 
 ### Recommended Solution
+
 [Code following domain best practices]
 ```
 
@@ -253,6 +257,7 @@ Answer must reference BOTH layers.
 ### 1. Skills Are Thinking Frameworks, Not Knowledge Bases
 
 Claude already knows Rust. Skills provide:
+
 - Structured reasoning paths
 - Domain-specific constraints
 - Decision frameworks
@@ -265,6 +270,7 @@ Hook must **mandate** tracing through all relevant layers.
 ### 3. Domain Detection Is Critical
 
 The same error (E0382) has different solutions in different domains:
+
 - Web: Arc<T> + State extractor
 - Fintech: Arc<T> for audit trail
 - CLI: Maybe Rc<T> is fine (single-thread)
@@ -282,14 +288,15 @@ Nested structures (`skills/domains/web/`) won't be registered.
 ### 6. Keyword Matching Matters
 
 Skills need comprehensive trigger keywords:
+
 - Error codes (E0382, E0597)
-- English terms (ownership, borrow)
-- Chinese terms (所有权, 借用)
+- Technical terms (ownership, borrow)
 - Domain terms (Web API, axum)
 
 ### 7. Examples Are Essential
 
 Both in skills and hooks:
+
 - Show CORRECT response format
 - Show WRONG response to avoid
 - Include complete reasoning chain
@@ -297,6 +304,7 @@ Both in skills and hooks:
 ### 8. Internal Skills Need Different Treatment
 
 Internal/utility skills should NOT auto-trigger:
+
 ```yaml
 # No description = won't auto-trigger
 name: core-actionbook
@@ -311,7 +319,9 @@ name: core-actionbook
 
 ```markdown
 # Bad: Just facts
+
 ## Ownership Rules
+
 1. Each value has one owner
 2. When owner goes out of scope, value is dropped
 ...
@@ -321,7 +331,9 @@ name: core-actionbook
 
 ```markdown
 # Bad: No trace up/down
+
 ## Quick Reference
+
 | Error | Fix |
 | E0382 | Clone it |
 ```
@@ -330,18 +342,20 @@ name: core-actionbook
 
 ```markdown
 # Bad: Too vague
+
 Trace Up: Check domain-* skills
 ```
 
 ```markdown
 # Good: Specific
+
 | Context | Load | Key Constraint |
 | Web API | domain-web | Handlers on any thread |
 ```
 
 ### 4. Stopping at Layer 1
 
-```
+```text
 # Bad answer
 Problem: Rc is not Send
 Solution: Use Arc
@@ -387,7 +401,7 @@ Solution: [follows Web best practices]
 
 ### Manual Test
 
-```
+```text
 Question: "My Web API reports Rc cannot be sent between threads"
 
 Expected:

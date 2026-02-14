@@ -1,6 +1,6 @@
 ---
 name: rust-trait-explorer
-description: "Explore Rust trait implementations using LSP. Triggers on: /trait-impl, find implementations, who implements, trait 实现, 谁实现了, 实现了哪些trait"
+description: "Explore Rust trait implementations using LSP. Triggers on: /trait-impl, find implementations, who implements"
 argument-hint: "<TraitName|StructName>"
 allowed-tools: ["LSP", "Read", "Glob", "Grep"]
 ---
@@ -11,11 +11,12 @@ Discover trait implementations and understand polymorphic designs.
 
 ## Usage
 
-```
+```text
 /rust-trait-explorer <TraitName|StructName>
 ```
 
 **Examples:**
+
 - `/rust-trait-explorer Handler` - Find all implementors of Handler trait
 - `/rust-trait-explorer MyStruct` - Find all traits implemented by MyStruct
 
@@ -25,7 +26,7 @@ Discover trait implementations and understand polymorphic designs.
 
 Find all implementations of a trait.
 
-```
+```text
 LSP(
   operation: "goToImplementation",
   filePath: "src/traits.rs",
@@ -35,6 +36,7 @@ LSP(
 ```
 
 **Use when:**
+
 - Trait name is known
 - Want to find all implementors
 - Understanding polymorphic code
@@ -43,7 +45,7 @@ LSP(
 
 ### Find Trait Implementors
 
-```
+```text
 User: "Who implements the Handler trait?"
     │
     ▼
@@ -64,7 +66,7 @@ User: "Who implements the Handler trait?"
 
 ### Find Traits for a Type
 
-```
+```text
 User: "What traits does MyStruct implement?"
     │
     ▼
@@ -85,7 +87,7 @@ User: "What traits does MyStruct implement?"
 
 ### Trait Implementors
 
-```
+```text
 ## Implementations of `Handler`
 
 **Trait defined at:** src/traits.rs:15
@@ -137,7 +139,7 @@ impl Handler for ApiHandler {
 
 ### Traits for a Type
 
-```
+```text
 ## Traits implemented by `User`
 
 **Struct defined at:** src/models/user.rs:10
@@ -181,7 +183,7 @@ User
 
 ## Trait Hierarchy Visualization
 
-```
+```text
 ## Trait Hierarchy
 
                     ┌─────────────┐
@@ -203,7 +205,7 @@ User
 
 ### Coverage Check
 
-```
+```text
 ## Trait Implementation Coverage
 
 Trait: Handler (3 required methods)
@@ -217,7 +219,7 @@ Trait: Handler (3 required methods)
 
 ### Blanket Implementations
 
-```
+```text
 ## Blanket Implementations
 
 The following blanket impls may apply to your types:

@@ -1,6 +1,6 @@
 ---
 name: domain-web
-description: "Use when building web services. Keywords: web server, HTTP, REST API, GraphQL, WebSocket, axum, actix, warp, rocket, tower, hyper, reqwest, middleware, router, handler, extractor, state management, authentication, authorization, JWT, session, cookie, CORS, rate limiting, web 开发, HTTP 服务, API 设计, 中间件, 路由"
+description: "Use when building web services. Keywords: web server, HTTP, REST API, GraphQL, WebSocket, axum, actix, warp, rocket, tower, hyper, reqwest, middleware, router, handler, extractor, state management, authentication, authorization, JWT, session, cookie, CORS, rate limiting"
 globs: ["**/Cargo.toml"]
 user-invocable: false
 ---
@@ -25,7 +25,7 @@ user-invocable: false
 
 ### Async by Default
 
-```
+```text
 RULE: Web handlers must not block
 WHY: Block one task = block many requests
 RUST: async/await, spawn_blocking for CPU work
@@ -33,7 +33,7 @@ RUST: async/await, spawn_blocking for CPU work
 
 ### State Management
 
-```
+```text
 RULE: Shared state must be thread-safe
 WHY: Handlers run on any thread
 RUST: Arc<T>, Arc<RwLock<T>> for mutable
@@ -41,7 +41,7 @@ RUST: Arc<T>, Arc<RwLock<T>> for mutable
 
 ### Request Lifecycle
 
-```
+```text
 RULE: Resources live only for request duration
 WHY: Memory management, no leaks
 RUST: Extractors, proper ownership
@@ -53,7 +53,7 @@ RUST: Extractors, proper ownership
 
 From constraints to design (Layer 2):
 
-```
+```text
 "Need shared application state"
     ↓ m07-concurrency: Use Arc for thread-safe sharing
     ↓ m02-resource: Arc<RwLock<T>> for mutable state

@@ -8,6 +8,7 @@ argument-hint: [--verbose]
 Show the status of cached Rust documentation.
 
 Arguments: $ARGUMENTS
+
 - `--verbose`: Show detailed file list
 
 ---
@@ -83,7 +84,7 @@ done
 
 ## Output Format
 
-```
+```text
 === Rust Docs Cache Status ===
 
 Location: ~/.claude/cache/rust-docs

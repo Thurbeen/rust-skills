@@ -113,7 +113,7 @@ fn example() {
 
 ## Trampoline Pattern
 
-```
+```text
 Rust Closure: |x| x * captured_value
      |
      v

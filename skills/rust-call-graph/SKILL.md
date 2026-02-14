@@ -1,6 +1,6 @@
 ---
 name: rust-call-graph
-description: "Visualize Rust function call graphs using LSP. Triggers on: /call-graph, call hierarchy, who calls, what calls, 调用图, 调用关系, 谁调用了, 调用了谁"
+description: "Visualize Rust function call graphs using LSP. Triggers on: /call-graph, call hierarchy, who calls, what calls"
 argument-hint: "<function_name> [--depth N] [--direction in|out|both]"
 allowed-tools: ["LSP", "Read", "Glob"]
 ---
@@ -11,15 +11,17 @@ Visualize function call relationships using LSP call hierarchy.
 
 ## Usage
 
-```
+```text
 /rust-call-graph <function_name> [--depth N] [--direction in|out|both]
 ```
 
 **Options:**
+
 - `--depth N`: How many levels to traverse (default: 3)
 - `--direction`: `in` (callers), `out` (callees), `both`
 
 **Examples:**
+
 - `/rust-call-graph process_request` - Show both callers and callees
 - `/rust-call-graph handle_error --direction in` - Show only callers
 - `/rust-call-graph main --direction out --depth 5` - Deep callee analysis
@@ -30,7 +32,7 @@ Visualize function call relationships using LSP call hierarchy.
 
 Get the call hierarchy item for a function.
 
-```
+```text
 LSP(
   operation: "prepareCallHierarchy",
   filePath: "src/handler.rs",
@@ -41,7 +43,7 @@ LSP(
 
 ### 2. Incoming Calls (Who calls this?)
 
-```
+```text
 LSP(
   operation: "incomingCalls",
   filePath: "src/handler.rs",
@@ -52,7 +54,7 @@ LSP(
 
 ### 3. Outgoing Calls (What does this call?)
 
-```
+```text
 LSP(
   operation: "outgoingCalls",
   filePath: "src/handler.rs",
@@ -63,7 +65,7 @@ LSP(
 
 ## Workflow
 
-```
+```text
 User: "Show call graph for process_request"
     │
     ▼
@@ -93,7 +95,7 @@ User: "Show call graph for process_request"
 
 ### Incoming Calls (Who calls this?)
 
-```
+```text
 ## Callers of `process_request`
 
 main
@@ -104,7 +106,7 @@ main
 
 ### Outgoing Calls (What does this call?)
 
-```
+```text
 ## Callees of `process_request`
 
 process_request  ◄── YOU ARE HERE
@@ -121,7 +123,7 @@ process_request  ◄── YOU ARE HERE
 
 ### Bidirectional (Both)
 
-```
+```text
 ## Call Graph for `process_request`
 
                     ┌─────────────────┐
@@ -153,7 +155,7 @@ process_request  ◄── YOU ARE HERE
 
 After generating the call graph, provide insights:
 
-```
+```text
 ## Analysis
 
 **Entry Points:** main, test_process_request

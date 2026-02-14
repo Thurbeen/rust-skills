@@ -1,6 +1,6 @@
 ---
 name: rust-skill-creator
-description: "Use when creating skills for Rust crates or std library documentation. Keywords: create rust skill, create crate skill, create std skill, 创建 rust skill, 创建 crate skill, 创建 std skill, 动态 rust skill, 动态 crate skill, skill for tokio, skill for serde, skill for axum, generate rust skill, rust 技能, crate 技能, 从文档创建skill, from docs create skill"
+description: "Use when creating skills for Rust crates or std library documentation. Keywords: create rust skill, create crate skill, create std skill, skill for tokio, skill for serde, skill for axum, generate rust skill, from docs create skill"
 argument-hint: "<crate_name|std::module>"
 context: fork
 agent: general-purpose
@@ -15,6 +15,7 @@ agent: general-purpose
 ## When to Use
 
 This skill handles requests to create skills for:
+
 - Third-party crates (tokio, serde, axum, etc.)
 - Rust standard library (std::sync, std::marker, etc.)
 - Any Rust documentation URL
@@ -24,6 +25,7 @@ This skill handles requests to create skills for:
 **CRITICAL: Check if related commands/skills are available.**
 
 This skill relies on:
+
 - `/create-llms-for-skills` command
 - `/create-skills-via-llms` command
 
@@ -47,7 +49,7 @@ This skill relies on:
 
 Use the `/create-llms-for-skills` command:
 
-```
+```text
 /create-llms-for-skills <url> [requirements]
 ```
 
@@ -68,7 +70,7 @@ Use the `/create-llms-for-skills` command:
 
 After llms.txt is generated, use:
 
-```
+```text
 /create-skills-via-llms <crate_name> <llms_path> [version]
 ```
 
@@ -98,7 +100,8 @@ agent-browser close
 ```
 
 **Or with WebFetch fallback:**
-```
+
+```text
 WebFetch("<documentation_url>", "Extract API documentation including types, functions, and examples")
 ```
 
@@ -113,7 +116,7 @@ mkdir -p ~/.claude/skills/{crate_name}/references
 
 Create `~/.claude/skills/{crate_name}/SKILL.md` with this template:
 
-```markdown
+````markdown
 ---
 name: {crate_name}
 description: "Documentation for {crate_name} crate. Keywords: {keywords}"
@@ -130,9 +133,11 @@ description: "Documentation for {crate_name} crate. Keywords: {keywords}"
 ## Key Types
 
 ### {Type1}
+
 {Description and usage}
 
 ### {Type2}
+
 {Description and usage}
 
 ## Common Patterns
@@ -144,6 +149,7 @@ description: "Documentation for {crate_name} crate. Keywords: {keywords}"
 ```rust
 {Example code from documentation}
 ```
+````
 
 ## Documentation
 
@@ -154,7 +160,8 @@ description: "Documentation for {crate_name} crate. Keywords: {keywords}"
 
 - [docs.rs](https://docs.rs/{crate})
 - [crates.io](https://crates.io/crates/{crate})
-```
+
+```text
 
 ### Step 5: Generate Reference Files
 
@@ -207,7 +214,7 @@ cat ~/.claude/skills/{crate_name}/SKILL.md
 
 ### Example 1: Create Crate Skill (Agent Mode)
 
-```
+```text
 User: "Create a dynamic skill for tokio"
 
 Claude:
@@ -219,7 +226,7 @@ Claude:
 
 ### Example 2: Create Crate Skill (Inline Mode)
 
-```
+```text
 User: "Create a dynamic skill for tokio"
 
 Claude:
@@ -233,7 +240,7 @@ Claude:
 
 ### Example 3: Create Std Library Skill
 
-```
+```text
 User: "Create a skill for Send and Sync traits"
 
 Claude:

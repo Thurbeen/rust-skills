@@ -4,7 +4,7 @@
 
 ## Core Insight
 
-```
+```text
 Context Window = RAM (volatile, limited)
 Filesystem = Disk (persistent, unlimited)
 
@@ -15,7 +15,7 @@ Filesystem = Disk (persistent, unlimited)
 
 For complex problems, create a reasoning directory:
 
-```
+```text
 _reasoning/
 ├── trace.md      # Layer tracing record
 ├── findings.md   # Discovered constraints and patterns
@@ -43,32 +43,41 @@ _reasoning/
 # Reasoning Trace
 
 ## Entry Point
+
 - Signal: [error code / question type]
 - Layer: [1/2/3]
 
 ## Trace UP ↑ (if applicable)
+
 ### Layer 1 → Layer 2
+
 - Question: What design choice led to this?
 - Finding: [discovered pattern]
 
 ### Layer 2 → Layer 3
+
 - Question: What domain constraint requires this?
 - Finding: [discovered constraint]
 
 ## Trace DOWN ↓ (if applicable)
+
 ### Layer 3 → Layer 2
+
 - Constraint: [domain rule]
 - Implication: [design choice]
 
 ### Layer 2 → Layer 1
+
 - Pattern: [chosen design]
 - Implementation: [Rust approach]
 
 ## Attempts
+
 1. [First attempt] - [result]
 2. [Second attempt] - [result]
 
 ## Current Status
+
 - [ ] Problem understood
 - [ ] Root cause identified
 - [ ] Solution designed
@@ -82,22 +91,27 @@ _reasoning/
 # Findings
 
 ## Domain Constraints (Layer 3)
+
 - [constraint 1]
 - [constraint 2]
 
 ## Design Patterns (Layer 2)
+
 - [pattern 1]: [why appropriate]
 - [pattern 2]: [why not appropriate]
 
 ## Implementation Details (Layer 1)
+
 - [mechanism 1]: [how it applies]
 - [mechanism 2]: [how it applies]
 
 ## Cross-References
+
 - Skill: [skill name] - [relevant section]
 - Docs: [link] - [relevant info]
 
 ## Trade-offs Identified
+
 | Option | Pros | Cons |
 |--------|------|------|
 | A | | |
@@ -110,26 +124,34 @@ _reasoning/
 # Decision Record
 
 ## Context
+
 [Brief description of the problem]
 
 ## Decision
+
 [What was decided]
 
 ## Rationale
+
 ### Layer 3 (Domain)
+
 [Why this fits domain constraints]
 
 ### Layer 2 (Design)
+
 [Why this pattern was chosen]
 
 ### Layer 1 (Implementation)
+
 [How this is implemented in Rust]
 
 ## Consequences
+
 - Positive: [benefits]
 - Negative: [trade-offs accepted]
 
 ## Alternatives Rejected
+
 - [Alternative 1]: [why rejected]
 - [Alternative 2]: [why rejected]
 ```
@@ -143,6 +165,7 @@ _reasoning/
 ### Why?
 
 Prevents information loss when:
+
 - Context resets
 - Multi-modal information (code, errors, docs) accumulates
 - Reasoning chain becomes long
@@ -158,7 +181,7 @@ Prevents information loss when:
 
 ### Implementation
 
-```
+```text
 Operation 1: cargo build → error
 Operation 2: read error, identify issue
 → UPDATE: Add to trace.md
@@ -180,7 +203,7 @@ Operation 6: implement pattern
 
 Before key decisions, re-read relevant files:
 
-```
+```text
 Before writing code:
 1. Re-read trace.md (current understanding)
 2. Re-read findings.md (constraints identified)
@@ -191,7 +214,7 @@ Before writing code:
 
 After key actions, update files:
 
-```
+```text
 After running code:
 1. Record result in trace.md
 2. Update findings.md if new info learned
@@ -221,12 +244,14 @@ After running code:
 ## Error Log (in trace.md)
 
 ### Error 1
+
 - Time: [when]
 - Error: [full error message]
 - Analysis: [what went wrong]
 - Fix: [how resolved]
 
 ### Error 2
+
 - Time: [when]
 - Error: [full error message]
 - Analysis: [what went wrong]
@@ -261,6 +286,7 @@ Use external files as "saved registers":
 ### Retrieval Strategy
 
 When context feels "lost":
+
 1. Read trace.md to restore state
 2. Read findings.md to recall constraints
 3. Read decision.md to remember choices
@@ -281,7 +307,7 @@ When context feels "lost":
 
 ### Skill → File Flow
 
-```
+```text
 Read Skill
     ↓
 Extract relevant patterns/rules
@@ -298,17 +324,20 @@ Document in decision.md
 ## Summary Checklist
 
 Before complex problem-solving:
+
 - [ ] Create _reasoning/ directory
 - [ ] Initialize trace.md with entry point
 - [ ] Identify relevant skills to read
 
 During problem-solving:
+
 - [ ] Update trace.md every 2 operations
 - [ ] Record findings in findings.md
 - [ ] Keep errors in trace.md (don't hide)
 - [ ] Re-read files at refresh points
 
 After problem-solving:
+
 - [ ] Complete decision.md with rationale
 - [ ] Review trace.md for learning
 - [ ] Archive or clean up _reasoning/

@@ -15,11 +15,12 @@ Check and fix missing reference files in dynamic skills.
 
 ## Usage
 
-```
+```text
 /fix-skill-docs [crate_name] [--check-only] [--remove-invalid]
 ```
 
 **Arguments:**
+
 - `crate_name`: Specific crate to check (optional, defaults to all)
 - `--check-only`: Only report issues, don't fix
 - `--remove-invalid`: Remove invalid references instead of creating files
@@ -29,6 +30,7 @@ Check and fix missing reference files in dynamic skills.
 **CRITICAL: Check if agent infrastructure is available.**
 
 This skill can run in two modes:
+
 - **Agent Mode**: Uses background agents for documentation fetching
 - **Inline Mode**: Executes directly using agent-browser CLI or WebFetch
 
@@ -58,6 +60,7 @@ Extract referenced files from Documentation section:
 
 ```markdown
 ## Documentation
+
 - `./references/file1.md` - Description
 ```
 
@@ -71,7 +74,7 @@ fi
 
 #### 4. Report Status
 
-```
+```text
 === {crate_name} ===
 SKILL.md: OK
 references/:
@@ -85,7 +88,7 @@ Action needed: 1 file missing
 
 Launch background agent to fetch documentation:
 
-```
+```text
 Task(
   subagent_type: "general-purpose",
   run_in_background: true,
@@ -138,7 +141,8 @@ done
 ### Step 4: Report Status
 
 Output format:
-```
+
+```text
 === {crate_name} ===
 SKILL.md: OK
 references/:
@@ -153,6 +157,7 @@ Action needed: 1 file missing
 For each missing file:
 
 **Using agent-browser CLI:**
+
 ```bash
 agent-browser open "https://docs.rs/{crate_name}/latest/{crate_name}/{module}/"
 agent-browser get text ".docblock"
@@ -161,12 +166,14 @@ agent-browser close
 ```
 
 **Using WebFetch fallback:**
-```
+
+```text
 WebFetch("https://docs.rs/{crate_name}/latest/{crate_name}/{module}/",
          "Extract the main documentation content for this module")
 ```
 
 Then write the content:
+
 ```bash
 Write("~/.claude/skills/{crate_name}/references/{module}.md", <fetched_content>)
 ```

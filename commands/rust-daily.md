@@ -8,6 +8,7 @@ argument-hint: [day|week|month] [--category ecosystem|official|foundation] [--sa
 Generate a summarized report of Rust news from multiple sources.
 
 Arguments: $ARGUMENTS
+
 - `time_range` (optional): `day` | `week` | `month` (default: `week`)
 - `--category` (optional): `ecosystem` | `official` | `foundation` | `all` (default: `all`)
 - `--save` (optional): Save report to file. If path not specified, saves to `~/Documents/reports/rust-daily/`
@@ -28,7 +29,7 @@ Arguments: $ARGUMENTS
 
 ### 1. Parse Arguments
 
-```
+```text
 /rust-daily              → week, all categories, display only
 /rust-daily day          → last 24 hours, all
 /rust-daily week         → last 7 days, all
@@ -57,7 +58,7 @@ cache_file=${cache_dir}/report-{date}-{time_range}-{category}.json
 
 Do NOT assume agent-browser is unavailable. It IS installed at `/opt/homebrew/bin/agent-browser`.
 
-```
+```text
 ┌─────────────────────────────────────────────────────────┐
 │  FOR EACH SOURCE:                                       │
 │                                                         │
@@ -74,7 +75,7 @@ Do NOT assume agent-browser is unavailable. It IS installed at `/opt/homebrew/bi
 
 **Use the Bash tool to execute these commands:**
 
-```
+```text
 Bash("agent-browser open 'https://www.reddit.com/r/rust/top/?t=day'")
 Bash("agent-browser get text '[data-testid=\"post-container\"]' --limit 15")
 Bash("agent-browser close")
@@ -86,7 +87,7 @@ Reddit requires JavaScript. WebFetch will fail. Only mark unavailable if Bash co
 
 **Use the Bash tool:**
 
-```
+```text
 Bash("agent-browser open 'https://this-week-in-rust.org/'")
 Bash("agent-browser get text '.post-content'")
 Bash("agent-browser close")
@@ -98,7 +99,7 @@ If Bash fails → Use WebFetch tool
 
 **Use the Bash tool:**
 
-```
+```text
 Bash("agent-browser open 'https://blog.rust-lang.org/'")
 Bash("agent-browser get text '.post-list'")
 Bash("agent-browser close")
@@ -110,7 +111,7 @@ If Bash fails → Use WebFetch tool
 
 **Use the Bash tool:**
 
-```
+```text
 Bash("agent-browser open 'https://foundation.rust-lang.org/news/'")
 Bash("agent-browser get text '.news-list'")
 Bash("agent-browser close")
@@ -127,6 +128,7 @@ If Bash fails → Use WebFetch tool
 ### 4. Format Output
 
 **CRITICAL: Every item MUST include:**
+
 1. ✅ Real source link (not fabricated)
 2. ✅ Key takeaway summary (1-2 sentences)
 3. ✅ Engagement metrics (upvotes, comments)
@@ -158,13 +160,15 @@ Display the report in markdown format:
 ### Reddit r/rust
 
 #### 1. {Post Title}
-- **Link:** https://reddit.com/r/rust/comments/{id}
+
+- **Link:** <https://reddit.com/r/rust/comments/{id}>
 - **Score:** {upvotes} ⬆️ | **Comments:** {comments} 💬 | **Posted:** {time_ago}
 - **Author:** u/{username}
 - **Key Takeaway:** {1-2 sentence summary of why this matters}
 - **Tags:** `{tag1}` `{tag2}`
 
 #### 2. {Post Title}
+
 - **Link:** {real_url}
 - **Score:** {upvotes} ⬆️ | **Comments:** {comments} 💬 | **Posted:** {time_ago}
 - **Key Takeaway:** {summary}
@@ -172,13 +176,15 @@ Display the report in markdown format:
 {... more posts}
 
 ### This Week in Rust #{issue_number}
-- **Link:** https://this-week-in-rust.org/blog/{date}/this-week-in-rust-{number}/
+
+- **Link:** <https://this-week-in-rust.org/blog/{date}/this-week-in-rust-{number}/>
 - **Published:** {date}
 
 **Crate of the Week:** [{crate_name}]({crates.io_link})
 > {why it was selected}
 
 **Notable Updates:**
+
 | Item | Summary | Link |
 |------|---------|------|
 | {title} | {key_takeaway} | [→]({url}) |
@@ -190,7 +196,8 @@ Display the report in markdown format:
 ### Rust Blog
 
 #### {Post Title}
-- **Link:** https://blog.rust-lang.org/{path}
+
+- **Link:** <https://blog.rust-lang.org/{path}>
 - **Published:** {date}
 - **Key Takeaway:** {what this means for Rust developers}
 - **Action Required:** {yes/no - what users should do}
@@ -198,7 +205,8 @@ Display the report in markdown format:
 ### Inside Rust Blog
 
 #### {Post Title}
-- **Link:** https://blog.rust-lang.org/inside-rust/{path}
+
+- **Link:** <https://blog.rust-lang.org/inside-rust/{path}>
 - **Published:** {date}
 - **Key Takeaway:** {summary}
 - **Relevant Teams:** {compiler, lang, libs, etc.}
@@ -210,7 +218,8 @@ Display the report in markdown format:
 ### News & Announcements
 
 #### {Title}
-- **Link:** https://foundation.rust-lang.org/news/{path}
+
+- **Link:** <https://foundation.rust-lang.org/news/{path}>
 - **Published:** {date}
 - **Key Takeaway:** {impact on Rust ecosystem}
 
@@ -237,10 +246,12 @@ Based on engagement and discussion volume:
 ## 💡 AI Analysis
 
 **Key Themes This {Period}:**
+
 - {theme 1 with context}
 - {theme 2 with context}
 
 **What to Watch:**
+
 - {upcoming event or trend to monitor}
 
 **Community Sentiment:** {positive/neutral/mixed} - {brief explanation}
@@ -285,12 +296,13 @@ Write("$filename", "{report_content}")
 
 **Use the Write tool to save the report:**
 
-```
+```text
 Write("{save_dir}/{date}-rust-{time_range}.md", "{full_report_markdown}")
 ```
 
 After saving, inform user:
-```
+
+```text
 ✅ Report saved to: {filename}
 ```
 
@@ -370,27 +382,31 @@ mkdir -p ~/.claude/cache/rust-daily/
 ### Reddit r/rust
 
 #### 1. Tokio 2.0 Released with Major Performance Improvements
-- **Link:** https://reddit.com/r/rust/comments/abc123
+
+- **Link:** <https://reddit.com/r/rust/comments/abc123>
 - **Score:** 542 ⬆️ | **Comments:** 89 💬 | **Posted:** 6 hours ago
 - **Author:** u/tokio_maintainer
 - **Key Takeaway:** Tokio 2.0 brings 40% better throughput and simplified APIs. If you're using async Rust, this is a must-upgrade with mostly backward-compatible changes.
 - **Tags:** `async` `tokio` `release`
 
 #### 2. Why I Switched My Company from Go to Rust
-- **Link:** https://reddit.com/r/rust/comments/def456
+
+- **Link:** <https://reddit.com/r/rust/comments/def456>
 - **Score:** 423 ⬆️ | **Comments:** 156 💬 | **Posted:** 12 hours ago
 - **Author:** u/startup_cto
 - **Key Takeaway:** Real-world experience report showing 60% reduction in production bugs after migrating. Key challenges were learning curve and compile times, but reliability gains outweighed costs.
 - **Tags:** `experience-report` `go-comparison` `production`
 
 ### This Week in Rust #634
-- **Link:** https://this-week-in-rust.org/blog/2026/01/14/this-week-in-rust-634/
+
+- **Link:** <https://this-week-in-rust.org/blog/2026/01/14/this-week-in-rust-634/>
 - **Published:** 2026-01-14
 
 **Crate of the Week:** [axum](https://crates.io/crates/axum)
 > Selected for its elegant API design and strong ecosystem integration with tower middleware.
 
 **Notable Updates:**
+
 | Item | Summary | Link |
 |------|---------|------|
 | Rust 1.85 beta | New async closures stabilized | [→](https://blog.rust-lang.org) |
@@ -403,7 +419,8 @@ mkdir -p ~/.claude/cache/rust-daily/
 ### Rust Blog
 
 #### Announcing Rust 1.85.0
-- **Link:** https://blog.rust-lang.org/2026/01/15/Rust-1.85.0.html
+
+- **Link:** <https://blog.rust-lang.org/2026/01/15/Rust-1.85.0.html>
 - **Published:** 2026-01-15
 - **Key Takeaway:** Async closures are now stable! This enables more ergonomic async code patterns. Also includes improved compile times for large projects.
 - **Action Required:** Yes - update with `rustup update stable`
@@ -411,7 +428,8 @@ mkdir -p ~/.claude/cache/rust-daily/
 ### Inside Rust Blog
 
 #### Lang Team Design Meeting: Edition 2027 Planning
-- **Link:** https://blog.rust-lang.org/inside-rust/2026/01/14/lang-meeting.html
+
+- **Link:** <https://blog.rust-lang.org/inside-rust/2026/01/14/lang-meeting.html>
 - **Published:** 2026-01-14
 - **Key Takeaway:** Early discussions on potential Edition 2027 features including keyword generics and effect systems.
 - **Relevant Teams:** lang, compiler
@@ -423,7 +441,8 @@ mkdir -p ~/.claude/cache/rust-daily/
 ### News & Announcements
 
 #### Google Joins as Platinum Member
-- **Link:** https://foundation.rust-lang.org/news/2026-01-13-google-platinum/
+
+- **Link:** <https://foundation.rust-lang.org/news/2026-01-13-google-platinum/>
 - **Published:** 2026-01-13
 - **Key Takeaway:** $2M annual commitment will fund security audits and compiler infrastructure. Shows continued enterprise investment in Rust.
 
@@ -449,10 +468,12 @@ mkdir -p ~/.claude/cache/rust-daily/
 ## 💡 AI Analysis
 
 **Key Themes This Period:**
+
 - Async Rust reaching new maturity level with Tokio 2.0 and language improvements
 - Increasing enterprise adoption evidenced by Foundation membership and experience reports
 
 **What to Watch:**
+
 - Edition 2027 discussions starting - may influence long-term project planning
 
 **Community Sentiment:** Positive - excitement about async improvements and ecosystem growth
@@ -467,7 +488,7 @@ mkdir -p ~/.claude/cache/rust-daily/
 
 ## Tool Priority
 
-```
+```text
 ┌────────────────────────────────────────────────────┐
 │  1. agent-browser CLI  ←── PRIMARY (always first) │
 │  2. WebFetch           ←── FALLBACK (static only) │
@@ -483,6 +504,7 @@ mkdir -p ~/.claude/cache/rust-daily/
 | Foundation | ✅ First | ✅ Fallback | ❌ Never |
 
 **DO NOT:**
+
 - Skip agent-browser and go directly to WebFetch
 - Use WebFetch for Reddit (will fail)
 - Use WebSearch for any news fetching

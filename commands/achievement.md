@@ -8,6 +8,7 @@ argument-hint: [list|stats|reset] [--category bug|test|streak|safety|learning]
 View and manage your coding achievements and statistics.
 
 Arguments: $ARGUMENTS
+
 - `list` (default): Show all achievements with unlock status
 - `stats`: Show detailed statistics
 - `reset`: Reset all stats and achievements (requires confirmation)
@@ -17,7 +18,7 @@ Arguments: $ARGUMENTS
 
 ## Data Files
 
-```
+```text
 ~/.claude/achievements/
 ├── stats.json       # Coding statistics
 ├── unlocked.json    # Unlocked achievements
@@ -30,7 +31,7 @@ Arguments: $ARGUMENTS
 
 ### 1. Parse Arguments
 
-```
+```text
 /achievement           → list all achievements
 /achievement list      → list all achievements
 /achievement stats     → show statistics
@@ -53,7 +54,7 @@ unlocked=$(cat "$achievements_file" 2>/dev/null || echo '{"unlocked":[]}')
 
 ### 3. Format Output
 
-#### For `list` (default):
+#### For `list` (default)
 
 ```markdown
 # 🏆 Coding Achievements
@@ -142,7 +143,7 @@ unlocked=$(cat "$achievements_file" 2>/dev/null || echo '{"unlocked":[]}')
 🔄 **Refresh:** `/achievement`
 ```
 
-#### For `stats`:
+#### For `stats`
 
 ```markdown
 # 📊 Coding Statistics
@@ -178,11 +179,13 @@ unlocked=$(cat "$achievements_file" 2>/dev/null || echo '{"unlocked":[]}')
 ## Progress Bars
 
 ```
-Bug Fixing:     ████████░░░░░░░░ 23/50 to Bug Slayer
+
+Bug Fixing: ████████░░░░░░░░ 23/50 to Bug Slayer
 Testing:        ██████░░░░░░░░░░ 7/10 to Test Believer
-Safety:         ████████████░░░░ 18/30 to Safe Rustacean
-Learning:       ████████████░░░░ 32/50 to Knowledge Seeker
-```
+Safety: ████████████░░░░ 18/30 to Safe Rustacean
+Learning: ████████████░░░░ 32/50 to Knowledge Seeker
+
+```text
 
 ---
 
@@ -200,7 +203,7 @@ Learning:       ████████████░░░░ 32/50 to Knowle
 📈 **Next Milestone:** {next_achievement}
 ```
 
-#### For `reset`:
+#### For `reset`
 
 **IMPORTANT: Ask for confirmation before resetting!**
 
@@ -208,6 +211,7 @@ Learning:       ████████████░░░░ 32/50 to Knowle
 ⚠️ **Reset Confirmation Required**
 
 This will permanently delete:
+
 - All {unlocked_count} unlocked achievements
 - All statistics ({bugs_fixed} bugs, {tests_written} tests, etc.)
 - {streak_days} day streak
@@ -216,6 +220,7 @@ This will permanently delete:
 ```
 
 If confirmed:
+
 ```bash
 rm -rf ~/.claude/achievements/
 echo "✅ Achievement data reset successfully."
@@ -280,6 +285,7 @@ To enable automatic achievement tracking, add to your Claude Code settings:
 ```
 
 Or copy the script to a global location:
+
 ```bash
 cp scripts/achievement-tracker.sh ~/.claude/hooks/achievement-tracker.sh
 chmod +x ~/.claude/hooks/achievement-tracker.sh
@@ -309,4 +315,3 @@ chmod +x ~/.claude/hooks/achievement-tracker.sh
 
 - `/rust-review` - Triggers code review achievement
 - `/unsafe-check` - Related to safety achievements
-

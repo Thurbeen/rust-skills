@@ -8,6 +8,7 @@ argument-hint: [crate_name] [--check-only] [--remove-invalid]
 Check dynamic skills for missing reference files and fix them.
 
 Arguments: $ARGUMENTS
+
 - `crate_name`: Specific crate to check (optional, defaults to all crates in ~/.claude/skills/)
 - `--check-only`: Only report issues, don't fix
 - `--remove-invalid`: Remove references to non-existent files instead of creating them
@@ -36,6 +37,7 @@ For each skill, extract referenced files from:
 ## Documentation
 
 Refer to the local files for detailed documentation:
+
 - `./references/file1.md` - Description
 - `./references/file2.md` - Description
 ```
@@ -45,6 +47,7 @@ Also check "Expected reference files" section if present.
 ### 3. Check File Existence
 
 For each referenced file:
+
 ```bash
 if [ ! -f "{skill_dir}/references/{filename}" ]; then
     echo "MISSING: {filename}"
@@ -54,7 +57,8 @@ fi
 ### 4. Report Status
 
 Output format:
-```
+
+```text
 === {crate_name} ===
 SKILL.md: ✅
 references/:
@@ -94,6 +98,7 @@ After fixing, ensure SKILL.md Documentation section matches actual files:
 ## Documentation
 
 Refer to the local files for detailed documentation:
+
 - `./references/sync.md` - Synchronization primitives
 - `./references/time.md` - Time utilities
 ```
@@ -131,7 +136,7 @@ Refer to the local files for detailed documentation:
 
 ## Output Example
 
-```
+```text
 === Skill Documentation Check ===
 
 tokio:

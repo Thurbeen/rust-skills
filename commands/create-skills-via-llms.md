@@ -6,6 +6,7 @@ argument-hint: <crate_name> <llms_path> [version] [description]
 Create high-quality skills for a Rust crate based on llms.txt documentation.
 
 Arguments: $ARGUMENTS
+
 - First argument: crate_name (required) - the Rust crate name (e.g., tokio, serde)
 - Second argument: llms_path (required) - local path to the llms.txt file
 - Third argument: version (optional) - the crate version (e.g., "1.40.0", "2.0.0")
@@ -30,23 +31,24 @@ Each skill must include the following structure:
 name: {crate_name}-{feature}
 description: |
   CRITICAL: Use for {crate_name} {feature} questions. Triggers on:
-  {keyword1}, {keyword2}, {keyword3}, "{common question}",
-  {中文关键词1}, {中文关键词2}, {中文问题}
+  {keyword1}, {keyword2}, {keyword3}, "{common question}"
 ---
 
 # {CrateName} {Feature} Skill
 
 > **Version:** {crate_name} {version} | **Last Updated:** {YYYY-MM-DD}
 >
-> Check for updates: https://crates.io/crates/{crate_name}
+> Check for updates: <https://crates.io/crates/{crate_name}>
 
 You are an expert at the Rust `{crate_name}` crate. Help users by:
+
 - **Writing code**: Generate Rust code following the patterns below
 - **Answering questions**: Explain concepts, troubleshoot issues, reference documentation
 
 ## Documentation
 
 Refer to the local files for detailed documentation:
+
 - `./references/{file1}.md` - {description}
 - `./references/{file2}.md` - {description}
 
@@ -56,7 +58,7 @@ Refer to the local files for detailed documentation:
 
 1. Read the relevant reference file(s) listed above
 2. If file read fails or file is empty:
-   - Inform user: "本地文档不完整，建议运行 `/sync-crate-skills {crate_name} --force` 更新文档"
+   - Inform user: "Local documentation is incomplete, consider running `/sync-crate-skills {crate_name} --force` to update documentation"
    - Still answer based on SKILL.md patterns + built-in knowledge
 3. If reference file exists, incorporate its content into the answer
 
@@ -92,6 +94,7 @@ Refer to the local files for detailed documentation:
 ### References Directory
 
 Each skill's `references/` directory contains detailed documentation:
+
 - API reference documentation
 - Configuration options details
 - Advanced usage examples
@@ -114,6 +117,7 @@ Each skill's `references/` directory contains detailed documentation:
 ### 1.5 Confirm Version Number
 
 If the user did not provide a version number (third argument):
+
 1. Use the AskUserQuestion tool to ask the user for the current version
 2. Version format examples: "1.40.0", "2.0.0", "latest"
 3. Use the version number for all SKILL.md Version fields
@@ -126,6 +130,7 @@ Output to `~/tmp/{YYYYMMDDHHmm}-{crate_name}-skills-plan.md`:
 # {CrateName} Skills Plan
 
 ## Analysis Summary
+
 - Crate: {crate_name}
 - Version: {version}
 - Main functional domains: ...
@@ -133,13 +138,16 @@ Output to `~/tmp/{YYYYMMDDHHmm}-{crate_name}-skills-plan.md`:
 ## Skill List
 
 ### 1. {crate_name}-{feature1}
+
 **Trigger conditions**: "...", "...", "..."
 **Core content**: ...
 **Reference files**:
+
 - {file1}.md - {description}
 - {file2}.md - {description}
 
 ### 2. {crate_name}-{feature2}
+
 ...
 ````
 
@@ -148,7 +156,8 @@ Output to `~/tmp/{YYYYMMDDHHmm}-{crate_name}-skills-plan.md`:
 For each skill:
 
 1. **Create directory structure**:
-   ```
+
+   ```text
    ~/.claude/skills/{crate_name}-{feature}/
    ├── SKILL.md
    └── references/
@@ -184,7 +193,7 @@ For each skill:
 ## Quality Checklist
 
 - [ ] Each SKILL.md has CSO-optimized description with "CRITICAL:" prefix
-- [ ] Each SKILL.md description includes Chinese trigger keywords
+- [ ] Each SKILL.md description includes relevant trigger keywords
 - [ ] Each SKILL.md has version info and update date
 - [ ] Each SKILL.md has "You are an expert..." role definition
 - [ ] Each SKILL.md has Documentation navigation list
