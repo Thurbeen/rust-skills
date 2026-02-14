@@ -4,7 +4,7 @@ Lightweight Rust code review using clippy.
 
 ## Usage
 
-```
+```text
 /rust-review [path]
 ```
 
@@ -14,26 +14,26 @@ Lightweight Rust code review using clippy.
 
 ## What It Does
 
-运行 `cargo clippy` 进行代码审查：
+Runs `cargo clippy` for code review:
 
-| 检查类型 | 说明 |
-|----------|------|
-| `clippy::correctness` | 明确错误的代码 |
-| `clippy::suspicious` | 可疑代码 |
-| `clippy::complexity` | 过于复杂的代码 |
-| `clippy::perf` | 性能问题 |
-| `clippy::style` | 风格问题 |
+| Check Type | Description |
+|------------|-------------|
+| `clippy::correctness` | Clearly incorrect code |
+| `clippy::suspicious` | Suspicious code |
+| `clippy::complexity` | Overly complex code |
+| `clippy::perf` | Performance issues |
+| `clippy::style` | Style issues |
 
 ## Workflow
 
-1. **读取代码** - 分析目标文件/目录
-2. **运行 clippy** - `cargo clippy --message-format=json`
-3. **分析结果** - 按严重程度分类
-4. **提供修复建议** - 代码示例
+1. **Read code** - Analyze target files/directories
+2. **Run clippy** - `cargo clippy --message-format=json`
+3. **Analyze results** - Categorize by severity
+4. **Provide fix suggestions** - Code examples
 
 ## Example Output
 
-```
+```text
 Rust Code Review: src/lib.rs
 
 Running clippy...
@@ -61,7 +61,7 @@ WARNING (2):
 
 ## Clippy Configuration
 
-项目可通过 `clippy.toml` 或 `Cargo.toml` 配置 clippy：
+Projects can configure clippy via `clippy.toml` or `Cargo.toml`:
 
 ```toml
 # Cargo.toml
@@ -72,17 +72,17 @@ expect_used = "warn"
 
 ## NOT Included
 
-以下检查**不在** `/rust-review` 范围内：
+The following checks are **not** in the scope of `/rust-review`:
 
-| 检查 | 原因 | 替代命令 |
-|------|------|----------|
-| `cargo fmt` | 部分项目不支持 | 手动运行 |
-| `miri` | 太重，需要 nightly | `/audit safety` |
-| `cargo audit` | 安全审计场景 | `/audit security` |
-| `lockbud` | 专用并发审计 | `/audit concurrency` |
+| Check | Reason | Alternative |
+|-------|--------|-------------|
+| `cargo fmt` | Not supported by all projects | Run manually |
+| `miri` | Too heavy, requires nightly | `/audit safety` |
+| `cargo audit` | Security audit scenario | `/audit security` |
+| `lockbud` | Dedicated concurrency audit | `/audit concurrency` |
 
 ## Related Commands
 
-- `/audit` - 重量级安全审计（使用 os-checker）
-- `/unsafe-check` - 专注 unsafe 代码检查
-- `/guideline` - 查询编码规范
+- `/audit` - Heavy-weight security audit (using os-checker)
+- `/unsafe-check` - Focused unsafe code checking
+- `/guideline` - Query coding guidelines

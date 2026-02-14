@@ -6,10 +6,10 @@
 
 | Query Contains | Action |
 |----------------|--------|
-| "比较", "对比", "compare", "vs", "versus", "区别", "difference" | **MUST invoke rust-router FIRST** |
-| "最佳实践", "best practice", "推荐", "recommend" | **MUST invoke rust-router FIRST** |
-| Domain keyword + error (e.g., "交易系统 E0382", "web API Send") | **MUST invoke rust-router FIRST** |
-| Two or more technologies (e.g., "tokio 和 async-std") | **MUST invoke rust-router FIRST** |
+| "compare", "vs", "versus", "difference" | **MUST invoke rust-router FIRST** |
+| "best practice", "recommend" | **MUST invoke rust-router FIRST** |
+| Domain keyword + error (e.g., "trading system E0382", "web API Send") | **MUST invoke rust-router FIRST** |
+| Two or more technologies (e.g., "tokio and async-std") | **MUST invoke rust-router FIRST** |
 
 **When negotiation is required, your response MUST include:**
 
@@ -20,12 +20,15 @@
 **Negotiation:** Enabled
 
 ### Source Assessment
+
 [For each information source:]
+
 - **Confidence:** HIGH | MEDIUM | LOW | UNCERTAIN
 - **Gaps:** [What's missing]
 - **Coverage:** [X]%
 
 ## Synthesized Answer
+
 [Your answer]
 
 **Overall Confidence:** [Level]
@@ -41,6 +44,7 @@
 **For ANY Rust-related question, ALWAYS invoke `rust-router` skill FIRST.**
 
 This is NON-NEGOTIABLE. Do NOT:
+
 - Use WebSearch for Rust questions
 - Answer from memory without invoking skill
 - Skip to specialized skills without checking router
@@ -48,6 +52,7 @@ This is NON-NEGOTIABLE. Do NOT:
 ### What Triggers Rust-Router?
 
 ANY question containing:
+
 - Rust, cargo, crate, rustc, Cargo.toml
 - Question words + Rust context
 - Error codes: E0XXX
@@ -56,7 +61,7 @@ ANY question containing:
 
 ### Workflow
 
-```
+```text
 User Question
      |
 [1] Invoke: Skill(rust-router)
@@ -94,7 +99,8 @@ User Question
 ## Special Cases
 
 ### Rust Version / Crate Info
-```
+
+```text
 User: "What's new in latest Rust" / "tokio latest version"
 -> Invoke: rust-learner
 -> Use agent: rust-changelog / crate-researcher
@@ -102,7 +108,8 @@ User: "What's new in latest Rust" / "tokio latest version"
 ```
 
 ### Writing Rust Code
-```
+
+```text
 User: "Help me write an async HTTP server"
 -> Invoke: rust-router (identify: async + web)
 -> Invoke: m07-concurrency + domain-web
@@ -111,7 +118,8 @@ User: "Help me write an async HTTP server"
 ```
 
 ### Error Debugging
-```
+
+```text
 User: "How to fix E0382"
 -> Invoke: rust-router (identify: ownership error)
 -> Invoke: m01-ownership
@@ -149,6 +157,7 @@ pedantic = "warn"
 ```
 
 **Rules:**
+
 - ALWAYS use `edition = "2024"` (not 2021 or earlier)
 - Include `rust-version` for MSRV clarity
 - Enable clippy lints by default

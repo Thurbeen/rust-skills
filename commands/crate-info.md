@@ -4,7 +4,7 @@ Get information about a Rust crate including latest version, features, and chang
 
 ## Usage
 
-```
+```text
 /crate-info <crate> [version]
 ```
 
@@ -15,7 +15,7 @@ Get information about a Rust crate including latest version, features, and chang
 
 ## Examples
 
-```
+```text
 /crate-info tokio           # Latest tokio info
 /crate-info axum 0.7        # axum 0.7 features
 /crate-info serde           # serde latest features
@@ -25,6 +25,6 @@ Get information about a Rust crate including latest version, features, and chang
 
 1. Use `search_actions("lib.rs crate")` to get action ID
 2. Use `get_action_by_id()` to get page selectors
-3. Use `agent-browser` to open https://lib.rs/crates/{crate}
+3. Use `agent-browser` to open <https://lib.rs/crates/{crate}>
 4. Extract crate information and changelog
 5. Summarize for user

@@ -9,11 +9,13 @@ name: core-agent-browser
 ## Priority Note
 
 For fetching Rust/crate information, use this priority order:
+
 1. **rust-learner skill** - Orchestrates actionbook + browser-fetcher
 2. **actionbook MCP** - Pre-computed selectors for known sites
 3. **agent-browser CLI** - Direct browser automation (last resort)
 
 Use agent-browser directly only when:
+
 - actionbook has no pre-computed selectors for the target site
 - You need interactive browser testing/automation
 - You need screenshots or form filling
@@ -38,6 +40,7 @@ agent-browser close             # Close browser
 ## Commands
 
 ### Navigation
+
 ```bash
 agent-browser open <url>      # Navigate to URL
 agent-browser back            # Go back
@@ -47,6 +50,7 @@ agent-browser close           # Close browser
 ```
 
 ### Snapshot (page analysis)
+
 ```bash
 agent-browser snapshot        # Full accessibility tree
 agent-browser snapshot -i     # Interactive elements only (recommended)
@@ -55,6 +59,7 @@ agent-browser snapshot -d 3   # Limit depth to 3
 ```
 
 ### Interactions (use @refs from snapshot)
+
 ```bash
 agent-browser click @e1           # Click
 agent-browser dblclick @e1        # Double-click
@@ -71,6 +76,7 @@ agent-browser scrollintoview @e1  # Scroll element into view
 ```
 
 ### Get information
+
 ```bash
 agent-browser get text @e1        # Get element text
 agent-browser get value @e1       # Get input value
@@ -79,6 +85,7 @@ agent-browser get url             # Get current URL
 ```
 
 ### Screenshots
+
 ```bash
 agent-browser screenshot          # Screenshot to stdout
 agent-browser screenshot path.png # Save to file
@@ -86,6 +93,7 @@ agent-browser screenshot --full   # Full page
 ```
 
 ### Wait
+
 ```bash
 agent-browser wait @e1                     # Wait for element
 agent-browser wait 2000                    # Wait milliseconds
@@ -94,6 +102,7 @@ agent-browser wait --load networkidle      # Wait for network idle
 ```
 
 ### Semantic locators (alternative to refs)
+
 ```bash
 agent-browser find role button click --name "Submit"
 agent-browser find text "Sign In" click

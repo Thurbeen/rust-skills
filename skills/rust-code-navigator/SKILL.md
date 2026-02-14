@@ -1,6 +1,6 @@
 ---
 name: rust-code-navigator
-description: "Navigate Rust code using LSP. Triggers on: /navigate, go to definition, find references, where is defined, 跳转定义, 查找引用, 定义在哪, 谁用了这个"
+description: "Navigate Rust code using LSP. Triggers on: /navigate, go to definition, find references, where is defined"
 argument-hint: "<symbol> [in file.rs:line]"
 allowed-tools: ["LSP", "Read", "Glob"]
 ---
@@ -11,11 +11,12 @@ Navigate large Rust codebases efficiently using Language Server Protocol.
 
 ## Usage
 
-```
+```text
 /rust-code-navigator <symbol> [in file.rs:line]
 ```
 
 **Examples:**
+
 - `/rust-code-navigator parse_config` - Find definition of parse_config
 - `/rust-code-navigator MyStruct in src/lib.rs:42` - Navigate from specific location
 
@@ -25,7 +26,7 @@ Navigate large Rust codebases efficiently using Language Server Protocol.
 
 Find where a symbol is defined.
 
-```
+```text
 LSP(
   operation: "goToDefinition",
   filePath: "src/main.rs",
@@ -35,6 +36,7 @@ LSP(
 ```
 
 **Use when:**
+
 - User asks "where is X defined?"
 - User wants to understand a type/function
 - Ctrl+click equivalent
@@ -43,7 +45,7 @@ LSP(
 
 Find all usages of a symbol.
 
-```
+```text
 LSP(
   operation: "findReferences",
   filePath: "src/lib.rs",
@@ -53,6 +55,7 @@ LSP(
 ```
 
 **Use when:**
+
 - User asks "who uses X?"
 - Before refactoring/renaming
 - Understanding impact of changes
@@ -61,7 +64,7 @@ LSP(
 
 Get type and documentation for a symbol.
 
-```
+```text
 LSP(
   operation: "hover",
   filePath: "src/main.rs",
@@ -71,13 +74,14 @@ LSP(
 ```
 
 **Use when:**
+
 - User asks "what type is X?"
 - User wants documentation
 - Quick type checking
 
 ## Workflow
 
-```
+```text
 User: "Where is the Config struct defined?"
     │
     ▼
@@ -100,7 +104,7 @@ User: "Where is the Config struct defined?"
 
 ### Definition Found
 
-```
+```text
 ## Config (struct)
 
 **Defined in:** `src/config.rs:15`
@@ -119,7 +123,7 @@ pub struct Config {
 
 ### References Found
 
-```
+```text
 ## References to `Config` (5 found)
 
 | Location | Context |

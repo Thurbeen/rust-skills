@@ -6,6 +6,7 @@ Available slash commands.
 |---------|-------|-------------|
 | /achievement | `[list\|stats\|reset]` | View coding achievements, stats, and pro... |
 | /ai-daily | `[day\|week\|month]` | AI news from Reddit (AI_Agents, ClaudeAI... |
+
 | /audit | `` | Heavy-weight security and safety audit u... |
 | /cache-clean | `` | Clean cached Rust documentation.... |
 | /cache-status | `` | Show the status of cached Rust documenta... |

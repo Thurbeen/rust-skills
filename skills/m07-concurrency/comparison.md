@@ -277,36 +277,39 @@ std::thread::spawn(move || {
 
 ### From Go
 
-```
+```text
 Before: "Just use goroutines and channels"
 After:  "Explicitly declare what can be shared and how"
 ```
 
 Key shifts:
+
 - `Arc<Mutex<T>>` instead of implicit sharing
 - Compiler enforces thread safety
 - Async needs explicit runtime
 
 ### From Java
 
-```
+```text
 Before: "synchronized everywhere, hope for the best"
 After:  "Types encode thread safety, compiler enforces"
 ```
 
 Key shifts:
+
 - No need for synchronized keyword
 - Mutex contains data, not separate
 - No GC pauses in critical sections
 
 ### From C++
 
-```
+```text
 Before: "Be careful, read the docs, use sanitizers"
 After:  "Compiler catches data races, trust the type system"
 ```
 
 Key shifts:
+
 - Send/Sync replace convention
 - RAII locks are mandatory, not optional
 - Much harder to write incorrect concurrent code

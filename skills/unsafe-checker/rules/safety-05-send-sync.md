@@ -88,7 +88,7 @@ unsafe impl Sync for ThreadSafeFd {}
 
 ## Decision Tree
 
-```
+```text
 Does your type contain:
   - Raw pointers? → Probably not auto Send/Sync
   - Rc/RefCell? → Not Sync (Rc not Send either)

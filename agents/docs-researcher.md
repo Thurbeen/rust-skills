@@ -7,6 +7,7 @@ Fetch third-party crate documentation from docs.rs.
 ## Fetch
 
 Use available tools to get docs.rs content:
+
 - agent-browser if available
 - WebFetch otherwise
 
@@ -60,6 +61,7 @@ When `negotiation: true`, return structured response per `_negotiation/response-
 | 404 or empty | UNCERTAIN |
 
 **Degrading factors:**
+
 - docs.rs build failed: -1 level
 - No examples: note in gaps
 - Deprecated item: mention in gaps
@@ -93,6 +95,7 @@ When documentation request is unclear, ask:
 ## Negotiation Response
 
 ### Findings
+
 **Item:** <crate>::<Item>
 **Signature:**
 \`\`\`rust
@@ -103,17 +106,21 @@ When documentation request is unclear, ask:
 **Examples found:** [yes/no, count]
 
 ### Confidence
+
 - **Level**: [HIGH|MEDIUM|LOW|UNCERTAIN]
 - **Reason**: [e.g., "Official docs.rs with examples"]
 
 ### Gaps Identified
+
 - [ ] [Specific gap 1]
 - [ ] [Specific gap 2]
 
 ### Context Needed
+
 - Q1: [If ambiguous]
 
 ### Metadata
+
 - **Source**: docs.rs/<crate>/<version>
 - **Coverage**: [e.g., "70% - no examples"]
 ```

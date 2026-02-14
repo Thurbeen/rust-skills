@@ -1,6 +1,6 @@
 ---
 name: m15-anti-pattern
-description: "Use when reviewing code for anti-patterns. Keywords: anti-pattern, common mistake, pitfall, code smell, bad practice, code review, is this an anti-pattern, better way to do this, common mistake to avoid, why is this bad, idiomatic way, beginner mistake, fighting borrow checker, clone everywhere, unwrap in production, should I refactor, 反模式, 常见错误, 代码异味, 最佳实践, 地道写法"
+description: "Use when reviewing code for anti-patterns. Keywords: anti-pattern, common mistake, pitfall, code smell, bad practice, code review, is this an anti-pattern, better way to do this, common mistake to avoid, why is this bad, idiomatic way, beginner mistake, fighting borrow checker, clone everywhere, unwrap in production, should I refactor"
 user-invocable: false
 ---
 
@@ -13,6 +13,7 @@ user-invocable: false
 **Is this pattern hiding a design problem?**
 
 When reviewing code:
+
 - Is this solving the symptom or the cause?
 - Is there a more idiomatic approach?
 - Does this fight or flow with Rust?
@@ -57,7 +58,7 @@ When seeing suspicious code:
 
 To design understanding:
 
-```
+```text
 "Why does my code have so many clones?"
     ↑ Ask: Is the ownership model correct?
     ↑ Check: m09-domain (data flow design)
@@ -77,7 +78,7 @@ To design understanding:
 
 To implementation (Layer 1):
 
-```
+```text
 "Replace clone with proper ownership"
     ↓ m01-ownership: Reference patterns
     ↓ m02-resource: Smart pointer if needed

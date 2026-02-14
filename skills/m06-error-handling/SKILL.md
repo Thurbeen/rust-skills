@@ -1,6 +1,6 @@
 ---
 name: m06-error-handling
-description: "CRITICAL: Use for error handling. Triggers: Result, Option, Error, ?, unwrap, expect, panic, anyhow, thiserror, when to panic vs return Result, custom error, error propagation, 错误处理, Result 用法, 什么时候用 panic"
+description: "CRITICAL: Use for error handling. Triggers: Result, Option, Error, ?, unwrap, expect, panic, anyhow, thiserror, when to panic vs return Result, custom error, error propagation"
 user-invocable: false
 ---
 
@@ -13,6 +13,7 @@ user-invocable: false
 **Is this failure expected or a bug?**
 
 Before choosing error handling strategy:
+
 - Can this fail in normal operation?
 - Who should handle this failure?
 - What context does the caller need?
@@ -57,7 +58,7 @@ Before handling an error:
 
 When error strategy is unclear:
 
-```
+```text
 "Should I return Result or Option?"
     ↑ Ask: Is absence/failure normal or exceptional?
     ↑ Check: m09-domain (what does domain say?)
@@ -76,7 +77,7 @@ When error strategy is unclear:
 
 From design to implementation:
 
-```
+```text
 "Expected failure, library code"
     ↓ Use: thiserror for typed errors
 
@@ -116,7 +117,7 @@ From design to implementation:
 
 ## Decision Flowchart
 
-```
+```text
 Is failure expected?
 ├─ Yes → Is absence the only "failure"?
 │        ├─ Yes → Option<T>

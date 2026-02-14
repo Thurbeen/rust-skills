@@ -4,39 +4,39 @@ Heavy-weight security and safety audit using os-checker tools.
 
 ## Usage
 
-```
+```text
 /audit [mode]
 ```
 
 ## Parameters
 
 - `mode` (optional): Audit mode
-  - `security` - 安全漏洞审计 (default)
-  - `safety` - unsafe 代码安全性审计
-  - `concurrency` - 并发问题审计
-  - `full` - 完整审计（所有检查器）
+  - `security` - Security vulnerability audit (default)
+  - `safety` - Unsafe code safety audit
+  - `concurrency` - Concurrency issue audit
+  - `full` - Full audit (all checkers)
 
 ## When to Use
 
-| 场景 | 推荐 |
-|------|------|
-| 日常开发 | 用 `/rust-review` (clippy) |
-| PR 审查 | 用 `/rust-review` |
-| **发布前** | `/audit security` |
-| **unsafe 代码审查** | `/audit safety` |
-| **并发代码审查** | `/audit concurrency` |
-| **安全关键项目** | `/audit full` |
+| Scenario | Recommendation |
+|----------|----------------|
+| Daily development | Use `/rust-review` (clippy) |
+| PR review | Use `/rust-review` |
+| **Pre-release** | `/audit security` |
+| **Unsafe code review** | `/audit safety` |
+| **Concurrency code review** | `/audit concurrency` |
+| **Security-critical projects** | `/audit full` |
 
 ## Audit Modes
 
 ### Security (Default)
 
-检查已知安全漏洞：
+Checks for known security vulnerabilities:
 
-| 工具 | 检查内容 |
-|------|----------|
-| `cargo audit` | 依赖中的 CVE |
-| `geiger` | unsafe 代码暴露统计 |
+| Tool | What It Checks |
+|------|----------------|
+| `cargo audit` | CVEs in dependencies |
+| `geiger` | Unsafe code exposure statistics |
 
 ```bash
 cargo audit
@@ -45,57 +45,57 @@ cargo geiger
 
 ### Safety
 
-检查 unsafe 代码的正确性：
+Checks unsafe code correctness:
 
-| 工具 | 检查内容 |
-|------|----------|
+| Tool | What It Checks |
+|------|----------------|
 | `miri` | Undefined Behavior |
-| `rudra` | 内存安全问题 |
-| `geiger` | unsafe 统计 |
+| `rudra` | Memory safety issues |
+| `geiger` | Unsafe statistics |
 
 ```bash
 cargo +nightly miri test
-# rudra 需要专门安装
+# rudra requires separate installation
 ```
 
-**注意**: 需要 nightly toolchain
+**Note**: Requires nightly toolchain
 
 ### Concurrency
 
-检查并发问题：
+Checks for concurrency issues:
 
-| 工具 | 检查内容 |
-|------|----------|
-| `lockbud` | 死锁检测 |
-| `atomvchecker` | 原子性违规 |
+| Tool | What It Checks |
+|------|----------------|
+| `lockbud` | Deadlock detection |
+| `atomvchecker` | Atomicity violations |
 
 ### Full
 
-运行所有可用检查器（最慢）。
+Runs all available checkers (slowest).
 
 ## Integration with os-checker Skills
 
-审计时会参考以下 skills：
+The following skills are referenced during audit:
 
-| Skill | 用途 |
-|-------|------|
-| `os-checker-checkers` | 了解每个工具的功能 |
-| `os-checker-cli` | os-checker 命令用法 |
-| `os-checker-diagnostics` | 解读审计结果 |
-| `os-checker-setup` | 安装检查工具 |
+| Skill | Purpose |
+|-------|---------|
+| `os-checker-checkers` | Understand each tool's capabilities |
+| `os-checker-cli` | os-checker command usage |
+| `os-checker-diagnostics` | Interpret audit results |
+| `os-checker-setup` | Install checking tools |
 
 ## Issue Prioritization
 
-| 优先级 | 诊断类型 | 处理 |
-|--------|----------|------|
-| Critical | `Miri`, `Rudra`, `Audit`, `Cargo` | 立即修复 |
-| High | `Lockbud(Probably)`, `Semver Violation` | 应该修复 |
-| Medium | `Lockbud(Possibly)`, `Atomvchecker` | 需审查 |
-| Low | `Geiger`, `Outdated` | 参考信息 |
+| Priority | Diagnostic Type | Action |
+|----------|-----------------|--------|
+| Critical | `Miri`, `Rudra`, `Audit`, `Cargo` | Fix immediately |
+| High | `Lockbud(Probably)`, `Semver Violation` | Should fix |
+| Medium | `Lockbud(Possibly)`, `Atomvchecker` | Needs review |
+| Low | `Geiger`, `Outdated` | Informational |
 
 ## Example Output
 
-```
+```text
 Security Audit Report
 ═══════════════════════════════════════════
 
@@ -141,10 +141,10 @@ cargo install os-checker
 
 ## Batch Audit (Multiple Repos)
 
-使用 os-checker 进行批量审计：
+Use os-checker for batch auditing:
 
 ```bash
-# 创建配置
+# Create configuration
 cat > audit-config.json << 'EOF'
 {
   "org/repo1": {},
@@ -153,12 +153,12 @@ cat > audit-config.json << 'EOF'
 }
 EOF
 
-# 批量运行
+# Batch run
 os-checker run --config audit-config.json --emit results.json
 ```
 
 ## Related Commands
 
-- `/rust-review` - 轻量级日常检查 (clippy)
-- `/unsafe-check` - unsafe 代码静态检查
-- `/unsafe-review` - 交互式 unsafe 审查
+- `/rust-review` - Lightweight daily review (clippy)
+- `/unsafe-check` - Unsafe code static analysis
+- `/unsafe-review` - Interactive unsafe review

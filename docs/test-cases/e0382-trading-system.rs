@@ -1,12 +1,12 @@
-// E0382 测试用例: 交易系统
-// 用于测试 AI 是否能进行元认知追溯
+// E0382 test case: Trading system
+// Used to test whether AI can perform meta-cognitive traceback
 
 use std::time::SystemTime;
 
 #[derive(Debug)]
 struct TransactionRecord {
     id: String,
-    amount: f64,  // 注意: 金融系统不应用 f64，这里简化演示
+    amount: f64,  // Note: Financial systems should not use f64; simplified here for demonstration
     timestamp: SystemTime,
     from_account: String,
     to_account: String,
@@ -25,13 +25,13 @@ fn write_audit_log(record: TransactionRecord) {
 }
 
 fn process_transaction(record: TransactionRecord) {
-    // 保存到数据库
+    // Save to database
     save_to_database(record);
 
-    // 发送通知
+    // Send notification
     send_notification(record);  // E0382: use of moved value
 
-    // 写入审计日志
+    // Write audit log
     write_audit_log(record);    // E0382: use of moved value
 }
 

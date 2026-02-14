@@ -1,6 +1,6 @@
 ---
 name: m07-concurrency
-description: "CRITICAL: Use for concurrency/async. Triggers: E0277 Send Sync, cannot be sent between threads, thread, spawn, channel, mpsc, Mutex, RwLock, Atomic, async, await, Future, tokio, deadlock, race condition, 并发, 线程, 异步, 死锁"
+description: "CRITICAL: Use for concurrency/async. Triggers: E0277 Send Sync, cannot be sent between threads, thread, spawn, channel, mpsc, Mutex, RwLock, Atomic, async, await, Future, tokio, deadlock, race condition"
 user-invocable: false
 ---
 
@@ -13,6 +13,7 @@ user-invocable: false
 **Is this CPU-bound or I/O-bound, and what's the sharing model?**
 
 Before choosing concurrency primitives:
+
 - What's the workload type?
 - What data needs to be shared?
 - What's the thread safety requirement?
@@ -60,13 +61,13 @@ Before adding concurrency:
 | Context Keywords | Load Domain Skill | Key Constraint |
 |-----------------|-------------------|----------------|
 | Web API, HTTP, axum, actix, handler | **domain-web** | Handlers run on any thread |
-| 交易, 支付, trading, payment | **domain-fintech** | Audit + thread safety |
+| trading, payment | **domain-fintech** | Audit + thread safety |
 | gRPC, kubernetes, microservice | **domain-cloud-native** | Distributed tracing |
 | CLI, terminal, clap | **domain-cli** | Usually single-thread OK |
 
 ### Example: Web API + Rc Error
 
-```
+```text
 "Rc cannot be sent between threads" in Web API context
     ↑ DETECT: "Web API" → Load domain-web
     ↑ FIND: domain-web says "Shared state must be thread-safe"
@@ -77,7 +78,7 @@ Before adding concurrency:
 
 ### Generic Trace
 
-```
+```text
 "Send not satisfied for my type"
     ↑ Ask: What domain is this? Load domain-* skill
     ↑ Ask: Does this type need to cross thread boundaries?
@@ -97,7 +98,7 @@ Before adding concurrency:
 
 From design to implementation:
 
-```
+```text
 "Need parallelism for CPU work"
     ↓ Use: std::thread or rayon
 
@@ -139,7 +140,7 @@ From design to implementation:
 
 ## Decision Flowchart
 
-```
+```text
 What type of work?
 ├─ CPU-bound → std::thread or rayon
 ├─ I/O-bound → async/await

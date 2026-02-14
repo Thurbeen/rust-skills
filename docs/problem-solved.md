@@ -6,7 +6,7 @@
 
 ### AI Without Meta-Cognition
 
-```
+```text
 User: "E0382 error in my trading system"
 
 AI thinking:
@@ -46,13 +46,14 @@ fn process_trade(record: TradeRecord) {
 ```
 
 **What's wrong**:
+
 - Trade records should be immutable (audit requirement)
 - Cloning creates independent copies (violates single source of truth)
 - The design is wrong, not the syntax
 
 ### With Meta-Cognition
 
-```
+```text
 E0382 in trading system
     ↑ Trace UP: Why this ownership design?
     ↑ Load domain-fintech
@@ -76,20 +77,21 @@ fn process_trade(record: Arc<TradeRecord>) {
 
 ### Without Meta-Cognition
 
-```
+```text
 User: "Rc cannot be sent between threads"
 
 AI: "Use Arc instead of Rc"
 ```
 
 This is technically correct but **context-blind**:
+
 - In CLI app: Maybe Rc is fine, switch to single-thread
 - In Web API: Arc + State extractor pattern
 - In embedded: Rethink if sharing is needed at all
 
 ### With Meta-Cognition
 
-```
+```text
 "Rc cannot be sent" + "Web API" context
     ↑ Detect domain: Web API → domain-web
     ↑ Find constraint: "Handlers run on any thread"
@@ -109,7 +111,7 @@ This is technically correct but **context-blind**:
 
 ### Without Meta-Cognition
 
-```
+```text
 User: "Should I use Mutex or RwLock?"
 
 AI: "RwLock for read-heavy, Mutex for write-heavy"
@@ -119,7 +121,7 @@ Generic advice, no domain context.
 
 ### With Meta-Cognition
 
-```
+```text
 "Mutex vs RwLock" + "config in web app"
     ↑ Trace to domain-web
     ↑ Find: Config is typically read-only after init
@@ -140,7 +142,7 @@ Generic advice, no domain context.
 
 ### Why Rust Is Hard for AI
 
-```
+```text
 Rust Error Messages
         │
         ▼
@@ -164,7 +166,7 @@ Rust Error Messages
 
 ### The Gap
 
-```
+```text
 Traditional AI:
   Error → Pattern Match → Fix Syntax
 
@@ -178,7 +180,7 @@ What's needed:
 
 ### The Three-Layer Solution
 
-```
+```text
 ┌─────────────────────────────────────────┐
 │ Layer 3: WHY (Domain Constraints)       │
 │ "Trading records must be immutable"     │
@@ -202,7 +204,7 @@ What's needed:
 
 ### The Tracing Mechanism
 
-```
+```text
 E0382 (Surface Error)
     │
     ▼
@@ -252,7 +254,7 @@ Without domain context, AI picks one pattern and applies it everywhere.
 
 ### Before: AI as Code Fixer
 
-```
+```text
 Input: Compiler Error
 Output: Minimal change to compile
 Quality: Works, maybe wrong
@@ -260,7 +262,7 @@ Quality: Works, maybe wrong
 
 ### After: AI as Design Partner
 
-```
+```text
 Input: Compiler Error + Context
 Process: Trace through domain → design → implementation
 Output: Architecturally correct solution

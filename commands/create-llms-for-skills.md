@@ -8,6 +8,7 @@ argument-hint: <urls> [requirements]
 Use agent-browser CLI to access target URLs, extract content, and generate comprehensive llms.txt files.
 
 Arguments: $ARGUMENTS
+
 - First argument(s): urls (required) - one or more URLs, space-separated
 - Last argument: requirements (optional) - additional requirements or instructions (if the last argument is not a URL)
 
@@ -19,6 +20,7 @@ Arguments: $ARGUMENTS
 2. **WebFetch** (fallback) - If agent-browser unavailable
 
 **DO NOT use:**
+
 - Claude in Chrome MCP
 - Direct Fetch without user confirmation
 
@@ -29,6 +31,7 @@ Arguments: $ARGUMENTS
 ### 1. Parse Arguments
 
 From `$ARGUMENTS`, parse:
+
 - Identify all URLs (starting with http:// or https://)
 - Remaining content serves as additional requirements
 
@@ -67,7 +70,7 @@ agent-browser close
 
 For Rust crate documentation (docs.rs):
 
-```
+```text
 1. Main crate page → Overview, re-exports, modules list
 2. Each major module → Public items, examples
 3. Important types → Methods, trait implementations
@@ -75,6 +78,7 @@ For Rust crate documentation (docs.rs):
 ```
 
 **Extraction focus**:
+
 - Core concepts and principles
 - API function signatures and parameter descriptions
 - Code examples (complete and runnable)
@@ -142,11 +146,13 @@ fn main() {
 ## Common Patterns
 
 ### Pattern 1: {Name}
+
 ```rust
 // Pattern code
 ```
 
 ### Pattern 2: {Name}
+
 ```rust
 // Pattern code
 ```
@@ -173,7 +179,7 @@ Inform the user of the file path after output is complete.
 
 If agent-browser is not available:
 
-```
+```text
 1. Use WebFetch to get main page content
 2. Parse the response for key sections
 3. May need multiple WebFetch calls for subpages

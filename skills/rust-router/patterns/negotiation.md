@@ -1,6 +1,6 @@
 # Negotiation Protocol
 
-> 比较查询和跨领域问题的处理协议
+> Processing protocol for comparative queries and cross-domain issues
 
 ## When to Enable Negotiation
 
@@ -18,7 +18,7 @@ For complex queries requiring structured agent responses, enable negotiation mod
 
 ## Negotiation Decision Flow
 
-```
+```text
 Query Received
      │
      ▼
@@ -55,7 +55,7 @@ Query Received
 
 When dispatching with negotiation:
 
-```
+```text
 1. Set `negotiation: true`
 2. Include original query context
 3. Expect structured response:
@@ -83,7 +83,7 @@ After receiving negotiation response:
 
 If response insufficient:
 
-```
+```text
 Round 1: Initial query
   │
   ▼ (LOW confidence or gaps block intent)
@@ -104,7 +104,7 @@ Synthesize best-effort answer with disclosed gaps
 
 Negotiation follows the 3-Strike escalation:
 
-```
+```text
 Strike 1: Initial query returns LOW confidence
   → Refine with more context
 
@@ -121,14 +121,16 @@ See `_meta/error-protocol.md` for full escalation rules.
 ## Negotiation Routing Examples
 
 **Example 1: No Negotiation Needed**
-```
+
+```text
 Query: "What is tokio's latest version?"
 Analysis: Single lookup
 Action: Direct dispatch to crate-researcher
 ```
 
 **Example 2: Negotiation Required**
-```
+
+```text
 Query: "Compare tokio and async-std for a web server"
 Analysis: Comparative + domain context
 Action: Dispatch with negotiation: true
@@ -137,7 +139,8 @@ Evaluation: Check if web-server specific data found
 ```
 
 **Example 3: Cross-Domain Negotiation**
-```
+
+```text
 Query: "E0382 in my trading system"
 Analysis: Error code + domain context
 Action:

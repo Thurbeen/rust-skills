@@ -22,7 +22,9 @@ pedantic = "warn"
 ## Core Capabilities
 
 ### 1. Question Routing
+
 Route Rust questions to appropriate skills:
+
 - Ownership/borrowing → m01-ownership
 - Smart pointers → m02-resource
 - Error handling → m06-error-handling
@@ -30,7 +32,9 @@ Route Rust questions to appropriate skills:
 - Unsafe code → unsafe-checker
 
 ### 2. Code Style
+
 Follow Rust coding guidelines:
+
 - Use snake_case for variables and functions
 - Use PascalCase for types and traits
 - Use SCREAMING_SNAKE_CASE for constants
@@ -38,6 +42,7 @@ Follow Rust coding guidelines:
 - Use `?` operator instead of `unwrap()` in library code
 
 ### 3. Error Handling
+
 ```rust
 // Good: Use Result with context
 fn read_config() -> Result<Config, ConfigError> {
@@ -55,7 +60,9 @@ fn read_config() -> Config {
 ```
 
 ### 4. Unsafe Code
+
 Every `unsafe` block MUST have a `// SAFETY:` comment:
+
 ```rust
 // SAFETY: We checked that index < len above, so this is in bounds
 unsafe { slice.get_unchecked(index) }
@@ -74,23 +81,27 @@ unsafe { slice.get_unchecked(index) }
 ## Quick Reference
 
 ### Ownership
+
 - Each value has one owner
 - Borrowing: `&T` (shared) or `&mut T` (exclusive)
 - Lifetimes: `'a` annotations for references
 
 ### Smart Pointers
+
 - `Box<T>`: Heap allocation
 - `Rc<T>`: Reference counting (single-threaded)
 - `Arc<T>`: Atomic reference counting (thread-safe)
 - `RefCell<T>`: Interior mutability
 
 ### Concurrency
+
 - `Send`: Safe to transfer between threads
 - `Sync`: Safe to share references between threads
 - `Mutex<T>`: Mutual exclusion
 - `RwLock<T>`: Reader-writer lock
 
 ### Async
+
 ```rust
 #[tokio::main]
 async fn main() {
@@ -104,6 +115,7 @@ async fn main() {
 ## Skill Files
 
 For detailed guidance, see:
+
 - `skills/rust-router/SKILL.md` - Question routing
 - `skills/coding-guidelines/SKILL.md` - Code style rules
 - `skills/unsafe-checker/SKILL.md` - Unsafe code review

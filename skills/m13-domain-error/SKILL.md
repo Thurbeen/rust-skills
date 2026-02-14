@@ -1,6 +1,6 @@
 ---
 name: m13-domain-error
-description: "Use when designing domain error handling. Keywords: domain error, error categorization, recovery strategy, retry, fallback, domain error hierarchy, user-facing vs internal errors, error code design, circuit breaker, graceful degradation, resilience, error context, backoff, retry with backoff, error recovery, transient vs permanent error, 领域错误, 错误分类, 恢复策略, 重试, 熔断器, 优雅降级"
+description: "Use when designing domain error handling. Keywords: domain error, error categorization, recovery strategy, retry, fallback, domain error hierarchy, user-facing vs internal errors, error code design, circuit breaker, graceful degradation, resilience, error context, backoff, retry with backoff, error recovery, transient vs permanent error"
 user-invocable: false
 ---
 
@@ -13,6 +13,7 @@ user-invocable: false
 **Who needs to handle this error, and how should they recover?**
 
 Before designing error types:
+
 - Is this user-facing or internal?
 - Is recovery possible?
 - What context is needed for debugging?
@@ -56,7 +57,7 @@ Before designing error types:
 
 To domain constraints (Layer 3):
 
-```
+```text
 "How should I handle payment failures?"
     ↑ Ask: What are the business rules for retries?
     ↑ Check: domain-fintech (transaction requirements)
@@ -75,7 +76,7 @@ To domain constraints (Layer 3):
 
 To implementation (Layer 1):
 
-```
+```text
 "Need typed errors"
     ↓ m06-error-handling: thiserror for library
     ↓ m04-zero-cost: Error enum design

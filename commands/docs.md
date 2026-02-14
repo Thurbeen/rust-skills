@@ -16,13 +16,13 @@ Fetch API documentation for Rust crates from docs.rs.
 
 ## Usage
 
-```
+```text
 /docs <crate_name> [item]
 ```
 
 ## Examples
 
-```
+```text
 /docs snafu              # Get snafu crate overview
 /docs tokio spawn        # Get tokio::spawn documentation
 /docs serde Serialize    # Get serde::Serialize trait docs
@@ -46,7 +46,7 @@ Fetch API documentation for Rust crates from docs.rs.
 
 ## Output Format
 
-```
+```text
 # <crate_name> API Documentation
 
 ## Overview

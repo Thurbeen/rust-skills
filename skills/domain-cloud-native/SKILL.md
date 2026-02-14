@@ -1,6 +1,6 @@
 ---
 name: domain-cloud-native
-description: "Use when building cloud-native apps. Keywords: kubernetes, k8s, docker, container, grpc, tonic, microservice, service mesh, observability, tracing, metrics, health check, cloud, deployment, 云原生, 微服务, 容器"
+description: "Use when building cloud-native apps. Keywords: kubernetes, k8s, docker, container, grpc, tonic, microservice, service mesh, observability, tracing, metrics, health check, cloud, deployment"
 user-invocable: false
 ---
 
@@ -25,7 +25,7 @@ user-invocable: false
 
 ### Stateless Design
 
-```
+```text
 RULE: No local persistent state
 WHY: Pods can be killed/rescheduled anytime
 RUST: External state (Redis, DB), no static mut
@@ -33,7 +33,7 @@ RUST: External state (Redis, DB), no static mut
 
 ### Graceful Shutdown
 
-```
+```text
 RULE: Handle SIGTERM, drain connections
 WHY: Zero-downtime deployments
 RUST: tokio::signal + graceful shutdown
@@ -41,7 +41,7 @@ RUST: tokio::signal + graceful shutdown
 
 ### Observability
 
-```
+```text
 RULE: Every request must be traceable
 WHY: Debugging distributed systems
 RUST: tracing spans, opentelemetry export
@@ -53,7 +53,7 @@ RUST: tracing spans, opentelemetry export
 
 From constraints to design (Layer 2):
 
-```
+```text
 "Need distributed tracing"
     ↓ m12-lifecycle: Span lifecycle
     ↓ tracing + opentelemetry

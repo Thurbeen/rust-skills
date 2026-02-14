@@ -90,7 +90,7 @@ Missing common errors: E0106, E0133, E0204, E0255, E0271, E0282, E0283, E0317
 
 ### 1. Remove Redundant Skills
 
-```
+```text
 REMOVE:
 - m08-safety (merge into unsafe-checker)
 
@@ -101,7 +101,7 @@ KEEP:
 
 ### 2. Move Internal Skills
 
-```
+```text
 skills/internal/
 ├── agent-browser/SKILL.md    # No auto-trigger
 ├── actionbook/SKILL.md       # No auto-trigger
@@ -113,7 +113,7 @@ Or remove `description` field from these skills to prevent triggering.
 
 ### 3. Standardize Domain Names
 
-```
+```text
 CURRENT → RECOMMENDED:
 cloud-native    → domain-cloud-native
 fintech         → domain-fintech
@@ -144,46 +144,52 @@ m07-concurrency: E0277 (only for Send/Sync)
 
 ```markdown
 ## Ownership (m01)
+
 | Query | Expected Skill | Keywords |
 |-------|----------------|----------|
-| "我遇到了 E0382 错误" | m01-ownership | E0382 |
+| "I encountered E0382 error" | m01-ownership | E0382 |
 | "value moved after use" | m01-ownership | value moved |
-| "借用检查器报错" | m01-ownership | 借用 |
-| "lifetime 怎么标注" | m01-ownership | lifetime |
+| "borrow checker error" | m01-ownership | borrow |
+| "how to annotate lifetime" | m01-ownership | lifetime |
 
 ## Error Handling (m06)
+
 | Query | Expected Skill | Keywords |
 |-------|----------------|----------|
-| "什么时候用 panic" | m06-error-handling | panic |
+| "when to use panic" | m06-error-handling | panic |
 | "Result vs Option" | m06-error-handling | Result, Option |
-| "thiserror 怎么用" | m06-error-handling | thiserror |
+| "how to use thiserror" | m06-error-handling | thiserror |
 
 ## Concurrency (m07)
+
 | Query | Expected Skill | Keywords |
 |-------|----------------|----------|
 | "cannot be sent between threads" | m07-concurrency | sent between threads |
-| "async await 怎么用" | m07-concurrency | async await |
+| "how to use async await" | m07-concurrency | async await |
 | "tokio spawn" | m07-concurrency + rust-learner | tokio, spawn |
 
 ## Unsafe (unsafe-checker)
+
 | Query | Expected Skill | Keywords |
 |-------|----------------|----------|
-| "如何写安全的 unsafe" | unsafe-checker | unsafe |
-| "FFI 绑定怎么写" | unsafe-checker | FFI |
-| "SAFETY 注释" | unsafe-checker | SAFETY |
+| "how to write safe unsafe code" | unsafe-checker | unsafe |
+| "how to write FFI bindings" | unsafe-checker | FFI |
+| "SAFETY comments" | unsafe-checker | SAFETY |
 
 ## Version/Crate (rust-learner)
+
 | Query | Expected Skill | Keywords |
 |-------|----------------|----------|
-| "tokio 最新版本" | rust-learner | 最新版本 |
-| "Rust 1.85 有什么新特性" | rust-learner | Rust 1.85, 新特性 |
-| "serde 文档" | rust-learner | 文档 |
+| "tokio latest version" | rust-learner | latest version |
+| "what's new in Rust 1.85" | rust-learner | Rust 1.85, new features |
+| "serde docs" | rust-learner | docs |
 
 ## Router (rust-router)
+
 | Query | Expected Skill | Keywords |
 |-------|----------------|----------|
-| "分析这个问题的意图" | rust-router | 意图分析 |
-| "这是什么类型的问题" | rust-router | 分析 |
+| "analyze the intent of this question" | rust-router | intent analysis |
+| "what type of question is this" | rust-router | analysis |
 ```
 
 ### Test Script
@@ -193,12 +199,12 @@ m07-concurrency: E0277 (only for Send/Sync)
 # test-triggers.sh
 
 queries=(
-  "我遇到了 E0382 错误"
-  "tokio 最新版本"
-  "async await 怎么用"
-  "unsafe 代码怎么写"
-  "什么时候用 panic"
-  "Arc 和 Rc 区别"
+  "I encountered E0382 error"
+  "tokio latest version"
+  "how to use async await"
+  "how to write unsafe code"
+  "when to use panic"
+  "difference between Arc and Rc"
 )
 
 for q in "${queries[@]}"; do

@@ -4,7 +4,7 @@ Interactive review session for unsafe Rust code.
 
 ## Usage
 
-```
+```text
 /unsafe-review
 ```
 
@@ -26,7 +26,7 @@ Starts an interactive review session that guides you through reviewing unsafe co
 
 The review will ask questions like:
 
-```
+```text
 Reviewing: unsafe { *ptr }
 
 1. Is this pointer guaranteed non-null?
@@ -50,11 +50,13 @@ Reviewing: unsafe { *ptr }
 ## Checklist Categories
 
 ### Surface-Level
+
 - SAFETY comments present and meaningful?
 - Safety documentation for unsafe fn?
 - Unsafe blocks minimized?
 
 ### Memory Safety
+
 - Pointer validity (non-null, aligned, valid)
 - No aliasing violations
 - No use-after-free
@@ -62,16 +64,19 @@ Reviewing: unsafe { *ptr }
 - Bounds checking
 
 ### Type Safety
+
 - Correct transmutes
 - Valid enum discriminants
 - Proper repr attributes
 
 ### Concurrency
+
 - Send/Sync correctness
 - No data races
 - Proper synchronization
 
 ### FFI
+
 - Type compatibility
 - Panic handling
 - Error handling
@@ -79,7 +84,7 @@ Reviewing: unsafe { *ptr }
 
 ## Example Session
 
-```
+```text
 /unsafe-review
 
 Scanning for unsafe code...
@@ -112,7 +117,7 @@ Code: unsafe { slice::from_raw_parts(self.ptr, self.len) }
 
 After review completes:
 
-```
+```text
 === Unsafe Review Summary ===
 
 Total unsafe items: 3

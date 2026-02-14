@@ -1,22 +1,23 @@
-# Meta-Cognition 测试套件
+# Meta-Cognition Test Suite
 
-> 设计用于区分「普通 AI 回答」vs「元认知追溯回答」的测试用例
+> Designed to distinguish between "ordinary AI answers" vs "meta-cognitive traceback answers"
 
-## 设计原则
+## Design Principles
 
-好的测试用例应该：
-1. **普通回答能"解决"问题** - 语法正确，能编译
-2. **但普通回答有隐藏问题** - 违反领域约束或设计原则
-3. **只有理解领域后才能给出正确建议**
+A good test case should:
+
+1. **An ordinary answer can "solve" the problem** - syntactically correct, compiles
+2. **But the ordinary answer has hidden issues** - violates domain constraints or design principles
+3. **Only understanding the domain leads to the correct recommendation**
 
 ---
 
-## 测试用例 1: 金融精度陷阱
+## Test Case 1: Financial Precision Trap
 
-### 问题
+### Problem
 
-```
-我在写一个支付系统，计算手续费时发现金额不对：
+```text
+I'm writing a payment system, and the fee calculation produces incorrect amounts:
 
 fn calculate_fee(amount: f64, rate: f64) -> f64 {
     amount * rate
@@ -25,32 +26,32 @@ fn calculate_fee(amount: f64, rate: f64) -> f64 {
 fn main() {
     let amount = 0.1 + 0.2;
     let fee = calculate_fee(amount, 0.03);
-    println!("Fee: {}", fee);  // 输出 0.009000000000000001 而不是 0.009
+    println!("Fee: {}", fee);  // Outputs 0.009000000000000001 instead of 0.009
 }
 
-怎么修复这个精度问题？
+How do I fix this precision issue?
 ```
 
-### 回答对比
+### Answer Comparison
 
-| 层次 | 回答 | 问题 |
-|------|------|------|
-| ⭐ 表面 | `format!("{:.2}", fee)` 格式化输出 | 只是隐藏问题，内部仍错误 |
-| ⭐⭐ 语法 | 用 `f64::round()` 四舍五入 | 累积误差仍会出现 |
-| ⭐⭐⭐ 机制 | 用整数分为单位计算 | 可行但不专业 |
-| ⭐⭐⭐⭐⭐ 元认知 | **金融系统禁止用浮点数，必须用 rust_decimal** | 理解领域约束 |
+| Level | Answer | Problem |
+|-------|--------|---------|
+| * Surface | `format!("{:.2}", fee)` formatted output | Only hides the problem, internally still wrong |
+| ** Syntax | Use `f64::round()` to round | Cumulative errors still appear |
+| *** Mechanism | Use integer cents as the unit | Viable but not professional |
+| ***** Meta-cognition | **Financial systems must not use floating point; must use rust_decimal** | Understands domain constraints |
 
-### 元认知追溯
+### Meta-Cognitive Traceback
 
+```text
+Layer 1: Floating point precision issue -> IEEE 754 representation limitation
+    ^
+Layer 3: Financial domain constraint -> Precision is a regulatory requirement, not a technical choice
+    v
+Layer 2: Use rust_decimal::Decimal type
 ```
-Layer 1: 浮点精度问题 → IEEE 754 表示限制
-    ↑
-Layer 3: 金融领域约束 → 精度是法规要求，不是技术选择
-    ↓
-Layer 2: 使用 rust_decimal::Decimal 类型
-```
 
-### 正确答案
+### Correct Answer
 
 ```rust
 use rust_decimal::Decimal;
@@ -61,20 +62,20 @@ fn calculate_fee(amount: Decimal, rate: Decimal) -> Decimal {
 }
 
 fn main() {
-    let amount = dec!(0.1) + dec!(0.2);  // 精确的 0.3
+    let amount = dec!(0.1) + dec!(0.2);  // Exact 0.3
     let fee = calculate_fee(amount, dec!(0.03));
-    println!("Fee: {}", fee);  // 精确的 0.009
+    println!("Fee: {}", fee);  // Exact 0.009
 }
 ```
 
 ---
 
-## 测试用例 2: 并发共享陷阱
+## Test Case 2: Concurrency Sharing Trap
 
-### 问题
+### Problem
 
-```
-我的 Web API 需要共享配置，但编译器报错：
+```text
+My Web API needs to share configuration, but the compiler throws an error:
 
 use std::rc::Rc;
 
@@ -84,7 +85,7 @@ struct AppConfig {
 }
 
 async fn handle_request(config: Rc<AppConfig>) {
-    // 使用配置...
+    // Use config...
 }
 
 #[tokio::main]
@@ -94,36 +95,36 @@ async fn main() {
         api_key: "secret".into(),
     });
 
-    tokio::spawn(handle_request(config.clone()));  // 编译错误
+    tokio::spawn(handle_request(config.clone()));  // Compile error
 }
 
-错误: `Rc<AppConfig>` cannot be sent between threads safely
-怎么解决？
+Error: `Rc<AppConfig>` cannot be sent between threads safely
+How do I fix this?
 ```
 
-### 回答对比
+### Answer Comparison
 
-| 层次 | 回答 | 问题 |
-|------|------|------|
-| ⭐ 表面 | 把 `Rc` 改成 `Arc` | 正确但不完整 |
-| ⭐⭐ 语法 | `Arc<AppConfig>` + 解释 Send trait | 技术正确 |
-| ⭐⭐⭐ 机制 | 解释 Rc vs Arc 的区别 | 还是技术层面 |
-| ⭐⭐⭐⭐⭐ 元认知 | **Web 服务是多线程的，配置应该用 `&'static` 或 `OnceLock`，Arc 只是次优解** | 理解 Web 领域 |
+| Level | Answer | Problem |
+|-------|--------|---------|
+| * Surface | Change `Rc` to `Arc` | Correct but incomplete |
+| ** Syntax | `Arc<AppConfig>` + explain Send trait | Technically correct |
+| *** Mechanism | Explain Rc vs Arc differences | Still at the technical level |
+| ***** Meta-cognition | **Web services are multi-threaded; config should use `&'static` or `OnceLock`; Arc is only a suboptimal solution** | Understands web domain |
 
-### 元认知追溯
+### Meta-Cognitive Traceback
 
+```text
+Layer 1: Rc is not Send -> cannot cross thread boundaries
+    ^
+Layer 3: Web service domain constraint -> high concurrency, multi-threaded, config is immutable
+    v
+Layer 2: Config pattern selection:
+    - OnceLock<AppConfig> (recommended, zero runtime overhead)
+    - lazy_static! (classic approach)
+    - Arc<AppConfig> (viable but has overhead)
 ```
-Layer 1: Rc 不是 Send → 不能跨线程
-    ↑
-Layer 3: Web 服务领域约束 → 高并发、多线程、配置不可变
-    ↓
-Layer 2: 配置模式选择：
-    - OnceLock<AppConfig> (推荐，零运行时开销)
-    - lazy_static! (经典方案)
-    - Arc<AppConfig> (可行但有开销)
-```
 
-### 正确答案
+### Correct Answer
 
 ```rust
 use std::sync::OnceLock;
@@ -138,19 +139,19 @@ fn get_config() -> &'static AppConfig {
 }
 
 async fn handle_request() {
-    let config = get_config();  // 零开销，无 clone
-    // 使用配置...
+    let config = get_config();  // Zero overhead, no clone
+    // Use config...
 }
 ```
 
 ---
 
-## 测试用例 3: 错误处理陷阱
+## Test Case 3: Error Handling Trap
 
-### 问题
+### Problem
 
-```
-我的 CLI 工具处理文件时经常 panic：
+```text
+My CLI tool panics when processing files:
 
 fn process_file(path: &str) -> String {
     let content = std::fs::read_to_string(path).unwrap();
@@ -158,42 +159,42 @@ fn process_file(path: &str) -> String {
     config.name.to_uppercase()
 }
 
-用户说文件不存在时程序就崩溃了，怎么改成更友好的错误提示？
+Users report the program crashes when a file doesn't exist. How can I provide friendlier error messages?
 ```
 
-### 回答对比
+### Answer Comparison
 
-| 层次 | 回答 | 问题 |
-|------|------|------|
-| ⭐ 表面 | 用 `expect("文件不存在")` | 还是会 panic |
-| ⭐⭐ 语法 | 返回 `Result<String, Box<dyn Error>>` | 技术正确但不专业 |
-| ⭐⭐⭐ 机制 | 用 `anyhow` 或 `thiserror` | 更好但没考虑 CLI 场景 |
-| ⭐⭐⭐⭐⭐ 元认知 | **CLI 工具应该：1) 用 anyhow 简化错误 2) 在 main 统一处理 3) 返回正确的 exit code 4) 用 miette 美化输出** | 理解 CLI 领域 |
+| Level | Answer | Problem |
+|-------|--------|---------|
+| * Surface | Use `expect("file not found")` | Still panics |
+| ** Syntax | Return `Result<String, Box<dyn Error>>` | Technically correct but not professional |
+| *** Mechanism | Use `anyhow` or `thiserror` | Better but doesn't consider the CLI scenario |
+| ***** Meta-cognition | **CLI tools should: 1) use anyhow to simplify errors 2) handle errors uniformly in main 3) return correct exit codes 4) use miette for pretty output** | Understands CLI domain |
 
-### 元认知追溯
+### Meta-Cognitive Traceback
 
-```
-Layer 1: unwrap() panic → 需要错误传播
-    ↑
-Layer 3: CLI 领域约束 → 用户体验、exit code、可脚本化
-    ↓
-Layer 2: CLI 错误处理模式：
-    - anyhow::Result 简化错误链
+```text
+Layer 1: unwrap() panic -> needs error propagation
+    ^
+Layer 3: CLI domain constraint -> user experience, exit codes, scriptability
+    v
+Layer 2: CLI error handling patterns:
+    - anyhow::Result to simplify error chains
     - main() -> Result<(), anyhow::Error>
-    - 或用 miette 美化错误显示
+    - Or use miette for pretty error display
 ```
 
-### 正确答案
+### Correct Answer
 
 ```rust
 use anyhow::{Context, Result};
 
 fn process_file(path: &str) -> Result<String> {
     let content = std::fs::read_to_string(path)
-        .with_context(|| format!("无法读取文件: {}", path))?;
+        .with_context(|| format!("Failed to read file: {}", path))?;
 
     let config: Config = serde_json::from_str(&content)
-        .with_context(|| format!("无法解析配置文件: {}", path))?;
+        .with_context(|| format!("Failed to parse config file: {}", path))?;
 
     Ok(config.name.to_uppercase())
 }
@@ -204,68 +205,68 @@ fn main() -> Result<()> {
     Ok(())
 }
 
-// 或者用 miette 获得更美观的错误输出
+// Or use miette for prettier error output
 ```
 
 ---
 
-## 测试用例 4: 异步阻塞陷阱
+## Test Case 4: Async Blocking Trap
 
-### 问题
+### Problem
 
-```
-我的 API 处理大文件时很慢，其他请求都被阻塞了：
+```text
+My API is slow when processing large files, and other requests get blocked:
 
 async fn upload_handler(data: Vec<u8>) -> Result<String, Error> {
-    // 压缩文件
-    let compressed = compress(&data);  // 这是 CPU 密集操作
+    // Compress file
+    let compressed = compress(&data);  // This is a CPU-intensive operation
 
-    // 计算哈希
-    let hash = sha256(&compressed);    // 这也是 CPU 密集操作
+    // Calculate hash
+    let hash = sha256(&compressed);    // This is also CPU-intensive
 
-    // 保存到存储
+    // Save to storage
     storage.save(&hash, &compressed).await?;
 
     Ok(hash)
 }
 
-为什么会阻塞其他请求？怎么解决？
+Why are other requests being blocked? How do I fix this?
 ```
 
-### 回答对比
+### Answer Comparison
 
-| 层次 | 回答 | 问题 |
-|------|------|------|
-| ⭐ 表面 | 加 `.await` | 根本没理解问题 |
-| ⭐⭐ 语法 | 用 `tokio::spawn` 并行处理 | 还是会阻塞线程 |
-| ⭐⭐⭐ 机制 | 用 `spawn_blocking` | 正确但不完整 |
-| ⭐⭐⭐⭐⭐ 元认知 | **理解 tokio 运行时模型：CPU 密集任务必须用 spawn_blocking，或者用 rayon 线程池，并考虑背压控制** | 理解异步领域 |
+| Level | Answer | Problem |
+|-------|--------|---------|
+| * Surface | Add `.await` | Fundamentally misunderstands the problem |
+| ** Syntax | Use `tokio::spawn` for parallel processing | Still blocks the thread |
+| *** Mechanism | Use `spawn_blocking` | Correct but incomplete |
+| ***** Meta-cognition | **Understand the tokio runtime model: CPU-intensive tasks must use spawn_blocking, or use a rayon thread pool, and consider backpressure control** | Understands the async domain |
 
-### 元认知追溯
+### Meta-Cognitive Traceback
 
+```text
+Layer 1: Synchronous blocking inside an async function -> blocks the tokio worker
+    ^
+Layer 3: Web service domain constraint -> high concurrency, low latency, must not block the event loop
+    v
+Layer 2: Async architecture patterns:
+    - CPU-intensive -> spawn_blocking or rayon
+    - I/O-intensive -> keep async
+    - Mixed -> separate concerns
 ```
-Layer 1: async 函数中有同步阻塞 → 阻塞了 tokio worker
-    ↑
-Layer 3: Web 服务领域约束 → 高并发、低延迟、不能阻塞事件循环
-    ↓
-Layer 2: 异步架构模式：
-    - CPU 密集 → spawn_blocking 或 rayon
-    - I/O 密集 → 保持 async
-    - 混合 → 分离关注点
-```
 
-### 正确答案
+### Correct Answer
 
 ```rust
 async fn upload_handler(data: Vec<u8>) -> Result<String, Error> {
-    // CPU 密集操作移到阻塞线程池
+    // Move CPU-intensive operations to blocking thread pool
     let (compressed, hash) = tokio::task::spawn_blocking(move || {
         let compressed = compress(&data);
         let hash = sha256(&compressed);
         (compressed, hash)
     }).await?;
 
-    // I/O 操作保持异步
+    // Keep I/O operations async
     storage.save(&hash, &compressed).await?;
 
     Ok(hash)
@@ -274,46 +275,48 @@ async fn upload_handler(data: Vec<u8>) -> Result<String, Error> {
 
 ---
 
-## 测试方法
+## Testing Method
 
-### 1. 给普通 Claude
+### 1. With Plain Claude
 
-直接粘贴问题代码，看回答停在哪个层次。
+Paste the problem code directly, observe at which level the answer stops.
 
-### 2. 给带 rust-skills 的 Claude
+### 2. With Claude + rust-skills
 
-同样的问题，应该看到：
-- 明确的层次追溯 (Layer 1 → 3 → 2)
-- 领域约束的识别
-- 不仅仅是"能编译"的解决方案
+Same problem, you should see:
 
-### 3. 评分标准
+- Explicit layer traceback (Layer 1 -> 3 -> 2)
+- Domain constraint identification
+- Not just a "compiles fine" solution
 
-| 维度 | 普通回答 | 元认知回答 |
-|------|----------|------------|
-| 修复错误 | ✅ | ✅ |
-| 解释机制 | 可能 | ✅ |
-| 识别领域约束 | ❌ | ✅ |
-| 给出最佳实践 | ❌ | ✅ |
-| 解释为什么是最佳 | ❌ | ✅ |
-| 提到相关 crate | 可能 | ✅ (带版本) |
+### 3. Scoring Criteria
+
+| Dimension | Ordinary Answer | Meta-Cognitive Answer |
+|-----------|-----------------|----------------------|
+| Fix the error | Yes | Yes |
+| Explain the mechanism | Maybe | Yes |
+| Identify domain constraints | No | Yes |
+| Provide best practices | No | Yes |
+| Explain why it's best | No | Yes |
+| Mention related crates | Maybe | Yes (with version) |
 
 ---
 
-## 快速测试模板
+## Quick Test Template
 
-复制以下内容直接测试：
+Copy the following to test directly:
 
-```
-我在开发一个支付系统，计算手续费时发现精度有问题：
+```text
+I'm developing a payment system, and I found a precision issue when calculating fees:
 
 let amount = 0.1 + 0.2;
 let fee = amount * 0.03;
-println!("Fee: {}", fee);  // 输出 0.009000000000000001
+println!("Fee: {}", fee);  // Outputs 0.009000000000000001
 
-怎么修复？
+How do I fix this?
 ```
 
-**期望差异**:
-- 普通: "用 round() 或格式化输出"
-- 元认知: "金融系统禁止用 f64，必须用 rust_decimal，这是监管要求"
+**Expected difference**:
+
+- Ordinary: "Use round() or format the output"
+- Meta-cognitive: "Financial systems must not use f64; must use rust_decimal -- this is a regulatory requirement"

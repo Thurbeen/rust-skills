@@ -1,40 +1,42 @@
-# 文档缓存规范
+# Documentation Cache Specification
 
-> Agent 获取的文档结果本地缓存机制
+> Local caching mechanism for agent-fetched documentation results
 
-## 缓存目标
+## Cache Goals
 
-- 减少重复网络请求
-- 加快响应速度
-- 离线可用（在缓存有效期内）
+- Reduce redundant network requests
+- Speed up response times
+- Offline availability (within cache validity period)
 
-## 缓存位置
+## Cache Location
 
-### 优先级
+### Priority
 
-1. **Skill references 目录**（如果 skill 存在）
-   ```
+1. **Skill references directory** (if the skill exists)
+
+   ```text
    ~/.claude/skills/{crate}/references/{item}.md
    ```
 
-2. **全局缓存目录**（fallback）
-   ```
+2. **Global cache directory** (fallback)
+
+   ```text
    ~/.claude/cache/rust-docs/{source}/{path}.json
    ```
 
-### 路径映射
+### Path Mapping
 
-| 文档类型 | 缓存路径 |
-|----------|----------|
+| Document Type | Cache Path |
+|---------------|------------|
 | docs.rs crate | `~/.claude/cache/rust-docs/docs.rs/{crate}/{item}.json` |
 | std library | `~/.claude/cache/rust-docs/std/{module}/{item}.json` |
 | releases.rs | `~/.claude/cache/rust-docs/releases.rs/{version}.json` |
 | lib.rs | `~/.claude/cache/rust-docs/lib.rs/{crate}.json` |
 | clippy | `~/.claude/cache/rust-docs/clippy/{lint}.json` |
 
-## 缓存格式
+## Cache Format
 
-### JSON 结构
+### JSON Structure
 
 ```json
 {
@@ -57,9 +59,9 @@
 }
 ```
 
-### Markdown 格式（用于 references/）
+### Markdown Format (for references/)
 
-```markdown
+````markdown
 ---
 url: https://doc.rust-lang.org/std/marker/trait.Send.html
 fetched_at: 2025-01-16T23:30:00Z
@@ -70,83 +72,97 @@ source: agent-browser
 # std::marker::Send
 
 **Signature:**
+
 ```rust
 pub unsafe auto trait Send { }
 ```
+````
 
 **Description:**
 Types that can be transferred across thread boundaries...
-```
 
-## 过期时间
+```text
 
-| 文档类型 | 默认过期时间 | 说明 |
-|----------|--------------|------|
-| std library | 30 天 | 稳定，变化少 |
-| crate docs (stable) | 7 天 | 版本可能更新 |
-| releases.rs | 永不过期 | 历史版本不变 |
-| lib.rs (crate info) | 1 天 | 版本信息变化快 |
-| clippy lints | 14 天 | 每次 Rust 版本更新 |
+## Expiration Times
 
-## Agent 工作流程
+| Document Type | Default Expiration | Notes |
+|---------------|-------------------|-------|
+| std library | 30 days | Stable, rarely changes |
+| crate docs (stable) | 7 days | Versions may update |
+| releases.rs | Never expires | Historical versions are immutable |
+| lib.rs (crate info) | 1 day | Version info changes frequently |
+| clippy lints | 14 days | Updates with each Rust release |
 
-### 1. 检查缓存
+## Agent Workflow
 
-```
-1. 构建缓存路径
-2. 检查文件是否存在
-3. 检查是否过期 (expires_at < now)
-4. 如果有效，返回缓存内容
-```
-
-### 2. 获取并缓存
+### 1. Check Cache
 
 ```
-1. 使用 actionbook + agent-browser 获取
-2. 解析内容
-3. 生成缓存文件（JSON 或 Markdown）
-4. 保存到对应路径
-5. 返回内容
+
+1. Build cache path
+2. Check if file exists
+3. Check if expired (expires_at < now)
+4. If valid, return cached content
+
+```text
+
+### 2. Fetch and Cache
+
 ```
 
-### 3. 强制刷新
+1. Fetch using actionbook + agent-browser
+2. Parse content
+3. Generate cache file (JSON or Markdown)
+4. Save to the corresponding path
+5. Return content
 
-用户可以请求强制刷新：
+```text
+
+### 3. Force Refresh
+
+Users can request a force refresh:
 ```
-"刷新 Send trait 文档"
+
+"refresh Send trait docs"
 "refresh tokio::spawn docs"
-```
 
-## 缓存管理命令
+```text
+
+## Cache Management Commands
 
 ### /rust-skills:cache-status
 
-显示缓存状态：
+Display cache status:
 ```
+
 Rust Docs Cache Status:
+
 - std library: 45 items, 12MB
 - docs.rs: 128 items, 34MB
 - releases.rs: 15 items, 2MB
 - Total: 188 items, 48MB
 
 Expired: 23 items
-```
+
+```text
 
 ### /rust-skills:cache-clean
 
-清理过期或全部缓存：
-```
-/rust-skills:cache-clean          # 清理过期
-/rust-skills:cache-clean --all    # 清理全部
-/rust-skills:cache-clean tokio    # 清理特定 crate
+Clean expired or all cache:
 ```
 
-## 实现位置
+/rust-skills:cache-clean # Clean expired
+/rust-skills:cache-clean --all    # Clean all
+/rust-skills:cache-clean tokio    # Clean specific crate
 
-| 文件 | 职责 |
-|------|------|
-| `agents/docs-cache.md` | 缓存检查和保存的通用指令 |
-| `agents/docs-researcher.md` | 更新：添加缓存逻辑 |
-| `agents/std-docs-researcher.md` | 更新：添加缓存逻辑 |
-| `commands/cache-status.md` | 缓存状态命令 |
-| `commands/cache-clean.md` | 缓存清理命令 |
+```text
+
+## Implementation Location
+
+| File | Responsibility |
+|------|----------------|
+| `agents/docs-cache.md` | General instructions for cache checking and saving |
+| `agents/docs-researcher.md` | Updated: added caching logic |
+| `agents/std-docs-researcher.md` | Updated: added caching logic |
+| `commands/cache-status.md` | Cache status command |
+| `commands/cache-clean.md` | Cache cleanup command |

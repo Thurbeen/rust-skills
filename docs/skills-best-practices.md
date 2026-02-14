@@ -1,110 +1,114 @@
-# Skills 编写最佳实践
+# Skills Authoring Best Practices
 
-> 基于 rust-skills 项目开发过程中的经验总结
+> Lessons learned from the rust-skills project development process
 
 ---
 
-## 1. CSO (Claude Search Optimization) - 描述优化
+## 1. CSO (Claude Search Optimization) - Description Optimization
 
-### 问题
-Skills 的 `description` 字段是 Claude 匹配用户问题的关键，但很多 skill 描述不够优化，导致无法被正确触发。
+### Problem
 
-### 解决方案
+The `description` field in Skills is how Claude matches user questions, but many skill descriptions are poorly optimized, preventing correct triggering.
 
-**使用 "CRITICAL:" 前缀提升优先级：**
+### Solution
+
+**Use "CRITICAL:" prefix to boost priority:**
+
 ```yaml
 description: |
   CRITICAL: Use for tokio async runtime questions. Triggers on:
   tokio, spawn, select!, join!, timeout, channel...
 ```
 
-**包含多种触发形式：**
+**Include multiple trigger forms:**
 
-| 类型 | 示例 |
-|------|------|
-| 关键词 | `tokio, spawn, select!, mpsc` |
-| 错误码 | `E0382, E0597, E0277` |
-| 错误信息 | `"cannot move out of"`, `"borrowed value"` |
-| 用户问题 | `"how to use tokio"`, `"tokio 怎么用"` |
-| 中文触发词 | `异步运行时, spawn 用法, 最新版本` |
+| Type | Example |
+|------|---------|
+| Keywords | `tokio, spawn, select!, mpsc` |
+| Error codes | `E0382, E0597, E0277` |
+| Error messages | `"cannot move out of"`, `"borrowed value"` |
+| User questions | `"how to use tokio"` |
 
-**示例对比：**
+**Example comparison:**
 
 ```yaml
-# ❌ 差的描述
+# Bad description
 description: "Tokio async runtime skill"
 
-# ✅ 好的描述
+# Good description
 description: |
   CRITICAL: Use for tokio async runtime questions. Triggers on:
   tokio, spawn, spawn_blocking, select!, join!, try_join!,
   mpsc, oneshot, broadcast, watch, channel, Mutex, RwLock,
   timeout, sleep, interval, "#[tokio::main]",
-  tokio 怎么用, tokio 用法, 异步运行时, spawn 用法
+  async runtime, spawn usage
 ```
 
 ---
 
-## 2. 分布式触发架构
+## 2. Distributed Trigger Architecture
 
-### 问题
-单一入口点（如 rust-router）会成为瓶颈，所有问题都要先经过它路由。
+### Problem
 
-### 解决方案
+A single entry point (e.g., rust-router) becomes a bottleneck, as all questions must be routed through it first.
 
-**每个 Skill 都可以独立触发：**
+### Solution
 
+**Every Skill can be triggered independently:**
+
+```text
+User question -> Claude matches all skills' descriptions
+              -> Multiple skills may trigger simultaneously
+              -> rust-router serves as index/fallback
 ```
-用户问题 → Claude 匹配所有 skills 的 description
-         → 多个 skills 可能同时触发
-         → rust-router 作为索引/fallback
-```
 
-**架构对比：**
+**Architecture comparison:**
 
-| 模式 | 优点 | 缺点 |
+| Mode | Pros | Cons |
 |------|------|------|
-| 单入口 | 集中管理 | 瓶颈、单点故障 |
-| 分布式 | 并行匹配、容错 | 需要好的 CSO |
+| Single entry | Centralized management | Bottleneck, single point of failure |
+| Distributed | Parallel matching, fault-tolerant | Requires good CSO |
 
 ---
 
-## 3. 动态 Skills 目录结构
+## 3. Dynamic Skills Directory Structure
 
-### 结构
+### Structure
 
-动态生成的 crate skills 直接放在 `~/.claude/skills/` 下，Claude Code 自动扫描：
+Dynamically generated crate skills go directly under `~/.claude/skills/`, where Claude Code scans automatically:
 
 ```bash
 ~/.claude/skills/
 ├── tokio/
 │   ├── SKILL.md
 │   └── references/
-├── tokio-task/          # 子技能
+├── tokio-task/          # Sub-skill
 │   ├── SKILL.md
 │   └── references/
 ├── serde/
 │   ├── SKILL.md
 │   └── references/
-└── _shared/             # 共享文件（以 _ 开头不被扫描为 skill）
+└── _shared/             # Shared files (prefixed with _ to avoid being scanned as a skill)
     └── rust-defaults.md
 ```
 
-**命名约定：**
-- 主技能：`{crate_name}/`
-- 子技能：`{crate_name}-{feature}/`（如 `tokio-task/`, `tokio-sync/`）
-- 共享目录：以 `_` 开头（不被扫描为 skill）
+**Naming conventions:**
+
+- Primary skill: `{crate_name}/`
+- Sub-skill: `{crate_name}-{feature}/` (e.g., `tokio-task/`, `tokio-sync/`)
+- Shared directory: prefixed with `_` (not scanned as a skill)
 
 ---
 
-## 4. 文档完整性检查
+## 4. Documentation Completeness Check
 
-### 问题
-Skills 引用的 reference 文件可能不存在，导致读取失败但用户不知道原因。
+### Problem
 
-### 解决方案
+Reference files referenced by Skills may not exist, causing read failures without the user knowing why.
 
-**在 SKILL.md 中添加检查指令：**
+### Solution
+
+**Add check instructions in SKILL.md:**
 
 ```markdown
 ## IMPORTANT: Documentation Completeness Check
@@ -113,25 +117,27 @@ Skills 引用的 reference 文件可能不存在，导致读取失败但用户�
 
 1. Read the relevant reference file(s) listed above
 2. If file read fails or file is empty:
-   - Inform user: "本地文档不完整，建议运行 `/sync-crate-skills {crate} --force` 更新"
+   - Inform user: "Local documentation is incomplete, consider running `/sync-crate-skills {crate} --force` to update"
    - Still answer based on SKILL.md patterns + knowledge
 3. If reference file exists, incorporate its content into the answer
 ```
 
-**创建检查命令：**
-- `/fix-skill-docs` - 检查并修复缺失文件
-- `/fix-skill-docs --check-only` - 只检查不修复
+**Create check commands:**
+
+- `/fix-skill-docs` - Check and fix missing files
+- `/fix-skill-docs --check-only` - Check only, do not fix
 
 ---
 
-## 5. 工具优先级
+## 5. Tool Priority
 
-### 问题
-直接使用 WebSearch 可能获取过时信息，且绕过了专用工具。
+### Problem
 
-### 解决方案
+Directly using WebSearch may retrieve outdated information and bypasses dedicated tools.
 
-**使用 "PREFER" 而非 "DO NOT"：**
+### Solution
+
+**Use "PREFER" instead of "DO NOT":**
 
 ```markdown
 ## Tool Priority
@@ -143,65 +149,76 @@ Skills 引用的 reference 文件可能不存在，导致读取失败但用户�
 3. **Fallback**: WebSearch (only if agents unavailable or fail)
 ```
 
-**原因：**
-- "DO NOT use WebSearch" 太绝对，如果 agent 不可用会导致任务失败
-- "PREFER" 允许 fallback，更健壮
+**Reasoning:**
+
+- "DO NOT use WebSearch" is too absolute; if the agent is unavailable, the task fails
+- "PREFER" allows fallback and is more robust
 
 ---
 
-## 6. Skills TDD (测试驱动开发)
+## 6. Skills TDD (Test-Driven Development)
 
-### 概念
-"没有失败测试就没有技能" - 先定义技能应该解决的问题，再编写技能。
+### Concept
 
-### 流程
+"No skill without a failing test" - Define the problems the skill should solve first, then write the skill.
 
-**RED 阶段：**
-1. 定义压力场景（用户问题 + 期望行为）
-2. 在没有技能的情况下测试
-3. 记录基线失败
+### Process
 
-**GREEN 阶段：**
-1. 编写最小化技能解决失败
-2. 测试验证改进
+**RED phase:**
 
-**REFACTOR 阶段：**
-1. 识别漏洞
-2. 添加对策
-3. 测试边缘情况
+1. Define pressure scenarios (user question + expected behavior)
+2. Test without the skill in place
+3. Record the baseline failure
 
-### 压力场景模板
+**GREEN phase:**
 
-```markdown
-# Pressure Scenario: {场景名}
+1. Write a minimal skill to address the failure
+2. Test to verify improvement
+
+**REFACTOR phase:**
+
+1. Identify gaps
+2. Add countermeasures
+3. Test edge cases
+
+### Pressure Scenario Template
+
+````markdown
+# Pressure Scenario: {scenario name}
 
 ## Skill Under Test
+
 {skill_name}
 
 ## User Question
-"{用户问题}"
+
+"{user question}"
 
 ## Code Context
+
 ```rust
-// 相关代码
+// Relevant code
 ```
+````
 
 ## Expected Behavior
-- [x] 解释 XXX
-- [x] 提供修复方案
-- [x] 引用相关指南
-```
+
+- [x] Explain XXX
+- [x] Provide a fix
+- [x] Reference relevant guidelines
+
+```text
 
 ---
 
-## 7. Quick Reference 表格
+## 7. Quick Reference Tables
 
-### 问题
-详细文档太长，用户需要快速参考。
+### Problem
+Detailed documentation is too long; users need quick references.
 
-### 解决方案
+### Solution
 
-**在 SKILL.md 开头添加表格：**
+**Add a table at the top of SKILL.md:**
 
 ```markdown
 ## Quick Reference
@@ -214,33 +231,36 @@ Skills 引用的 reference 文件可能不存在，导致读取失败但用户�
 | `clone()` | Need owned copy | `let b = a.clone();` |
 ```
 
-**原则：**
-- 表格放在文件顶部
-- 每个示例 < 20 词
-- 详细内容放 references/
+**Principles:**
+
+- Place the table at the top of the file
+- Keep each example under 20 words
+- Put detailed content in references/
 
 ---
 
-## 8. Commands vs Skills 热加载
+## 8. Commands vs Skills Hot-Reloading
 
-### 发现
-- **Skills** (`skills/*/SKILL.md`) - 可以热加载
-- **Commands** (`commands/*.md`) - 需要重启才能加载
+### Discovery
 
-### 解决方案
+- **Skills** (`skills/*/SKILL.md`) - Can be hot-reloaded
+- **Commands** (`commands/*.md`) - Require restart to load
 
-**为每个命令创建 Skill 包装：**
+### Solution
 
-```
+**Create a Skill wrapper for each command:**
+
+```text
 commands/
-└── fix-skill-docs.md        # 命令定义
+└── fix-skill-docs.md        # Command definition
 
 skills/
 └── core-fix-skill-docs/
-    └── SKILL.md             # Skill 包装（可热加载）
+    └── SKILL.md             # Skill wrapper (hot-reloadable)
 ```
 
-**Skill 包装内容：**
+**Skill wrapper content:**
+
 ```yaml
 ---
 name: core-fix-skill-docs
@@ -251,20 +271,19 @@ description: |
 
 # Fix Skill Documentation
 
-{命令的简化版说明}
+{Simplified version of command instructions}
 ```
 
 ---
 
-## 9. SKILL.md 标准结构
+## 9. SKILL.md Standard Structure
 
-```markdown
+````markdown
 ---
 name: {crate_name}
 description: |
   CRITICAL: Use for {topic}. Triggers on:
-  {keywords}, {error_codes}, "{questions}",
-  {中文关键词}
+  {keywords}, {error_codes}, "{questions}"
 ---
 
 # {Title}
@@ -272,19 +291,22 @@ description: |
 > **Version:** {version} | **Last Updated:** {date}
 
 You are an expert at {topic}. Help users by:
+
 - **Writing code**: Generate code following the patterns below
 - **Answering questions**: Explain concepts, troubleshoot issues
 
 ## Documentation
 
 Refer to the local files for detailed documentation:
+
 - `./references/xxx.md` - Description
 
 ## IMPORTANT: Documentation Completeness Check
 
 **Before answering questions, Claude MUST:**
+
 1. Read the relevant reference file(s)
-2. If file read fails: Inform user "本地文档不完整，建议运行 /sync-crate-skills"
+2. If file read fails: Inform user "Local documentation is incomplete, consider running /sync-crate-skills"
 3. Still answer based on SKILL.md + knowledge
 
 ## Quick Reference
@@ -296,9 +318,11 @@ Refer to the local files for detailed documentation:
 ## Key Patterns
 
 ### Pattern 1
+
 ```rust
 // Code example
 ```
+````
 
 ## API Reference Table
 
@@ -321,40 +345,41 @@ Refer to the local files for detailed documentation:
 
 1. Key point 1
 2. Key point 2
-```
+
+```text
 
 ---
 
-## 10. 质量检查清单
+## 10. Quality Checklist
 
-创建 Skill 时确保：
+When creating a Skill, ensure:
 
-- [ ] Description 有 "CRITICAL:" 前缀
-- [ ] Description 包含中英文触发词
-- [ ] Description 包含相关错误码
-- [ ] 有版本和更新日期
-- [ ] 有 "You are an expert..." 角色定义
-- [ ] 有 Documentation 导航列表
-- [ ] 有 Documentation Completeness Check 部分
-- [ ] 有 Quick Reference 表格
-- [ ] 有 Key Patterns 代码示例
-- [ ] 有 Deprecated Patterns 表格
-- [ ] 有 "When Writing Code" 最佳实践
-- [ ] 有 "When Answering Questions" 指南
-- [ ] 复杂内容拆分到 references/
-- [ ] 创建了符号链接（动态 skills）
+- [ ] Description has a "CRITICAL:" prefix
+- [ ] Description includes trigger keywords
+- [ ] Description includes relevant error codes
+- [ ] Has version and update date
+- [ ] Has a "You are an expert..." role definition
+- [ ] Has a Documentation navigation list
+- [ ] Has a Documentation Completeness Check section
+- [ ] Has a Quick Reference table
+- [ ] Has Key Patterns code examples
+- [ ] Has a Deprecated Patterns table
+- [ ] Has "When Writing Code" best practices
+- [ ] Has "When Answering Questions" guidelines
+- [ ] Complex content is split into references/
+- [ ] Symlinks created (for dynamic skills)
 
 ---
 
-## 总结
+## Summary
 
-| 经验 | 核心要点 |
-|------|----------|
-| CSO 优化 | "CRITICAL:" 前缀 + 多语言触发词 |
-| 分布式触发 | 每个 skill 独立可触发 |
-| 符号链接 | 动态 skills 需要链接到 ~/.claude/skills/ |
-| 文档检查 | 读取失败时提示用户更新 |
-| 工具优先级 | "PREFER" 而非 "DO NOT" |
-| TDD | 先写压力场景，再写 skill |
-| 表格优先 | Quick Reference 放顶部 |
-| 热加载 | Commands 需要 Skill 包装 |
+| Lesson | Key Takeaway |
+|--------|--------------|
+| CSO Optimization | "CRITICAL:" prefix + multilingual trigger keywords |
+| Distributed Triggering | Each skill can be triggered independently |
+| Symlinks | Dynamic skills need links to ~/.claude/skills/ |
+| Documentation Check | Prompt user to update when read fails |
+| Tool Priority | "PREFER" instead of "DO NOT" |
+| TDD | Write pressure scenarios first, then write the skill |
+| Tables First | Quick Reference goes at the top |
+| Hot-Reloading | Commands need Skill wrappers |

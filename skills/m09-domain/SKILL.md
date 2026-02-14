@@ -1,6 +1,6 @@
 ---
 name: m09-domain
-description: "CRITICAL: Use for domain modeling. Triggers: domain model, DDD, domain-driven design, entity, value object, aggregate, repository pattern, business rules, validation, invariant, 领域模型, 领域驱动设计, 业务规则"
+description: "CRITICAL: Use for domain modeling. Triggers: domain model, DDD, domain-driven design, entity, value object, aggregate, repository pattern, business rules, validation, invariant"
 user-invocable: false
 ---
 
@@ -13,6 +13,7 @@ user-invocable: false
 **What is this concept's role in the domain?**
 
 Before modeling in code, understand:
+
 - Is it an Entity (identity matters) or Value Object (interchangeable)?
 - What invariants must be maintained?
 - Where are the aggregate boundaries?
@@ -55,7 +56,7 @@ Before creating a domain type:
 
 To domain constraints (Layer 3):
 
-```
+```text
 "How should I model a Transaction?"
     ↑ Ask: What domain rules govern transactions?
     ↑ Check: domain-fintech (audit, precision requirements)
@@ -74,7 +75,7 @@ To domain constraints (Layer 3):
 
 To implementation (Layer 1):
 
-```
+```text
 "Model as Entity"
     ↓ m01-ownership: Owned, unique
     ↓ m05-type-driven: Newtype for Id

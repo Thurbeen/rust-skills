@@ -1,6 +1,6 @@
 ---
 name: domain-fintech
-description: "Use when building fintech apps. Keywords: fintech, trading, decimal, currency, financial, money, transaction, ledger, payment, exchange rate, precision, rounding, accounting, 金融, 交易系统, 货币, 支付"
+description: "Use when building fintech apps. Keywords: fintech, trading, decimal, currency, financial, money, transaction, ledger, payment, exchange rate, precision, rounding, accounting"
 user-invocable: false
 ---
 
@@ -24,7 +24,7 @@ user-invocable: false
 
 ### Financial Precision
 
-```
+```text
 RULE: Never use f64 for money
 WHY: Floating point loses precision
 RUST: Use rust_decimal::Decimal
@@ -32,7 +32,7 @@ RUST: Use rust_decimal::Decimal
 
 ### Audit Requirements
 
-```
+```text
 RULE: All transactions must be immutable and traceable
 WHY: Regulatory compliance, dispute resolution
 RUST: Arc<T> for sharing, event sourcing pattern
@@ -40,7 +40,7 @@ RUST: Arc<T> for sharing, event sourcing pattern
 
 ### Consistency
 
-```
+```text
 RULE: Money can't disappear or appear
 WHY: Double-entry accounting principles
 RUST: Transaction types with validated totals
@@ -52,7 +52,7 @@ RUST: Transaction types with validated totals
 
 From constraints to design (Layer 2):
 
-```
+```text
 "Need immutable transaction records"
     ↓ m09-domain: Model as Value Objects
     ↓ m01-ownership: Use Arc for shared immutable data

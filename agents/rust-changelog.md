@@ -18,15 +18,19 @@ Use available tools to get releases.rs content.
 **Release Date:** <date>
 
 ### Language Features
+
 - feature: desc
 
 ### Standard Library
+
 - new/stabilized API: desc
 
 ### Cargo
+
 - change: desc
 
 ### Breaking Changes
+
 - note: desc
 ```
 
@@ -80,30 +84,38 @@ When changelog request needs clarification:
 ## Negotiation Response
 
 ### Findings
+
 **Version:** Rust <version>
 **Release Date:** <date>
 
 **Language Features:**
+
 - Feature 1: description
 
 **Stabilized APIs:**
+
 - API 1: description
 
 **Breaking Changes:**
+
 - Change 1: description
 
 ### Confidence
+
 - **Level**: [HIGH|MEDIUM|LOW|UNCERTAIN]
 - **Reason**: [e.g., "Official release notes from releases.rs"]
 
 ### Gaps Identified
+
 - [ ] [Specific gap 1]
 - [ ] [Specific gap 2]
 
 ### Context Needed
+
 - Q1: [If ambiguous]
 
 ### Metadata
+
 - **Source**: releases.rs/docs/<version>
 - **Coverage**: [e.g., "85% - missing detailed migration"]
 ```

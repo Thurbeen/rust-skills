@@ -1,6 +1,6 @@
 ---
 name: rust-deps-visualizer
-description: "Visualize Rust project dependencies as ASCII art. Triggers on: /deps-viz, dependency graph, show dependencies, visualize deps, 依赖图, 依赖可视化, 显示依赖"
+description: "Visualize Rust project dependencies as ASCII art. Triggers on: /deps-viz, dependency graph, show dependencies, visualize deps"
 argument-hint: "[--depth N] [--features]"
 allowed-tools: ["Bash", "Read", "Glob"]
 ---
@@ -11,11 +11,12 @@ Generate ASCII art visualizations of your Rust project's dependency tree.
 
 ## Usage
 
-```
+```text
 /rust-deps-visualizer [--depth N] [--features]
 ```
 
 **Options:**
+
 - `--depth N`: Limit tree depth (default: 3)
 - `--features`: Show feature flags
 
@@ -23,7 +24,7 @@ Generate ASCII art visualizations of your Rust project's dependency tree.
 
 ### Simple Tree (Default)
 
-```
+```text
 my-project v0.1.0
 ├── tokio v1.49.0
 │   ├── pin-project-lite v0.2.x
@@ -35,7 +36,7 @@ my-project v0.1.0
 
 ### Feature-Aware Tree
 
-```
+```text
 my-project v0.1.0
 ├── tokio v1.49.0 [rt, rt-multi-thread, macros, fs, io-util]
 │   ├── pin-project-lite v0.2.x
@@ -62,15 +63,16 @@ cargo tree --depth=${DEPTH:-3} ${FEATURES:+--features} 2>/dev/null
 **Step 3:** Format as ASCII art tree
 
 Use these box-drawing characters:
+
 - `├──` for middle items
 - `└──` for last items
-- `│   ` for continuation lines
+- `│` for continuation lines
 
 ## Visual Enhancements
 
 ### Dependency Categories
 
-```
+```text
 my-project v0.1.0
 │
 ├─[Runtime]─────────────────────
@@ -88,7 +90,7 @@ my-project v0.1.0
 
 ### Size Visualization (Optional)
 
-```
+```text
 my-project v0.1.0
 ├── tokio v1.49.0        ████████████ 2.1 MB
 ├── serde v1.0.x         ███████ 1.2 MB

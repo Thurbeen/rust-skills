@@ -212,13 +212,13 @@ handle_tool_use() {
       fi
 
       # Check for bug fixes
-      if echo "$tool_input" | grep -qiE 'fix|bug|修复|patch|resolve'; then
+      if echo "$tool_input" | grep -qiE 'fix|bug|patch|resolve'; then
         increment_stat "bugs_fixed" > /dev/null
         echo "🐛 Bug fix detected! ($(get_stat bugs_fixed) total)"
       fi
 
       # Check for refactoring
-      if echo "$tool_input" | grep -qiE 'refactor|重构|clean|extract|rename'; then
+      if echo "$tool_input" | grep -qiE 'refactor|clean|extract|rename'; then
         increment_stat "refactors" > /dev/null
       fi
       ;;
@@ -246,7 +246,7 @@ handle_prompt() {
   [ -z "$prompt" ] && return
 
   # Track Rust questions
-  if echo "$prompt" | grep -qiE 'rust|cargo|借用|所有权|lifetime|trait|async|tokio'; then
+  if echo "$prompt" | grep -qiE 'rust|cargo|borrow|ownership|lifetime|trait|async|tokio'; then
     increment_stat "rust_questions" > /dev/null
   fi
 

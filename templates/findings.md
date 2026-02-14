@@ -5,9 +5,10 @@
 
 ---
 
-# Findings
+## Findings
 
 ## Problem Context
+
 <!-- Brief reminder of what problem is being solved -->
 
 ---
@@ -22,6 +23,7 @@
 | <!-- constraint --> | <!-- domain-* skill or analysis --> | <!-- what this means for design --> |
 
 ### Domain Rules Identified
+
 - [ ] <!-- Rule 1 -->
 - [ ] <!-- Rule 2 -->
 - [ ] <!-- Rule 3 -->
@@ -39,6 +41,7 @@
 | <!-- pattern name --> | Yes / No / Maybe | <!-- why --> |
 
 ### Selected Pattern
+
 - **Pattern**: <!-- chosen pattern -->
 - **Skill Source**: <!-- m09-m15 -->
 - **Rationale**: <!-- why this pattern fits the constraints -->
@@ -55,6 +58,7 @@
 | <!-- mechanism --> | <!-- application --> | <!-- m01-m07 --> |
 
 ### Key Code Patterns
+
 ```rust
 // Pattern 1: [description]
 // code example
@@ -86,6 +90,7 @@
 ## Trade-offs Identified
 
 ### Option A: <!-- name -->
+
 | Aspect | Evaluation |
 |--------|------------|
 | **Pros** | <!-- benefits --> |
@@ -94,6 +99,7 @@
 | **Complexity** | <!-- low/medium/high --> |
 
 ### Option B: <!-- name -->
+
 | Aspect | Evaluation |
 |--------|------------|
 | **Pros** | <!-- benefits --> |
@@ -102,6 +108,7 @@
 | **Complexity** | <!-- low/medium/high --> |
 
 ### Option C: <!-- name -->
+
 | Aspect | Evaluation |
 |--------|------------|
 | **Pros** | <!-- benefits --> |
@@ -114,14 +121,17 @@
 ## Constraints Summary
 
 ### Must Have (Non-negotiable)
+
 1. <!-- constraint from domain rules -->
 2. <!-- constraint from domain rules -->
 
 ### Should Have (Important)
+
 1. <!-- preferred but flexible -->
 2. <!-- preferred but flexible -->
 
 ### Nice to Have (Optional)
+
 1. <!-- bonus if achievable -->
 2. <!-- bonus if achievable -->
 

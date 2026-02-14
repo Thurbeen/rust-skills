@@ -8,6 +8,7 @@ argument-hint: [--all | --expired | crate_name]
 Clean cached Rust documentation.
 
 Arguments: $ARGUMENTS
+
 - `--all`: Remove all cached docs
 - `--expired`: Remove only expired docs (default)
 - `crate_name`: Remove cache for specific crate/item
@@ -111,7 +112,7 @@ fi
 
 ### --expired (default)
 
-```
+```text
 Removing expired cache entries...
 Removed: docs.rs/tokio/task-fn.spawn.json
 Removed: std/marker/trait.Send.json
@@ -122,14 +123,14 @@ Removed 3 expired entries.
 
 ### --all
 
-```
+```text
 Removing all cached docs...
 Cache cleared.
 ```
 
 ### specific target
 
-```
+```text
 Removing cache for: tokio
 Removed: docs.rs/tokio/
 Removed: lib.rs/tokio.json

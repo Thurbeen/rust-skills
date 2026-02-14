@@ -43,6 +43,7 @@ TTL: 30 days (std is stable)
 **Description:** <main doc>
 
 **Key Points:**
+
 - point 1
 - point 2
 ```
@@ -99,29 +100,35 @@ When std documentation request needs clarification:
 ## Negotiation Response
 
 ### Findings
+
 **Item:** std::<path>::<Item>
 **Signature:**
 \`\`\`rust
 <signature>
 \`\`\`
 **Key Points:**
+
 - Point 1
 - Point 2
 
 **Related items:** [if relevant]
 
 ### Confidence
+
 - **Level**: [HIGH|MEDIUM|LOW|UNCERTAIN]
 - **Reason**: [e.g., "Official Rust documentation"]
 
 ### Gaps Identified
+
 - [ ] [Specific gap 1]
 - [ ] [Specific gap 2]
 
 ### Context Needed
+
 - Q1: [If ambiguous]
 
 ### Metadata
+
 - **Source**: doc.rust-lang.org/std
 - **Coverage**: [e.g., "95% - standard docs complete"]
 ```

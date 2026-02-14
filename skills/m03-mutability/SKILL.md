@@ -1,6 +1,6 @@
 ---
 name: m03-mutability
-description: "CRITICAL: Use for mutability issues. Triggers: E0596, E0499, E0502, cannot borrow as mutable, already borrowed as immutable, mut, &mut, interior mutability, Cell, RefCell, Mutex, RwLock, 可变性, 内部可变性, 借用冲突"
+description: "CRITICAL: Use for mutability issues. Triggers: E0596, E0499, E0502, cannot borrow as mutable, already borrowed as immutable, mut, &mut, interior mutability, Cell, RefCell, Mutex, RwLock"
 user-invocable: false
 ---
 
@@ -13,6 +13,7 @@ user-invocable: false
 **Why does this data need to change, and who can change it?**
 
 Before adding interior mutability, understand:
+
 - Is mutation essential or accidental complexity?
 - Who should control mutation?
 - Is the mutation pattern safe?
@@ -53,7 +54,7 @@ Before adding mutability:
 
 When mutability conflicts persist:
 
-```
+```text
 E0499/E0502 (borrow conflicts)
     ↑ Ask: Is the data structure designed correctly?
     ↑ Check: m09-domain (should data be split?)
@@ -72,7 +73,7 @@ E0499/E0502 (borrow conflicts)
 
 From design to implementation:
 
-```
+```text
 "Need mutable access from &self"
     ↓ T: Copy → Cell<T>
     ↓ T: !Copy → RefCell<T>
@@ -90,7 +91,7 @@ From design to implementation:
 
 ## Borrow Rules
 
-```
+```text
 At any time, you can have EITHER:
 ├─ Multiple &T (immutable borrows)
 └─ OR one &mut T (mutable borrow)

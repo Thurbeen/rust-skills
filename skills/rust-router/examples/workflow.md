@@ -1,10 +1,10 @@
 # Workflow Examples
 
-> rust-router 的工作流程示例
+> Workflow examples for rust-router
 
 ## Example 1: Error Code with Domain Context
 
-```
+```text
 User: "Why am I getting E0382 in my trading system?"
 
 Analysis:
@@ -32,7 +32,7 @@ See: m01-ownership (Trace Up section),
 
 ## Example 2: Design Question
 
-```
+```text
 User: "How should I handle user authentication?"
 
 1. Entry: Layer 2 (design question)
@@ -44,7 +44,7 @@ User: "How should I handle user authentication?"
 
 ## Example 3: Comparative Query
 
-```
+```text
 User: "Compare tokio and async-std"
 
 1. Detect: "compare" → Enable negotiation
@@ -56,7 +56,7 @@ User: "Compare tokio and async-std"
 
 ## Example 4: Multi-Layer Trace
 
-```
+```text
 User: "My web API reports Rc cannot be sent between threads"
 
 1. Entry: Layer 1 (Send/Sync error)
@@ -70,7 +70,7 @@ User: "My web API reports Rc cannot be sent between threads"
 
 ## Example 5: Intent Analysis Request
 
-```
+```text
 User: "Analyze this question: How do I share state in actix-web?"
 
 Analysis Steps:

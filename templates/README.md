@@ -6,7 +6,7 @@ Ready-to-use code templates for common Rust patterns. These templates follow cod
 
 ## Directory Structure
 
-```
+```text
 templates/
 ├── error-handling/     # Error type definitions
 │   ├── thiserror.rs    # Library error with thiserror

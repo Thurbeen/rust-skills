@@ -8,13 +8,14 @@
 **Don't answer directly. Trace through the cognitive layers first.**
 
 When encountering a problem, the goal is not to provide an immediate fix, but to understand:
+
 1. What layer the problem originates from
 2. What constraints or decisions led to this state
 3. What the contextually-appropriate solution is
 
 ## The Three Layers
 
-```
+```text
 Layer 3: Domain Constraints (WHY - Why is it designed this way?)
 ├── Domain rules dictate design choices
 ├── Example: Financial systems require immutable, auditable data
@@ -44,11 +45,12 @@ Layer 1: Language Mechanics (HOW - How to implement?)
 
 ### Step 2: Trace the Chain
 
-```
+```text
 Layer 1 (Mechanics) ←→ Layer 2 (Design) ←→ Layer 3 (Domain)
 ```
 
 At each layer, ask:
+
 - **Layer 1**: What mechanism is involved? What does the compiler tell us?
 - **Layer 2**: What design choice triggered this? Is this the right pattern?
 - **Layer 3**: What domain constraint requires this design? Is the constraint valid?
@@ -61,7 +63,7 @@ Include the reasoning chain in your answer. Not just WHAT to do, but WHY this is
 
 ### Example 1: E0382 in Trading System
 
-```
+```text
 User: "My trading system reports E0382, data was moved"
 
 Traditional Answer: "Use .clone()"
@@ -78,7 +80,7 @@ Suggestion: Not clone, but redesign as Arc<T>
 
 ### Example 2: Designing User Auth
 
-```
+```text
 User: "How should I design user authentication?"
 
 Analysis:
@@ -99,7 +101,7 @@ Analysis:
 
 ### Example 3: Performance Issue
 
-```
+```text
 User: "My API is slow when processing large lists"
 
 Analysis:
@@ -124,6 +126,7 @@ Analysis:
 ### Trace UP ↑ (Layer 1 → 3)
 
 Use when:
+
 - Compiler errors (E0xxx)
 - Runtime panics
 - Type mismatches
@@ -134,6 +137,7 @@ Question to ask: "What design decision led to this constraint?"
 ### Trace DOWN ↓ (Layer 3 → 1)
 
 Use when:
+
 - New feature design
 - Architecture planning
 - "How should I..." questions
@@ -144,6 +148,7 @@ Question to ask: "Given this constraint, what's the appropriate pattern?"
 ### Bidirectional ←→
 
 Use when:
+
 - Refactoring existing code
 - Performance optimization
 - "Why does Rust..." questions
@@ -159,7 +164,7 @@ Use when:
 
 ### Skill Invocation Flow
 
-```
+```text
 Entry Point Detected
        ↓
 [1] Identify Layer → Read corresponding skill
@@ -185,21 +190,21 @@ When stuck or confused in complex problem-solving, answer these 5 questions:
 
 ### Don't: Answer at Surface Level
 
-```
+```text
 User: "E0382 error"
 Bad: "Use .clone()"
 ```
 
 ### Don't: Skip Layers
 
-```
+```text
 User: "Design a payment system"
 Bad: "Use rust_decimal" (jumped to Layer 1)
 ```
 
 ### Don't: Ignore Domain Context
 
-```
+```text
 User: "How to share data between threads?"
 Bad: "Use Arc<Mutex<T>>" (didn't ask about domain constraints)
 ```

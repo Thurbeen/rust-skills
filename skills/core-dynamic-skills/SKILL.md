@@ -16,6 +16,7 @@ Orchestrates on-demand generation of crate-specific skills based on project depe
 ## Concept
 
 Dynamic skills are:
+
 - Generated locally at `~/.claude/skills/`
 - Based on Cargo.toml dependencies
 - Created using llms.txt from docs.rs
@@ -27,6 +28,7 @@ Dynamic skills are:
 ### Prompt-on-Open
 
 When entering a directory with Cargo.toml:
+
 1. Detect Cargo.toml (single or workspace)
 2. Parse dependencies list
 3. Check which crates are missing skills
@@ -54,7 +56,7 @@ Check if `/create-llms-for-skills` and `/create-skills-via-llms` commands work.
 
 ### Architecture
 
-```
+```text
 Cargo.toml
     ↓
 Parse dependencies
@@ -99,6 +101,7 @@ cat Cargo.toml | grep -A 100 '\[dependencies\]' | grep -E '^[a-zA-Z]'
 ```
 
 Or use Read tool to parse Cargo.toml and extract:
+
 - `[dependencies]` section
 - `[dev-dependencies]` section (optional)
 - Workspace members (if workspace project)
@@ -138,7 +141,8 @@ agent-browser close
 ```
 
 **WebFetch fallback:**
-```
+
+```text
 WebFetch("https://docs.rs/{crate}/latest/{crate}/", "Extract API documentation overview, key types, and usage examples")
 ```
 
@@ -183,7 +187,7 @@ rm -rf ~/.claude/skills/{crate_name}
 
 ## Local Skills Directory
 
-```
+```text
 ~/.claude/skills/
 ├── tokio/
 │   ├── SKILL.md

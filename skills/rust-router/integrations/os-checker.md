@@ -1,6 +1,6 @@
 # OS-Checker Integration
 
-> 代码审查和安全审计工具集成
+> Code review and security audit tool integration
 
 ## Available Commands
 
@@ -25,26 +25,32 @@
 ## Tool Descriptions
 
 ### clippy
+
 Standard Rust linter for code style and common mistakes.
 
 ### cargo audit
+
 Security vulnerability scanner for dependencies.
 
 ### geiger
+
 Counts unsafe code usage in dependencies.
 
 ### miri
+
 Interprets MIR to detect undefined behavior.
 
 ### rudra
+
 Memory safety bug detector.
 
 ### lockbud
+
 Deadlock and concurrency bug detector.
 
 ## Integration Flow
 
-```
+```text
 User: "Review my unsafe code"
      │
      ▼

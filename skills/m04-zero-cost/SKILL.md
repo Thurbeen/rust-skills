@@ -1,6 +1,6 @@
 ---
 name: m04-zero-cost
-description: "CRITICAL: Use for generics, traits, zero-cost abstraction. Triggers: E0277, E0308, E0599, generic, trait, impl, dyn, where, monomorphization, static dispatch, dynamic dispatch, impl Trait, trait bound not satisfied, 泛型, 特征, 零成本抽象, 单态化"
+description: "CRITICAL: Use for generics, traits, zero-cost abstraction. Triggers: E0277, E0308, E0599, generic, trait, impl, dyn, where, monomorphization, static dispatch, dynamic dispatch, impl Trait, trait bound not satisfied"
 user-invocable: false
 ---
 
@@ -13,6 +13,7 @@ user-invocable: false
 **Do we need compile-time or runtime polymorphism?**
 
 Before choosing between generics and trait objects:
+
 - Is the type known at compile time?
 - Is a heterogeneous collection needed?
 - What's the performance priority?
@@ -54,7 +55,7 @@ Before adding trait bounds:
 
 When type system fights back:
 
-```
+```text
 E0277 (trait bound not satisfied)
     ↑ Ask: Is the abstraction level correct?
     ↑ Check: m09-domain (what behavior is being abstracted?)
@@ -73,7 +74,7 @@ E0277 (trait bound not satisfied)
 
 From design to implementation:
 
-```
+```text
 "Need to abstract over types with same behavior"
     ↓ Types known at compile time → impl Trait or generics
     ↓ Types determined at runtime → dyn Trait
@@ -137,6 +138,7 @@ fn process(x: Box<dyn Display>) { }  // owned
 ## Object Safety
 
 A trait is object-safe if it:
+
 - Doesn't have `Self: Sized` bound
 - Doesn't return `Self`
 - Doesn't have generic methods

@@ -1,6 +1,6 @@
 ---
 name: rust-refactor-helper
-description: "Safe Rust refactoring with LSP analysis. Triggers on: /refactor, rename symbol, move function, extract, 重构, 重命名, 提取函数, 安全重构"
+description: "Safe Rust refactoring with LSP analysis. Triggers on: /refactor, rename symbol, move function, extract"
 argument-hint: "<action> <target> [--dry-run]"
 allowed-tools: ["LSP", "Read", "Glob", "Grep", "Edit"]
 ---
@@ -11,17 +11,19 @@ Perform safe refactoring with comprehensive impact analysis.
 
 ## Usage
 
-```
+```text
 /rust-refactor-helper <action> <target> [--dry-run]
 ```
 
 **Actions:**
+
 - `rename <old> <new>` - Rename symbol
 - `extract-fn <selection>` - Extract to function
 - `inline <fn>` - Inline function
 - `move <symbol> <dest>` - Move to module
 
 **Examples:**
+
 - `/rust-refactor-helper rename parse_config load_config`
 - `/rust-refactor-helper extract-fn src/main.rs:20-35`
 - `/rust-refactor-helper move UserService src/services/`
@@ -30,7 +32,7 @@ Perform safe refactoring with comprehensive impact analysis.
 
 ### Pre-Refactor Analysis
 
-```
+```text
 # Find all references before renaming
 LSP(
   operation: "findReferences",
@@ -60,7 +62,7 @@ LSP(
 
 ### 1. Rename Symbol
 
-```
+```text
 User: "Rename parse_config to load_config"
     │
     ▼
@@ -88,7 +90,7 @@ User: "Rename parse_config to load_config"
 
 **Output:**
 
-```
+```text
 ## Rename: parse_config → load_config
 
 ### Impact Analysis
@@ -119,7 +121,7 @@ User: "Rename parse_config to load_config"
 
 ### 2. Extract Function
 
-```
+```text
 User: "Extract lines 20-35 in main.rs to a function"
     │
     ▼
@@ -146,7 +148,7 @@ User: "Extract lines 20-35 in main.rs to a function"
 
 **Output:**
 
-```
+```text
 ## Extract Function: src/main.rs:20-35
 
 ### Selected Code
@@ -186,7 +188,7 @@ let config = load_and_validate_config(&path)?;
 
 ### 3. Move Symbol
 
-```
+```text
 User: "Move UserService to src/services/"
     │
     ▼
@@ -208,7 +210,7 @@ User: "Move UserService to src/services/"
 
 **Output:**
 
-```
+```text
 ## Move: UserService → src/services/user.rs
 
 ### Current Location
@@ -257,7 +259,7 @@ src/
 
 Always use `--dry-run` first to preview changes:
 
-```
+```text
 /rust-refactor-helper rename old_name new_name --dry-run
 ```
 

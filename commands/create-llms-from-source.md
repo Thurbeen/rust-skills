@@ -8,6 +8,7 @@ argument-hint: [source_path] [output_path]
 Generate comprehensive llms.txt documentation from local Rust project source code.
 
 Arguments: $ARGUMENTS
+
 - First argument: source_path (optional) - Rust project path, defaults to current directory
 - Second argument: output_path (optional) - output path, defaults to ~/tmp/{timestamp}-{crate}-llms.txt
 
@@ -35,6 +36,7 @@ fi
 ### 2. Read Project Metadata
 
 Extract from `Cargo.toml`:
+
 - `name` - crate name
 - `version` - crate version
 - `description` - crate description
@@ -58,6 +60,7 @@ fi
 ```
 
 **Workspace handling:**
+
 - If `[workspace]` section exists, identify all members
 - Generate llms.txt for each member crate
 - Or combine into single llms.txt with sections per crate
@@ -75,6 +78,7 @@ ls target/doc/*.json
 ```
 
 **rustdoc JSON contains:**
+
 - Complete module hierarchy
 - All pub items with documentation
 - Type signatures and generics
@@ -82,7 +86,8 @@ ls target/doc/*.json
 - Feature flag requirements
 
 **Parse JSON for:**
-```
+
+```text
 .index[*] | select(.visibility == "public") | {
   name: .name,
   kind: .kind,
@@ -110,6 +115,7 @@ grep -E "^pub (fn|struct|enum|trait|type|mod|const|static)" src/**/*.rs
 ```
 
 **Extraction targets:**
+
 | Pattern | Captures |
 |---------|----------|
 | `//!` | Module-level docs |
@@ -200,7 +206,7 @@ pub fn function_name(param: Type) -> ReturnType
 
 ## Source Structure
 
-```
+```text
 src/
 ├── lib.rs          - Main library entry
 ├── module1/
@@ -233,7 +239,7 @@ echo "Output saved to: $output"
 
 ## Fallback Strategy
 
-```
+```text
 1. Try rustdoc JSON
    ↓ (if failed)
 2. Use source code parsing
@@ -242,13 +248,15 @@ echo "Output saved to: $output"
 ```
 
 **Automatic fallback triggers:**
+
 - No nightly toolchain installed
 - Project has compilation errors
 - Missing dependencies
 - Build script failures
 
 When falling back, inform user:
-```
+
+```text
 rustdoc JSON generation failed, using source code parsing.
 Some type information may be incomplete.
 ```
@@ -273,13 +281,16 @@ Some type information may be incomplete.
 For workspaces with multiple crates:
 
 **Option 1: Combined llms.txt**
-```
+
+```text
 ~/tmp/{timestamp}-{workspace}-llms.txt
 ```
+
 Contains sections for each member crate.
 
 **Option 2: Separate files**
-```
+
+```text
 ~/tmp/{timestamp}-{crate1}-llms.txt
 ~/tmp/{timestamp}-{crate2}-llms.txt
 ```
@@ -292,7 +303,7 @@ Ask user which approach they prefer for workspaces.
 
 This command integrates with the Skills creation workflow:
 
-```
+```text
 Local Rust Source
         ↓
 /create-llms-from-source {path}
@@ -305,7 +316,8 @@ Local Rust Source
 ```
 
 **Or via sync-crate-skills:**
-```
+
+```text
 /sync-crate-skills --from-source {path}
 ```
 

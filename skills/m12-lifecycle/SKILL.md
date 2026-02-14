@@ -1,6 +1,6 @@
 ---
 name: m12-lifecycle
-description: "Use when designing resource lifecycles. Keywords: RAII, Drop, resource lifecycle, connection pool, lazy initialization, connection pool design, resource cleanup patterns, cleanup, scope, OnceCell, Lazy, once_cell, OnceLock, transaction, session management, when is Drop called, cleanup on error, guard pattern, scope guard, 资源生命周期, 连接池, 惰性初始化, 资源清理, RAII 模式"
+description: "Use when designing resource lifecycles. Keywords: RAII, Drop, resource lifecycle, connection pool, lazy initialization, connection pool design, resource cleanup patterns, cleanup, scope, OnceCell, Lazy, once_cell, OnceLock, transaction, session management, when is Drop called, cleanup on error, guard pattern, scope guard"
 user-invocable: false
 ---
 
@@ -13,6 +13,7 @@ user-invocable: false
 **When should this resource be created, used, and cleaned up?**
 
 Before implementing lifecycle:
+
 - What's the resource's scope?
 - Who owns the cleanup responsibility?
 - What happens on error?
@@ -56,7 +57,7 @@ Before designing lifecycle:
 
 To domain constraints (Layer 3):
 
-```
+```text
 "How should I manage database connections?"
     ↑ Ask: What's the connection cost?
     ↑ Check: domain-* (latency requirements)
@@ -75,7 +76,7 @@ To domain constraints (Layer 3):
 
 To implementation (Layer 1):
 
-```
+```text
 "Need automatic cleanup"
     ↓ m02-resource: Implement Drop
     ↓ m01-ownership: Clear owner for cleanup

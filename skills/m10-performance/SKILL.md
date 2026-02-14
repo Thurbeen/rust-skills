@@ -1,6 +1,6 @@
 ---
 name: m10-performance
-description: "CRITICAL: Use for performance optimization. Triggers: performance, optimization, benchmark, profiling, flamegraph, criterion, slow, fast, allocation, cache, SIMD, make it faster, 性能优化, 基准测试"
+description: "CRITICAL: Use for performance optimization. Triggers: performance, optimization, benchmark, profiling, flamegraph, criterion, slow, fast, allocation, cache, SIMD, make it faster"
 user-invocable: false
 ---
 
@@ -13,6 +13,7 @@ user-invocable: false
 **What's the bottleneck, and is optimization worth it?**
 
 Before optimizing:
+
 - Have you measured? (Don't guess)
 - What's the acceptable performance?
 - Will optimization add complexity?
@@ -57,7 +58,7 @@ Before optimizing:
 
 To domain constraints (Layer 3):
 
-```
+```text
 "How fast does this need to be?"
     ↑ Ask: What's the performance SLA?
     ↑ Check: domain-* (latency requirements)
@@ -76,7 +77,7 @@ To domain constraints (Layer 3):
 
 To implementation (Layer 1):
 
-```
+```text
 "Need to reduce allocations"
     ↓ m01-ownership: Use references, avoid clone
     ↓ m02-resource: Pre-allocate with_capacity
@@ -104,7 +105,7 @@ To implementation (Layer 1):
 
 ## Optimization Priority
 
-```
+```text
 1. Algorithm choice     (10x - 1000x)
 2. Data structure       (2x - 10x)
 3. Allocation reduction (2x - 5x)

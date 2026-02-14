@@ -77,7 +77,7 @@ fn delayed_init<T>(init: impl FnOnce() -> T) -> T {
 
 The Rust lifetime system prevents use-after-free by tracking how long references are valid. Unions can subvert this:
 
-```
+```text
 Memory: [pointer to "hello"]
 
 Union as 'short: points to stack memory (valid during function)

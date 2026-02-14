@@ -11,7 +11,7 @@ Common web fetching strategy for anti-crawler handling.
 
 ## Fetch Priority
 
-```
+```text
 Anti-crawler sites: Local Chrome → crawl4ai MCP → give up and mark
 Regular sites: WebFetch → crawl4ai MCP
 ```
@@ -23,6 +23,7 @@ Regular sites: WebFetch → crawl4ai MCP
 User's real browser with login and normal fingerprint.
 
 **macOS:**
+
 ```bash
 # Open URL
 osascript -e 'tell application "Google Chrome" to open location "URL"'
@@ -35,7 +36,7 @@ osascript -e 'tell application "Google Chrome" to execute front window'\''s acti
 
 Strong anti-crawler bypass, needs Docker.
 
-```
+```text
 mcp__crawl4ai__scrape(url: "URL")
 ```
 
@@ -66,6 +67,7 @@ Built-in tool, simple and fast, no anti-crawler capability.
 ## Validation
 
 After fetch, check:
+
 - Content is not empty
 - Not an error page (403, 429, "blocked")
 - Contains expected data

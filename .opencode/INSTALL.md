@@ -67,7 +67,7 @@ For per-project usage, create `.opencode/opencode.json` in your Rust project:
 
 After installation, test by asking OpenCode:
 
-```
+```text
 How do I fix E0382 in Rust?
 ```
 
@@ -94,11 +94,13 @@ The rust-skills instructions provide:
 ### Instructions not loading?
 
 1. Verify the path exists:
+
    ```bash
    ls ~/rust-skills/.opencode/instructions/
    ```
 
 2. Check config syntax:
+
    ```bash
    cat ~/.config/opencode/opencode.json | jq .
    ```
@@ -108,6 +110,7 @@ The rust-skills instructions provide:
 ### Path expansion issues?
 
 Use absolute paths instead of `~`:
+
 ```json
 {
   "instructions": [

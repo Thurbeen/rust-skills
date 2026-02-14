@@ -1,6 +1,6 @@
 ---
 name: domain-embedded
-description: "Use when developing embedded/no_std Rust. Keywords: embedded, no_std, microcontroller, MCU, ARM, RISC-V, bare metal, firmware, HAL, PAC, RTIC, embassy, interrupt, DMA, peripheral, GPIO, SPI, I2C, UART, embedded-hal, cortex-m, esp32, stm32, nrf, 嵌入式, 单片机, 固件, 裸机"
+description: "Use when developing embedded/no_std Rust. Keywords: embedded, no_std, microcontroller, MCU, ARM, RISC-V, bare metal, firmware, HAL, PAC, RTIC, embassy, interrupt, DMA, peripheral, GPIO, SPI, I2C, UART, embedded-hal, cortex-m, esp32, stm32, nrf"
 globs: ["**/Cargo.toml", "**/.cargo/config.toml"]
 user-invocable: false
 ---
@@ -33,7 +33,7 @@ user-invocable: false
 
 ### No Dynamic Allocation
 
-```
+```text
 RULE: Cannot use heap (no allocator)
 WHY: Deterministic memory, no OOM
 RUST: heapless::Vec<T, N>, arrays
@@ -41,7 +41,7 @@ RUST: heapless::Vec<T, N>, arrays
 
 ### Interrupt Safety
 
-```
+```text
 RULE: Shared state must be interrupt-safe
 WHY: ISR can preempt at any time
 RUST: Mutex<RefCell<T>> + critical section
@@ -49,7 +49,7 @@ RUST: Mutex<RefCell<T>> + critical section
 
 ### Hardware Ownership
 
-```
+```text
 RULE: Peripherals must have clear ownership
 WHY: Prevent conflicting access
 RUST: HAL takes ownership, singletons
@@ -61,7 +61,7 @@ RUST: HAL takes ownership, singletons
 
 From constraints to design (Layer 2):
 
-```
+```text
 "Need no_std compatible data structures"
     ↓ m02-resource: heapless collections
     ↓ Static sizing: heapless::Vec<T, N>
