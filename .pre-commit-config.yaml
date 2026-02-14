@@ -1,0 +1,30 @@
+default_stages: [pre-commit]
+default_install_hook_types:
+  - commit-msg
+  - pre-commit
+  - pre-push
+repos:
+  - repo: local
+    hooks:
+      # Conventional commit validation (commit-msg stage)
+      - id: cocogitto-verify
+        name: Verify conventional commit message
+        entry: cog verify
+        language: system
+        stages: [commit-msg]
+        args: ["--file"]
+
+      - id: rumdl-check
+        name: Markdown lint check
+        entry: rumdl check .
+        language: system
+        types: [markdown]
+        pass_filenames: false
+
+      - id: cocogitto-check
+        name: Check commit history
+        entry: cog check
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-push]
